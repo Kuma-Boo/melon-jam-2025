@@ -1,5 +1,6 @@
 @tool
 extends Node2D
+class_name NPC
 
 @export_tool_button("Update Direction") var direction_func = update_direction
 
@@ -7,6 +8,12 @@ extends Node2D
 @export var animator : AnimationPlayer
 @export var is_facing_right : bool
 var has_mask : bool
+
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+	
+	GameManager.instance.register_npc(self)
 
 func update_direction() -> void:
 	if sprite != null:

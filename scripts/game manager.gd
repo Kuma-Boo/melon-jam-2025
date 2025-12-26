@@ -7,8 +7,7 @@ static var instance : GameManager
 const TILE_SIZE = 100
 const TILE_OFFSET = Vector2.ONE * TILE_SIZE * 0.5
 
-@export_tool_button("Generate Grid")
-var generate = setup_grid
+@export_tool_button("Generate Grid") var generate = setup_grid
 @export var grid_size : Vector2i
 @export var grid_rect : TextureRect
 
@@ -17,6 +16,8 @@ func _ready() -> void:
 		instance = self
 	
 	time_left = level_start_time
+	transition_animator.play("fade-in")
+	transition_animator.advance(0.0)
 
 func setup_grid() -> void:
 	if grid_rect != null:
@@ -28,6 +29,18 @@ func clamp_position(pos : Vector2) -> Vector2:
 	pos = pos.round()
 	return pos
 
+@export var transition_animator : AnimationPlayer
+static var is_transition_active : bool
+func reload_scene() -> void:
+	is_transition_active = true
+	transition_animator.play("fade-out")
+
+func finish_transition() -> void:
+	is_transition_active = false
+
+func apply_transition() -> void:
+	get_tree().reload_current_scene()
+
 @export var level_start_time : int
 @export var time_interface_head : Sprite2D
 var time_left : int
@@ -38,3 +51,12 @@ func update_time() -> bool:
 	var target_head_position = lerp(max_head_position, 0, time_left / (level_start_time as float));
 	time_interface_head.position = Vector2(target_head_position, time_interface_head.position.y)
 	return time_left == 0
+
+var npcs_remaining : Array[NPC]
+func register_npc(npc : NPC) -> void:
+	npcs_remaining.append(npc)
+
+func unregister_npc(npc : NPC) -> void:
+	var index : int = npcs_remaining.find(npc)
+	if index != -1:
+		npcs_remaining.remove_at(index)

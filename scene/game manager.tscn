@@ -1,0 +1,232 @@
+[gd_scene load_steps=9 format=3 uid="uid://bx400gh04q068"]
+
+[ext_resource type="Script" uid="uid://bbnj6lv7iyi4x" path="res://scripts/game manager.gd" id="1_886ea"]
+[ext_resource type="Texture2D" uid="uid://dbinu25iwao84" path="res://img/interface/grid.png" id="2_l2vnv"]
+[ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://MochiyPopOne-Regular.ttf" id="3_1ttmm"]
+[ext_resource type="Texture2D" uid="uid://blj4xa86m6quy" path="res://img/interface/current time.png" id="4_myrvm"]
+
+[sub_resource type="Animation" id="Animation_886ea"]
+resource_name = "fade-out"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transitions/FadeTransition:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.13333334),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"apply_transition"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_l2vnv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transitions/FadeTransition:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1ttmm"]
+resource_name = "fade-in"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transitions/FadeTransition:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"finish_transition"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l2vnv"]
+_data = {
+&"RESET": SubResource("Animation_l2vnv"),
+&"fade-in": SubResource("Animation_1ttmm"),
+&"fade-out": SubResource("Animation_886ea")
+}
+
+[node name="GameManager" type="Control" node_paths=PackedStringArray("grid_rect", "transition_animator", "time_interface_head")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_886ea")
+grid_size = Vector2i(8, 8)
+grid_rect = NodePath("Grid")
+transition_animator = NodePath("AnimationPlayer")
+level_start_time = 10
+time_interface_head = NodePath("HUD/HUD/Time/Time/HeadPosition/Head")
+
+[node name="Grid" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 800.0
+texture = ExtResource("2_l2vnv")
+stretch_mode = 1
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="ColorRect" parent="HUD"]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -440.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0.24705882, 0.28627452, 0.5529412, 1)
+
+[node name="Time" type="Control" parent="HUD/HUD"]
+anchors_preset = 0
+offset_right = 440.0
+offset_bottom = 130.0
+
+[node name="TimeLabel" type="Label" parent="HUD/HUD/Time"]
+layout_mode = 0
+offset_right = 440.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("3_1ttmm")
+theme_override_font_sizes/font_size = 32
+text = "CURRENT TIME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="8AM" type="Label" parent="HUD/HUD/Time"]
+layout_mode = 0
+offset_top = 100.0
+offset_right = 48.0
+offset_bottom = 124.0
+theme_override_fonts/font = ExtResource("3_1ttmm")
+theme_override_font_sizes/font_size = 16
+text = "8AM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="6PM" type="Label" parent="HUD/HUD/Time"]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 100.0
+offset_right = 440.0
+offset_bottom = 124.0
+theme_override_fonts/font = ExtResource("3_1ttmm")
+theme_override_font_sizes/font_size = 16
+text = "6PM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="12PM" type="Label" parent="HUD/HUD/Time"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 100.0
+offset_right = 256.0
+offset_bottom = 124.0
+theme_override_fonts/font = ExtResource("3_1ttmm")
+theme_override_font_sizes/font_size = 16
+text = "12PM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="ColorRect" parent="HUD/HUD/Time"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 80.0
+offset_right = 410.0
+offset_bottom = 90.0
+color = Color(0, 0, 0, 1)
+
+[node name="HeadPosition" type="Control" parent="HUD/HUD/Time/Time"]
+anchors_preset = 0
+offset_right = 380.0
+offset_bottom = 10.0
+
+[node name="Head" type="Sprite2D" parent="HUD/HUD/Time/Time/HeadPosition"]
+position = Vector2(0, -2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_myrvm")
+
+[node name="NPCs" type="Control" parent="HUD/HUD"]
+anchors_preset = 0
+offset_top = 200.0
+offset_right = 440.0
+offset_bottom = 330.0
+
+[node name="TimeLabel" type="Label" parent="HUD/HUD/NPCs"]
+layout_mode = 0
+offset_right = 440.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("3_1ttmm")
+theme_override_font_sizes/font_size = 32
+text = "REMAINING:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Remaining" type="Label" parent="HUD/HUD/NPCs"]
+layout_mode = 0
+offset_right = 440.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("3_1ttmm")
+theme_override_font_sizes/font_size = 32
+text = "REMAINING:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Transitions" type="CanvasLayer" parent="."]
+
+[node name="FadeTransition" type="ColorRect" parent="Transitions"]
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_l2vnv")
+}

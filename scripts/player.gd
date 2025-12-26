@@ -26,14 +26,18 @@ func get_starting_position() -> Vector2:
 	return pos
 
 func _process(delta: float) -> void:
+	if GameManager.is_transition_active:
+		return
+	
+	if Input.is_action_just_pressed("restart"):
+		GameManager.instance.reload_scene()
+		return
+	
 	if state == STATE.IDLE:
 		check_movement_inputs()
 	elif state == STATE.MOVING:
 		process_movement(delta)
 	
-	if Input.is_action_just_pressed("restart"):
-		get_tree().reload_current_scene()
-		return
 
 func check_movement_inputs() -> void:
 	var horizontal_input : float = Input.get_axis("move_left", "move_right");
