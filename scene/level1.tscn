@@ -1,36 +1,115 @@
 [gd_scene load_steps=6 format=3 uid="uid://c7btxoq4g1eob"]
 
-[ext_resource type="Texture2D" uid="uid://qxb874nt8vtt" path="res://icon.svg" id="1_446fn"]
-[ext_resource type="Script" uid="uid://jw56ownw0k8p" path="res://scripts/player.gd" id="1_fwul8"]
 [ext_resource type="Texture2D" uid="uid://dbinu25iwao84" path="res://img/grid.png" id="2_fwul8"]
-[ext_resource type="Script" uid="uid://bbnj6lv7iyi4x" path="res://scripts/grid manager.gd" id="4_0a4uc"]
+[ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://MochiyPopOne-Regular.ttf" id="3_nk78g"]
+[ext_resource type="Script" uid="uid://bbnj6lv7iyi4x" path="res://scripts/game manager.gd" id="4_0a4uc"]
+[ext_resource type="Texture2D" uid="uid://blj4xa86m6quy" path="res://img/current time.png" id="4_ebr37"]
+[ext_resource type="PackedScene" uid="uid://dsfgv8eyv7r05" path="res://scene/player.tscn" id="5_ebr37"]
 
-[sub_resource type="Curve" id="Curve_fwul8"]
-_limits = [0.0, 1.0, 0.0, 0.4]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0]
-point_count = 2
+[node name="World" type="Node"]
 
-[node name="World" type="Node2D"]
-
-[node name="GridManager" type="Node2D" parent="." node_paths=PackedStringArray("grid_rect")]
+[node name="GameManager" type="Control" parent="." node_paths=PackedStringArray("grid_rect", "time_interface_head")]
 z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("4_0a4uc")
 grid_size = Vector2i(8, 8)
-grid_rect = NodePath("TextureRect")
+grid_rect = NodePath("Grid")
+level_start_time = 5
+time_interface_head = NodePath("HUD/Time/Time/HeadPosition/Head")
 
-[node name="TextureRect" type="TextureRect" parent="GridManager"]
+[node name="Grid" type="TextureRect" parent="GameManager"]
+layout_mode = 0
 offset_right = 800.0
 offset_bottom = 800.0
 texture = ExtResource("2_fwul8")
 stretch_mode = 1
 
-[node name="Player" type="Node2D" parent="."]
-position = Vector2(152, 248)
-script = ExtResource("1_fwul8")
-movement_curve = SubResource("Curve_fwul8")
+[node name="HUD" type="ColorRect" parent="GameManager"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -440.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0.24705882, 0.28627452, 0.5529412, 1)
 
-[node name="Icon" type="Sprite2D" parent="Player"]
-texture = ExtResource("1_446fn")
+[node name="Time" type="Control" parent="GameManager/HUD"]
+anchors_preset = 0
+offset_right = 440.0
+offset_bottom = 130.0
+
+[node name="TimeLabel" type="Label" parent="GameManager/HUD/Time"]
+layout_mode = 0
+offset_right = 440.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("3_nk78g")
+theme_override_font_sizes/font_size = 32
+text = "CURRENT TIME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="8AM" type="Label" parent="GameManager/HUD/Time"]
+layout_mode = 0
+offset_top = 100.0
+offset_right = 48.0
+offset_bottom = 124.0
+theme_override_fonts/font = ExtResource("3_nk78g")
+theme_override_font_sizes/font_size = 16
+text = "8AM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="6PM" type="Label" parent="GameManager/HUD/Time"]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 100.0
+offset_right = 440.0
+offset_bottom = 124.0
+theme_override_fonts/font = ExtResource("3_nk78g")
+theme_override_font_sizes/font_size = 16
+text = "6PM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="12PM" type="Label" parent="GameManager/HUD/Time"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 100.0
+offset_right = 256.0
+offset_bottom = 124.0
+theme_override_fonts/font = ExtResource("3_nk78g")
+theme_override_font_sizes/font_size = 16
+text = "12PM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="ColorRect" parent="GameManager/HUD/Time"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 80.0
+offset_right = 410.0
+offset_bottom = 90.0
+color = Color(0, 0, 0, 1)
+
+[node name="HeadPosition" type="Control" parent="GameManager/HUD/Time/Time"]
+anchors_preset = 0
+offset_right = 380.0
+offset_bottom = 10.0
+
+[node name="Head" type="Sprite2D" parent="GameManager/HUD/Time/Time/HeadPosition"]
+position = Vector2(0, -2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_ebr37")
+
+[node name="Player" parent="." instance=ExtResource("5_ebr37")]
+position = Vector2(152, 248)
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
