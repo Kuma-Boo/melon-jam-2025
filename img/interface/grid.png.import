@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blj4xa86m6quy"
-path="res://.godot/imported/current time.png-a3af40f706574b4d5dd3320be090eb3e.ctex"
+uid="uid://dbinu25iwao84"
+path="res://.godot/imported/grid.png-2bb902847cf3c915ef7a8ca6db47d828.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/current time.png"
-dest_files=["res://.godot/imported/current time.png-a3af40f706574b4d5dd3320be090eb3e.ctex"]
+source_file="res://img/interface/grid.png"
+dest_files=["res://.godot/imported/grid.png-2bb902847cf3c915ef7a8ca6db47d828.ctex"]
 
 [params]
 

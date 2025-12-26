@@ -1,6 +1,8 @@
 extends Node2D
 
 @export var movement_curve : Curve
+@export var sprite : Sprite2D
+@export var animator : AnimationPlayer
 var current_position : Vector2
 var target_position : Vector2
 var movement_timer : float
@@ -39,17 +41,28 @@ func check_movement_inputs() -> void:
 	if is_zero_approx(horizontal_input) && is_zero_approx(vertical_input):
 		return
 	
+	var movement_direction : Vector2
 	if !is_zero_approx(horizontal_input):
-		target_position += Vector2.RIGHT * sign(horizontal_input)
+		movement_direction = Vector2.RIGHT * sign(horizontal_input)
 	else:
-		target_position += Vector2.DOWN * sign(vertical_input)
+		movement_direction = Vector2.DOWN * sign(vertical_input)
 	
-	target_position = GameManager.instance.clamp_position(target_position)
+	target_position = GameManager.instance.clamp_position(target_position + movement_direction)
 	if current_position.is_equal_approx(target_position): # Invalid movement
 		return
 	
 	movement_timer = 0;
 	state = STATE.MOVING
+	start_movement_animation(movement_direction)
+
+func start_movement_animation(movement_direction : Vector2):
+	if movement_direction.x < 0:
+		sprite.flip_h = true
+	elif movement_direction.x > 0:
+		sprite.flip_h = false
+	
+	animator.seek(0.0)
+	animator.play("move")
 
 func process_movement(delta : float) -> void:
 	movement_timer += delta
