@@ -12,6 +12,8 @@ const TILE_OFFSET = Vector2.ONE * TILE_SIZE * 0.5
 @export var grid_rect : TextureRect
 
 func _enter_tree() -> void:
+	setup_grid()
+	
 	if Engine.is_editor_hint():
 		return
 	

@@ -44,6 +44,8 @@ func kill_npc() -> void:
 	if has_mask() && mask.resource.mask_type != MaskResource.MASK_TYPES.CURSED:
 		return
 	
+	animator.play("RESET")
+	animator.advance(0.0)
 	animator.play("dead")
 
 func on_area_entered(area: Area2D) -> void:
@@ -60,7 +62,7 @@ func on_area_entered(area: Area2D) -> void:
 	mask.resource = new_mask
 	mask.update_sprite()
 	
-	if new_mask != null:
+	if new_mask != null && new_mask.mask_type != MaskResource.MASK_TYPES.CURSED:
 		animator.play("happy")
 
 func has_mask() -> bool:

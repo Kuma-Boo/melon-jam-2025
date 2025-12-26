@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8yjc6xc5c76b"]
+
+[ext_resource type="PackedScene" uid="uid://bx400gh04q068" path="res://scene/game manager.tscn" id="1_pksfy"]
+[ext_resource type="PackedScene" uid="uid://dsfgv8eyv7r05" path="res://scene/player.tscn" id="2_6lncy"]
+[ext_resource type="PackedScene" uid="uid://cggyenydyg3q1" path="res://scene/mask.tscn" id="3_ocrdf"]
+[ext_resource type="PackedScene" uid="uid://eyoxqf1wjhdm" path="res://scene/npc.tscn" id="4_iorjr"]
+[ext_resource type="PackedScene" uid="uid://h7po604lpid5" path="res://scene/growth wall.tscn" id="5_6lncy"]
+
+[node name="World" type="Node"]
+
+[node name="GameManager" parent="." instance=ExtResource("1_pksfy")]
+grid_size = Vector2i(6, 1)
+level_start_time = 7
+
+[node name="Player" parent="." instance=ExtResource("2_6lncy")]
+position = Vector2(50, 50)
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(500, 50)
+zoom = Vector2(1.2, 1.2)
+limit_enabled = false
+
+[node name="Mask" parent="." instance=ExtResource("3_ocrdf")]
+position = Vector2(150, 50)
+
+[node name="NPC" parent="." instance=ExtResource("4_iorjr")]
+position = Vector2(450, 50)
+
+[node name="GrowthWall" parent="." instance=ExtResource("5_6lncy")]
+position = Vector2(250, 50)

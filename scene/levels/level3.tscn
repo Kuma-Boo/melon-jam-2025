@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://bn6skd455f0l3"]
+
+[ext_resource type="PackedScene" uid="uid://bx400gh04q068" path="res://scene/game manager.tscn" id="1_pqnrn"]
+[ext_resource type="PackedScene" uid="uid://dsfgv8eyv7r05" path="res://scene/player.tscn" id="2_j5fa3"]
+[ext_resource type="PackedScene" uid="uid://dm07c1v7dsib6" path="res://scene/fire.tscn" id="3_gfkks"]
+[ext_resource type="PackedScene" uid="uid://cggyenydyg3q1" path="res://scene/mask.tscn" id="4_cc7lp"]
+[ext_resource type="PackedScene" uid="uid://eyoxqf1wjhdm" path="res://scene/npc.tscn" id="5_lrvtc"]
+[ext_resource type="Resource" uid="uid://c3lthb3kw0ex7" path="res://resource/cursed mask.tres" id="6_xnyoe"]
+
+[node name="World" type="Node"]
+
+[node name="GameManager" parent="." instance=ExtResource("1_pqnrn")]
+grid_size = Vector2i(5, 5)
+
+[node name="Player" parent="." instance=ExtResource("2_j5fa3")]
+position = Vector2(250, 450)
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(500, 260)
+zoom = Vector2(1.2, 1.2)
+limit_enabled = false
+
+[node name="Fire" parent="." instance=ExtResource("3_gfkks")]
+position = Vector2(450, 40)
+
+[node name="NPC" parent="." instance=ExtResource("5_lrvtc")]
+position = Vector2(250, 50)
+npc_type = 1
+initial_mask = ExtResource("6_xnyoe")
+
+[node name="Mask" parent="." instance=ExtResource("4_cc7lp")]
+position = Vector2(50, 50)

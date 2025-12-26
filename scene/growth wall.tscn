@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://h7po604lpid5"]
+
+[ext_resource type="Script" uid="uid://so7l245iqq22" path="res://scripts/growth wall.gd" id="1_o81og"]
+[ext_resource type="Texture2D" uid="uid://qxb874nt8vtt" path="res://icon.svg" id="2_bj4jw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o81og"]
+radius = 30.0
+
+[sub_resource type="Animation" id="Animation_bj4jw"]
+resource_name = "init"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.39215687)]
+}
+
+[sub_resource type="Animation" id="Animation_geeu7"]
+resource_name = "grow"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qxttj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qxttj"]
+_data = {
+&"RESET": SubResource("Animation_qxttj"),
+&"grow": SubResource("Animation_geeu7"),
+&"init": SubResource("Animation_bj4jw")
+}
+
+[node name="GrowthWall" type="Node2D" node_paths=PackedStringArray("animator")]
+script = ExtResource("1_o81og")
+animator = NodePath("AnimationPlayer")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_o81og")
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_bj4jw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qxttj")
+}
+
+[connection signal="area_entered" from="Area2D" to="." method="on_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="on_area_exited"]

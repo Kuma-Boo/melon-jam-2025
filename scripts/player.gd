@@ -54,42 +54,52 @@ func check_movement_inputs() -> void:
 	if is_zero_approx(horizontal_input) && is_zero_approx(vertical_input):
 		return
 	
-	var movement_direction : Vector2
+	var input_direction : Vector2
 	if !is_zero_approx(horizontal_input):
-		movement_direction = Vector2.RIGHT * sign(horizontal_input)
+		input_direction = Vector2.RIGHT * sign(horizontal_input)
 	else:
-		movement_direction = Vector2.DOWN * sign(vertical_input)
+		input_direction = Vector2.DOWN * sign(vertical_input)
 	
-	target_position = GameManager.instance.clamp_position(target_position + movement_direction)
+	target_position = GameManager.instance.clamp_position(target_position + input_direction)
 	if current_position.is_equal_approx(target_position): # Invalid movement
 		return
 	
-	movement_timer = 0;
+	movement_timer = 0
+	movement_direction = 1
 	state = STATE.MOVING
-	start_movement_animation(sign(movement_direction.x))
+	start_movement_animation(sign(input_direction.x))
 
-func start_movement_animation(movement_direction : int):
-	if !is_zero_approx(movement_direction):
-		visual_root.scale.x = movement_direction
+func start_movement_animation(input_direction : int):
+	if !is_zero_approx(input_direction):
+		visual_root.scale.x = input_direction
 	
 	animator.seek(0.0)
 	animator.play("move")
 
+var movement_direction : int
 func process_movement(delta : float) -> void:
-	movement_timer += delta
+	movement_timer += delta * movement_direction
 	var position_interpolation_value : float = movement_timer / movement_curve.max_domain
 	position_interpolation_value = movement_curve.sample(position_interpolation_value)
 	var lerped_position = lerp(current_position, target_position, position_interpolation_value) * GameManager.TILE_SIZE
 	lerped_position += GameManager.TILE_OFFSET
 	position = lerped_position
 	
-	if is_equal_approx(position_interpolation_value, 1.0):
+	if (is_zero_approx(position_interpolation_value) && movement_direction < 0) || (is_equal_approx(position_interpolation_value, 1.0) && movement_direction > 0):
+		if movement_direction < 0:
+			state = STATE.IDLE
+			target_position = current_position
+			return
+		
 		current_position = target_position
 		if GameManager.instance.update_time():
 			state = STATE.TIMEOVER
 			GameManager.instance.spirit_transition()
 		else:
 			state = STATE.IDLE
+
+func cancel_movement() -> void:
+	movement_direction = -1
 
 func get_held_mask() -> MaskResource:
 	return mask.resource
