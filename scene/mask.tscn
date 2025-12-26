@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cggyenydyg3q1"]
+
+[ext_resource type="Script" uid="uid://or682mv86ewx" path="res://scripts/mask.gd" id="1_1h5ay"]
+[ext_resource type="Resource" uid="uid://bs1j4hsffgwxf" path="res://resource/fox mask.tres" id="2_xikr7"]
+[ext_resource type="Texture2D" uid="uid://qxb874nt8vtt" path="res://icon.svg" id="3_a7t7s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1h5ay"]
+radius = 30.0
+
+[node name="Mask" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_1h5ay")
+resource = ExtResource("2_xikr7")
+sprite = NodePath("Sprite2D")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_1h5ay")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_a7t7s")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[connection signal="area_entered" from="Area2D" to="." method="on_area_entered"]

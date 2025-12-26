@@ -260,32 +260,6 @@ position = Vector2(0, -2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_myrvm")
 
-[node name="NPCs" type="Control" parent="HUD/HUD"]
-anchors_preset = 0
-offset_top = 200.0
-offset_right = 440.0
-offset_bottom = 330.0
-
-[node name="TimeLabel" type="Label" parent="HUD/HUD/NPCs"]
-layout_mode = 0
-offset_right = 440.0
-offset_bottom = 60.0
-theme_override_fonts/font = ExtResource("3_1ttmm")
-theme_override_font_sizes/font_size = 32
-text = "REMAINING:"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Remaining" type="Label" parent="HUD/HUD/NPCs"]
-layout_mode = 0
-offset_right = 440.0
-offset_bottom = 60.0
-theme_override_fonts/font = ExtResource("3_1ttmm")
-theme_override_font_sizes/font_size = 32
-text = "REMAINING:"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Transitions" type="CanvasLayer" parent="."]
 
 [node name="FadeTransition" type="ColorRect" parent="Transitions"]

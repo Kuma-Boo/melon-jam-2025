@@ -1,8 +1,14 @@
 extends Node2D
+class_name Player
 
+static var instance : Player
+
+@export_group("Components")
+@export var mask : Mask
 @export var movement_curve : Curve
-@export var sprite : Sprite2D
+@export var visual_root : Node2D
 @export var animator : AnimationPlayer
+
 var current_position : Vector2
 var target_position : Vector2
 var movement_timer : float
@@ -13,6 +19,9 @@ enum STATE {
 	MOVING,
 	TIMEOVER
 }
+
+func _enter_tree() -> void:
+	instance = self
 
 func _ready():
 	current_position = get_starting_position()
@@ -57,13 +66,11 @@ func check_movement_inputs() -> void:
 	
 	movement_timer = 0;
 	state = STATE.MOVING
-	start_movement_animation(movement_direction)
+	start_movement_animation(sign(movement_direction.x))
 
-func start_movement_animation(movement_direction : Vector2):
-	if movement_direction.x < 0:
-		sprite.flip_h = true
-	elif movement_direction.x > 0:
-		sprite.flip_h = false
+func start_movement_animation(movement_direction : int):
+	if !is_zero_approx(movement_direction):
+		visual_root.scale.x = movement_direction
 	
 	animator.seek(0.0)
 	animator.play("move")
@@ -83,3 +90,10 @@ func process_movement(delta : float) -> void:
 			GameManager.instance.spirit_transition()
 		else:
 			state = STATE.IDLE
+
+func get_held_mask() -> MaskResource:
+	return mask.resource
+
+func set_held_mask(new_mask : MaskResource) -> void:
+	mask.resource = new_mask
+	mask.update_sprite()

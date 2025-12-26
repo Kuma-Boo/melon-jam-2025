@@ -57,15 +57,10 @@ func update_time() -> bool:
 	time_interface_head.position = Vector2(target_head_position, time_interface_head.position.y)
 	return time_left == 0
 
-var npcs_remaining : Array[NPC]
+var npcs : Array[NPC]
 func register_npc(npc : NPC) -> void:
-	npcs_remaining.append(npc)
-
-func unregister_npc(npc : NPC) -> void:
-	var index : int = npcs_remaining.find(npc)
-	if index != -1:
-		npcs_remaining.remove_at(index)
+	npcs.append(npc)
 
 func kill_npcs() -> void:
-	for npc in npcs_remaining:
+	for npc in npcs:
 		npc.kill_npc()

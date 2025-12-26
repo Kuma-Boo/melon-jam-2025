@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsfgv8eyv7r05"]
+[gd_scene load_steps=9 format=3 uid="uid://dsfgv8eyv7r05"]
 
 [ext_resource type="Script" uid="uid://jw56ownw0k8p" path="res://scripts/player.gd" id="1_hjaqi"]
 [ext_resource type="Texture2D" uid="uid://gd7n3fsc26yg" path="res://img/character/sprite_maiden.png" id="2_hjaqi"]
+[ext_resource type="Script" uid="uid://or682mv86ewx" path="res://scripts/mask.gd" id="3_ct4mp"]
 
 [sub_resource type="Curve" id="Curve_fwul8"]
 _limits = [0.0, 1.0, 0.0, 0.4]
@@ -16,7 +17,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Root:scale")
+tracks/0/path = NodePath("Root/AnimatedRoot:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -28,7 +29,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Root:position")
+tracks/1/path = NodePath("Root/AnimatedRoot:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -45,7 +46,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Root:scale")
+tracks/0/path = NodePath("Root/AnimatedRoot:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -57,7 +58,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Root:position")
+tracks/1/path = NodePath("Root/AnimatedRoot:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -73,10 +74,11 @@ _data = {
 &"move": SubResource("Animation_hjaqi")
 }
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("sprite", "animator")]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("mask", "visual_root", "animator")]
 script = ExtResource("1_hjaqi")
+mask = NodePath("Root/AnimatedRoot/Mask")
 movement_curve = SubResource("Curve_fwul8")
-sprite = NodePath("Root/Icon")
+visual_root = NodePath("Root")
 animator = NodePath("AnimationPlayer")
 
 [node name="Area2D" type="Area2D" parent="." groups=["player"]]
@@ -88,10 +90,18 @@ shape = SubResource("CircleShape2D_hjaqi")
 
 [node name="Root" type="Node2D" parent="."]
 
-[node name="Icon" type="Sprite2D" parent="Root"]
+[node name="AnimatedRoot" type="Node2D" parent="Root"]
+
+[node name="Icon" type="Sprite2D" parent="Root/AnimatedRoot"]
 position = Vector2(0, -20)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_hjaqi")
+
+[node name="Mask" type="Sprite2D" parent="Root/AnimatedRoot" node_paths=PackedStringArray("sprite")]
+position = Vector2(10, 10)
+scale = Vector2(0.3, 0.3)
+script = ExtResource("3_ct4mp")
+sprite = NodePath(".")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

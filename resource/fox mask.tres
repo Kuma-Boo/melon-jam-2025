@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MaskResource" load_steps=3 format=3 uid="uid://bs1j4hsffgwxf"]
+
+[ext_resource type="Script" uid="uid://cdn6eshyqm6lg" path="res://scripts/mask resource.gd" id="1_oqk2v"]
+[ext_resource type="Texture2D" uid="uid://qxb874nt8vtt" path="res://icon.svg" id="2_fbao4"]
+
+[resource]
+script = ExtResource("1_oqk2v")
+texture = ExtResource("2_fbao4")
+metadata/_custom_type_script = "uid://cdn6eshyqm6lg"
