@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7btxoq4g1eob"]
+
+[ext_resource type="Texture2D" uid="uid://qxb874nt8vtt" path="res://icon.svg" id="1_446fn"]
+[ext_resource type="Script" uid="uid://jw56ownw0k8p" path="res://scripts/player.gd" id="1_fwul8"]
+[ext_resource type="Texture2D" uid="uid://dbinu25iwao84" path="res://img/grid.png" id="2_fwul8"]
+[ext_resource type="Script" uid="uid://bbnj6lv7iyi4x" path="res://scripts/grid manager.gd" id="4_0a4uc"]
+
+[sub_resource type="Curve" id="Curve_fwul8"]
+_limits = [0.0, 1.0, 0.0, 0.4]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="World" type="Node2D"]
+
+[node name="GridManager" type="Node2D" parent="." node_paths=PackedStringArray("grid_rect")]
+z_index = 100
+script = ExtResource("4_0a4uc")
+grid_size = Vector2i(8, 8)
+grid_rect = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="GridManager"]
+offset_right = 800.0
+offset_bottom = 800.0
+texture = ExtResource("2_fwul8")
+stretch_mode = 1
+
+[node name="Player" type="Node2D" parent="."]
+position = Vector2(152, 248)
+script = ExtResource("1_fwul8")
+movement_curve = SubResource("Curve_fwul8")
+
+[node name="Icon" type="Sprite2D" parent="Player"]
+texture = ExtResource("1_446fn")
+
+[node name="Camera" type="Camera2D" parent="."]
+anchor_mode = 0
+limit_enabled = false
