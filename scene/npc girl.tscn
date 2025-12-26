@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://binav42f7gswf"]
+
+[ext_resource type="PackedScene" uid="uid://eyoxqf1wjhdm" path="res://scene/npc.tscn" id="1_bax6k"]
+[ext_resource type="Texture2D" uid="uid://diqs6833q8nn5" path="res://img/character/sprite_girl_1.png" id="2_bax6k"]
+
+[node name="NPCGirl" instance=ExtResource("1_bax6k")]
+
+[node name="Icon" parent="Root" index="0"]
+texture = ExtResource("2_bax6k")

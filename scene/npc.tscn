@@ -1,12 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsfgv8eyv7r05"]
+[gd_scene load_steps=6 format=3 uid="uid://eyoxqf1wjhdm"]
 
-[ext_resource type="Script" uid="uid://jw56ownw0k8p" path="res://scripts/player.gd" id="1_hjaqi"]
-[ext_resource type="Texture2D" uid="uid://gd7n3fsc26yg" path="res://img/character/sprite_maiden.png" id="2_hjaqi"]
-
-[sub_resource type="Curve" id="Curve_fwul8"]
-_limits = [0.0, 1.0, 0.0, 0.4]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0]
-point_count = 2
+[ext_resource type="Script" uid="uid://r0auaahxf8bo" path="res://scripts/npc.gd" id="1_54ctn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hjaqi"]
 radius = 30.0
@@ -39,8 +33,9 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_hjaqi"]
-resource_name = "move"
+resource_name = "happy"
 length = 0.4
+loop_mode = 1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -70,18 +65,17 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ct4mp"]
 _data = {
 &"RESET": SubResource("Animation_fvtld"),
-&"move": SubResource("Animation_hjaqi")
+&"happy": SubResource("Animation_hjaqi")
 }
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("sprite", "animator")]
-script = ExtResource("1_hjaqi")
-movement_curve = SubResource("Curve_fwul8")
+[node name="NPC" type="Node2D" node_paths=PackedStringArray("sprite", "animator")]
+script = ExtResource("1_54ctn")
 sprite = NodePath("Root/Icon")
 animator = NodePath("AnimationPlayer")
 
-[node name="Area2D" type="Area2D" parent="." groups=["player"]]
-collision_mask = 0
-monitoring = false
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_hjaqi")
@@ -91,9 +85,10 @@ shape = SubResource("CircleShape2D_hjaqi")
 [node name="Icon" type="Sprite2D" parent="Root"]
 position = Vector2(0, -20)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_hjaqi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_ct4mp")
 }
+
+[connection signal="area_entered" from="Area2D" to="." method="on_area_entered"]

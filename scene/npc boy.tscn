@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bx1cbpvp0vnad"]
+
+[ext_resource type="PackedScene" uid="uid://eyoxqf1wjhdm" path="res://scene/npc.tscn" id="1_hgay3"]
+[ext_resource type="Texture2D" uid="uid://ckmwh6iter3mt" path="res://img/character/sprite_boy_1.png" id="2_klojm"]
+
+[node name="NPCBoy" instance=ExtResource("1_hgay3")]
+
+[node name="Icon" parent="Root" index="0"]
+texture = ExtResource("2_klojm")
