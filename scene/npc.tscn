@@ -145,7 +145,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_54ctn")
 
 [node name="Mask" type="Sprite2D" parent="Root" node_paths=PackedStringArray("sprite")]
-position = Vector2(0, -30)
+position = Vector2(0, -20)
 scale = Vector2(0.47, 0.47)
 script = ExtResource("3_pesj1")
 sprite = NodePath(".")

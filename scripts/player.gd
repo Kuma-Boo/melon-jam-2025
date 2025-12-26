@@ -97,3 +97,7 @@ func get_held_mask() -> MaskResource:
 func set_held_mask(new_mask : MaskResource) -> void:
 	mask.resource = new_mask
 	mask.update_sprite()
+
+func kill_player():
+	if mask.resource != null && mask.resource.mask_type == MaskResource.MASK_TYPES.CURSED:
+		animator.play("dead")

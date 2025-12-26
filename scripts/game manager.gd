@@ -64,3 +64,5 @@ func register_npc(npc : NPC) -> void:
 func kill_npcs() -> void:
 	for npc in npcs:
 		npc.kill_npc()
+	
+	Player.instance.kill_player()

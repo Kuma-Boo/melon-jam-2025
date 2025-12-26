@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7btxoq4g1eob"]
+[gd_scene load_steps=7 format=3 uid="uid://c7btxoq4g1eob"]
 
 [ext_resource type="PackedScene" uid="uid://bx400gh04q068" path="res://scene/game manager.tscn" id="1_tesh5"]
 [ext_resource type="PackedScene" uid="uid://eyoxqf1wjhdm" path="res://scene/npc.tscn" id="2_hpkiy"]
 [ext_resource type="PackedScene" uid="uid://dsfgv8eyv7r05" path="res://scene/player.tscn" id="2_yynsy"]
 [ext_resource type="PackedScene" uid="uid://cggyenydyg3q1" path="res://scene/mask.tscn" id="3_hpkiy"]
 [ext_resource type="Resource" uid="uid://c3lthb3kw0ex7" path="res://resource/cursed mask.tres" id="5_yynsy"]
+[ext_resource type="PackedScene" uid="uid://dm07c1v7dsib6" path="res://scene/fire.tscn" id="6_wim12"]
 
 [node name="World" type="Node"]
 
@@ -17,6 +18,9 @@ position = Vector2(152, 248)
 position = Vector2(700, 400)
 zoom = Vector2(0.9, 0.9)
 limit_enabled = false
+
+[node name="Fire" parent="." instance=ExtResource("6_wim12")]
+position = Vector2(450, 350)
 
 [node name="Mask" parent="." instance=ExtResource("3_hpkiy")]
 position = Vector2(250, 350)
