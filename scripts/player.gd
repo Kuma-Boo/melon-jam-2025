@@ -29,8 +29,8 @@ func _process(delta: float) -> void:
 	if GameManager.is_transition_active:
 		return
 	
-	if Input.is_action_just_pressed("restart"):
-		GameManager.instance.reload_scene()
+	if Input.is_action_just_pressed("restart_level"):
+		GameManager.instance.reload_transition()
 		return
 	
 	if state == STATE.IDLE:
@@ -80,5 +80,6 @@ func process_movement(delta : float) -> void:
 		current_position = target_position
 		if GameManager.instance.update_time():
 			state = STATE.TIMEOVER
+			GameManager.instance.spirit_transition()
 		else:
 			state = STATE.IDLE

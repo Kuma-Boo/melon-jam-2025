@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7btxoq4g1eob"]
+[gd_scene load_steps=4 format=3 uid="uid://c7btxoq4g1eob"]
 
 [ext_resource type="PackedScene" uid="uid://bx400gh04q068" path="res://scene/game manager.tscn" id="1_tesh5"]
+[ext_resource type="PackedScene" uid="uid://eyoxqf1wjhdm" path="res://scene/npc.tscn" id="2_hpkiy"]
 [ext_resource type="PackedScene" uid="uid://dsfgv8eyv7r05" path="res://scene/player.tscn" id="2_yynsy"]
-[ext_resource type="PackedScene" uid="uid://bx1cbpvp0vnad" path="res://scene/npc boy.tscn" id="3_wim12"]
-[ext_resource type="PackedScene" uid="uid://binav42f7gswf" path="res://scene/npc girl.tscn" id="4_fcruq"]
 
 [node name="World" type="Node"]
 
 [node name="GameManager" parent="." instance=ExtResource("1_tesh5")]
+
+[node name="NPCBoy" parent="." instance=ExtResource("2_hpkiy")]
+position = Vector2(650, 250)
 
 [node name="Player" parent="." instance=ExtResource("2_yynsy")]
 position = Vector2(152, 248)
@@ -16,9 +18,3 @@ position = Vector2(152, 248)
 position = Vector2(700, 400)
 zoom = Vector2(0.9, 0.9)
 limit_enabled = false
-
-[node name="NPCBoy" parent="." instance=ExtResource("3_wim12")]
-position = Vector2(650, 250)
-
-[node name="NPCGirl" parent="." instance=ExtResource("4_fcruq")]
-position = Vector2(750, 60)

@@ -11,10 +11,11 @@ const TILE_OFFSET = Vector2.ONE * TILE_SIZE * 0.5
 @export var grid_size : Vector2i
 @export var grid_rect : TextureRect
 
-func _ready() -> void:
-	if !Engine.is_editor_hint():
-		instance = self
+func _enter_tree() -> void:
+	if Engine.is_editor_hint():
+		return
 	
+	instance = self
 	time_left = level_start_time
 	transition_animator.play("fade-in")
 	transition_animator.advance(0.0)
@@ -31,15 +32,19 @@ func clamp_position(pos : Vector2) -> Vector2:
 
 @export var transition_animator : AnimationPlayer
 static var is_transition_active : bool
-func reload_scene() -> void:
+func reload_transition() -> void:
 	is_transition_active = true
 	transition_animator.play("fade-out")
 
 func finish_transition() -> void:
 	is_transition_active = false
 
-func apply_transition() -> void:
+func reload_scene() -> void:
 	get_tree().reload_current_scene()
+
+func spirit_transition() -> void:
+	is_transition_active = true
+	transition_animator.play("spirit");
 
 @export var level_start_time : int
 @export var time_interface_head : Sprite2D
@@ -60,3 +65,7 @@ func unregister_npc(npc : NPC) -> void:
 	var index : int = npcs_remaining.find(npc)
 	if index != -1:
 		npcs_remaining.remove_at(index)
+
+func kill_npcs() -> void:
+	for npc in npcs_remaining:
+		npc.kill_npc()

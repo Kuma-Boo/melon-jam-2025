@@ -1,39 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bx400gh04q068"]
+[gd_scene load_steps=10 format=3 uid="uid://bx400gh04q068"]
 
 [ext_resource type="Script" uid="uid://bbnj6lv7iyi4x" path="res://scripts/game manager.gd" id="1_886ea"]
 [ext_resource type="Texture2D" uid="uid://dbinu25iwao84" path="res://img/interface/grid.png" id="2_l2vnv"]
 [ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://MochiyPopOne-Regular.ttf" id="3_1ttmm"]
 [ext_resource type="Texture2D" uid="uid://blj4xa86m6quy" path="res://img/interface/current time.png" id="4_myrvm"]
-
-[sub_resource type="Animation" id="Animation_886ea"]
-resource_name = "fade-out"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Transitions/FadeTransition:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.099999994),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.13333334),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"apply_transition"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_l2vnv"]
 length = 0.001
@@ -48,6 +18,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Transitions/SpiritTransition:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1400, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Transitions/SpiritTransition:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_1ttmm"]
@@ -81,11 +75,88 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_886ea"]
+resource_name = "fade-out"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transitions/FadeTransition:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"reload_scene"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_myrvm"]
+resource_name = "spirit"
+step = 0.1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"kill_npcs"
+}, {
+"args": [],
+"method": &"reload_transition"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Transitions/SpiritTransition:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1400, 0), Vector2(-1400, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Transitions/SpiritTransition:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Color(1, 0.49411765, 0.49019608, 0), Color(0.80784315, 0, 1, 1), Color(1, 0, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l2vnv"]
 _data = {
 &"RESET": SubResource("Animation_l2vnv"),
 &"fade-in": SubResource("Animation_1ttmm"),
-&"fade-out": SubResource("Animation_886ea")
+&"fade-out": SubResource("Animation_886ea"),
+&"spirit": SubResource("Animation_myrvm")
 }
 
 [node name="GameManager" type="Control" node_paths=PackedStringArray("grid_rect", "transition_animator", "time_interface_head")]
@@ -225,6 +296,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
+
+[node name="SpiritTransition" type="ColorRect" parent="Transitions"]
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1400.0
+offset_right = 1399.9983
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
