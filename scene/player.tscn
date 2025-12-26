@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dsfgv8eyv7r05"]
+[gd_scene load_steps=12 format=3 uid="uid://dsfgv8eyv7r05"]
 
 [ext_resource type="Script" uid="uid://jw56ownw0k8p" path="res://scripts/player.gd" id="1_hjaqi"]
 [ext_resource type="Texture2D" uid="uid://gd7n3fsc26yg" path="res://img/character/sprite_maiden.png" id="2_hjaqi"]
@@ -42,7 +42,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Root/AnimatedRoot/Sprite:texture")
+tracks/2/path = NodePath("Root/AnimatedRoot/Feet/Sprite:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -50,6 +50,51 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("2_hjaqi")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Root/AnimatedRoot/Feet:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ct4mp"]
+resource_name = "dead"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Root/AnimatedRoot/Feet/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_ct4mp")]
+}
+
+[sub_resource type="Animation" id="Animation_s4jxa"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Root/AnimatedRoot/Feet:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 0.95), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_hjaqi"]
@@ -81,32 +126,17 @@ tracks/1/keys = {
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -24), Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_ct4mp"]
-resource_name = "dead"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Root/AnimatedRoot/Sprite:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("4_ct4mp")]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ct4mp"]
 _data = {
 &"RESET": SubResource("Animation_fvtld"),
 &"dead": SubResource("Animation_ct4mp"),
+&"idle": SubResource("Animation_s4jxa"),
 &"move": SubResource("Animation_hjaqi")
 }
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("mask", "visual_root", "animator")]
 script = ExtResource("1_hjaqi")
-mask = NodePath("Root/AnimatedRoot/Mask")
+mask = NodePath("Root/AnimatedRoot/Feet/Mask")
 movement_curve = SubResource("Curve_fwul8")
 visual_root = NodePath("Root")
 animator = NodePath("AnimationPlayer")
@@ -122,13 +152,16 @@ shape = SubResource("CircleShape2D_hjaqi")
 
 [node name="AnimatedRoot" type="Node2D" parent="Root"]
 
-[node name="Sprite" type="Sprite2D" parent="Root/AnimatedRoot"]
-position = Vector2(0, -20)
+[node name="Feet" type="Node2D" parent="Root/AnimatedRoot"]
+position = Vector2(0, 50)
+
+[node name="Sprite" type="Sprite2D" parent="Root/AnimatedRoot/Feet"]
+position = Vector2(0, -70)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_hjaqi")
 
-[node name="Mask" type="Sprite2D" parent="Root/AnimatedRoot" node_paths=PackedStringArray("sprite")]
-position = Vector2(10, 10)
+[node name="Mask" type="Sprite2D" parent="Root/AnimatedRoot/Feet" node_paths=PackedStringArray("sprite")]
+position = Vector2(10, -40)
 scale = Vector2(0.3, 0.3)
 script = ExtResource("3_ct4mp")
 sprite = NodePath(".")
@@ -137,3 +170,6 @@ sprite = NodePath(".")
 libraries = {
 &"": SubResource("AnimationLibrary_ct4mp")
 }
+autoplay = "idle"
+next/move = &"idle"
+blend_times = [&"idle", &"move", 0.1, &"move", &"idle", 0.1]

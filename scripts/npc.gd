@@ -44,9 +44,9 @@ func kill_npc() -> void:
 	if has_mask() && mask.resource.mask_type != MaskResource.MASK_TYPES.CURSED:
 		return
 	
-	animator.play("RESET")
-	animator.advance(0.0)
 	animator.play("dead")
+	animator.advance(0.0)
+	animator.play("idle")
 
 func on_area_entered(area: Area2D) -> void:
 	if !area.is_in_group("player"):
@@ -64,6 +64,8 @@ func on_area_entered(area: Area2D) -> void:
 	
 	if new_mask != null && new_mask.mask_type != MaskResource.MASK_TYPES.CURSED:
 		animator.play("happy")
+	else:
+		animator.play("idle")
 
 func has_mask() -> bool:
 	return mask.resource != null

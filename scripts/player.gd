@@ -12,6 +12,8 @@ static var instance : Player
 var current_position : Vector2
 var target_position : Vector2
 var movement_timer : float
+var consecutive_movement_amount : int
+var last_movement_direction : Vector2
 
 var state : STATE
 enum STATE {
@@ -54,20 +56,23 @@ func check_movement_inputs() -> void:
 	if is_zero_approx(horizontal_input) && is_zero_approx(vertical_input):
 		return
 	
-	var input_direction : Vector2
 	if !is_zero_approx(horizontal_input):
-		input_direction = Vector2.RIGHT * sign(horizontal_input)
+		last_movement_direction = Vector2.RIGHT * sign(horizontal_input)
 	else:
-		input_direction = Vector2.DOWN * sign(vertical_input)
+		last_movement_direction = Vector2.DOWN * sign(vertical_input)
 	
-	target_position = GameManager.instance.clamp_position(target_position + input_direction)
+	move()
+
+func move() -> void:
+	target_position = GameManager.instance.clamp_position(target_position + last_movement_direction)
 	if current_position.is_equal_approx(target_position): # Invalid movement
+		finish_movement()
 		return
 	
 	movement_timer = 0
 	movement_direction = 1
 	state = STATE.MOVING
-	start_movement_animation(sign(input_direction.x))
+	start_movement_animation(sign(last_movement_direction.x))
 
 func start_movement_animation(input_direction : int):
 	if !is_zero_approx(input_direction):
@@ -75,6 +80,14 @@ func start_movement_animation(input_direction : int):
 	
 	animator.seek(0.0)
 	animator.play("move")
+
+func finish_movement():
+	start_idle()
+	
+	if GameManager.instance.update_time():
+		state = STATE.TIMEOVER
+		GameManager.instance.spirit_transition()
+		return
 
 var movement_direction : int
 func process_movement(delta : float) -> void:
@@ -87,16 +100,25 @@ func process_movement(delta : float) -> void:
 	
 	if (is_zero_approx(position_interpolation_value) && movement_direction < 0) || (is_equal_approx(position_interpolation_value, 1.0) && movement_direction > 0):
 		if movement_direction < 0:
-			state = STATE.IDLE
+			start_idle()
 			target_position = current_position
 			return
 		
 		current_position = target_position
-		if GameManager.instance.update_time():
-			state = STATE.TIMEOVER
-			GameManager.instance.spirit_transition()
-		else:
-			state = STATE.IDLE
+		
+		if mask.resource != null && mask.resource.mask_type == MaskResource.MASK_TYPES.RABBIT:
+			consecutive_movement_amount += 1
+			if consecutive_movement_amount < 2:
+				state = STATE.IDLE
+				move()
+				return
+		
+		finish_movement()
+
+func start_idle():
+	state = STATE.IDLE
+	consecutive_movement_amount = 0
+	animator.play("idle")
 
 func cancel_movement() -> void:
 	movement_direction = -1
@@ -111,3 +133,5 @@ func set_held_mask(new_mask : MaskResource) -> void:
 func kill_player():
 	if mask.resource != null && mask.resource.mask_type == MaskResource.MASK_TYPES.CURSED:
 		animator.play("dead")
+		animator.advance(0.0)
+		animator.play("idle")

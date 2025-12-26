@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://eyoxqf1wjhdm"]
+[gd_scene load_steps=14 format=3 uid="uid://eyoxqf1wjhdm"]
 
 [ext_resource type="Script" uid="uid://r0auaahxf8bo" path="res://scripts/npc.gd" id="1_54ctn"]
 [ext_resource type="Texture2D" uid="uid://ckmwh6iter3mt" path="res://img/character/sprite_boy_1.png" id="2_54ctn"]
@@ -14,7 +14,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Root:scale")
+tracks/0/path = NodePath("Root/AnimatedRoot:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -26,7 +26,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Root:position")
+tracks/1/path = NodePath("Root/AnimatedRoot:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -42,7 +42,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Root/Icon:texture")
+tracks/0/path = NodePath("Root/AnimatedRoot/Feet/Icon:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -58,7 +58,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Root/Icon:texture")
+tracks/0/path = NodePath("Root/AnimatedRoot/Feet/Icon:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -74,7 +74,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Root/Icon:texture")
+tracks/0/path = NodePath("Root/AnimatedRoot/Feet/Icon:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -92,7 +92,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Root:scale")
+tracks/0/path = NodePath("Root/AnimatedRoot:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -104,7 +104,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Root:position")
+tracks/1/path = NodePath("Root/AnimatedRoot:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -114,20 +114,37 @@ tracks/1/keys = {
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -24), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_pesj1"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Root/AnimatedRoot/Feet:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 0.95), Vector2(1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ct4mp"]
 _data = {
 &"RESET": SubResource("Animation_fvtld"),
 &"boy": SubResource("Animation_06vv4"),
 &"dead": SubResource("Animation_ab2no"),
 &"girl": SubResource("Animation_fb5s2"),
-&"happy": SubResource("Animation_hjaqi")
+&"happy": SubResource("Animation_hjaqi"),
+&"idle": SubResource("Animation_pesj1")
 }
 
 [node name="NPC" type="Node2D" node_paths=PackedStringArray("visual_root", "sprite", "mask", "animator")]
 script = ExtResource("1_54ctn")
 visual_root = NodePath("Root")
-sprite = NodePath("Root/Icon")
-mask = NodePath("Root/Mask")
+sprite = NodePath("Root/AnimatedRoot/Feet/Icon")
+mask = NodePath("Root/AnimatedRoot/Feet/Mask")
 animator = NodePath("AnimationPlayer")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -139,13 +156,18 @@ shape = SubResource("CircleShape2D_hjaqi")
 
 [node name="Root" type="Node2D" parent="."]
 
-[node name="Icon" type="Sprite2D" parent="Root"]
-position = Vector2(0, -20)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_8oust")
+[node name="AnimatedRoot" type="Node2D" parent="Root"]
 
-[node name="Mask" type="Sprite2D" parent="Root" node_paths=PackedStringArray("sprite")]
-position = Vector2(0, -20)
+[node name="Feet" type="Node2D" parent="Root/AnimatedRoot"]
+position = Vector2(0, 30)
+
+[node name="Icon" type="Sprite2D" parent="Root/AnimatedRoot/Feet"]
+position = Vector2(0, -50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_54ctn")
+
+[node name="Mask" type="Sprite2D" parent="Root/AnimatedRoot/Feet" node_paths=PackedStringArray("sprite")]
+position = Vector2(0, -50)
 scale = Vector2(0.47, 0.47)
 script = ExtResource("3_pesj1")
 sprite = NodePath(".")
@@ -154,5 +176,7 @@ sprite = NodePath(".")
 libraries = {
 &"": SubResource("AnimationLibrary_ct4mp")
 }
+autoplay = "idle"
+blend_times = [&"happy", &"idle", 0.1, &"idle", &"happy", 0.1]
 
 [connection signal="area_entered" from="Area2D" to="." method="on_area_entered"]
