@@ -12,8 +12,9 @@ static var instance : Player
 var current_position : Vector2
 var target_position : Vector2
 var movement_timer : float
-var consecutive_movement_amount : int
+var last_input_direction : Vector2
 var last_movement_direction : Vector2
+var consecutive_movement_amount : int
 
 var state : STATE
 enum STATE {
@@ -44,29 +45,45 @@ func _process(delta: float) -> void:
 		GameManager.instance.reload_transition()
 		return
 	
+	process_inputs()
 	if state == STATE.IDLE:
 		check_movement_inputs()
 	elif state == STATE.MOVING:
 		process_movement(delta)
+
+var prioritize_horizontal_inputs : bool
+
+func process_inputs() -> void:
+	if Input.is_action_just_pressed("move_left") || Input.is_action_just_pressed("move_right"):
+		prioritize_horizontal_inputs = true
+	elif Input.is_action_just_pressed("move_up") || Input.is_action_just_pressed("move_down"):
+		prioritize_horizontal_inputs = false
 	
+	var horizontal_input : int = sign(Input.get_axis("move_left", "move_right"));
+	var vertical_input : int = sign(Input.get_axis("move_up", "move_down"));
+	if abs(horizontal_input) > abs(vertical_input) || (horizontal_input != 0 && prioritize_horizontal_inputs):
+		last_input_direction = Vector2.RIGHT * horizontal_input
+	elif abs(horizontal_input) < abs(vertical_input) || (vertical_input != 0 && !prioritize_horizontal_inputs):
+		last_input_direction = Vector2.DOWN * vertical_input
+	else:
+		last_input_direction = Vector2.ZERO
 
 func check_movement_inputs() -> void:
-	var horizontal_input : float = Input.get_axis("move_left", "move_right");
-	var vertical_input : float = Input.get_axis("move_up", "move_down");
-	if is_zero_approx(horizontal_input) && is_zero_approx(vertical_input):
+	if last_input_direction.is_zero_approx():
 		return
 	
-	if !is_zero_approx(horizontal_input):
-		last_movement_direction = Vector2.RIGHT * sign(horizontal_input)
+	if !is_zero_approx(last_input_direction.x):
+		last_movement_direction = Vector2.RIGHT * sign(last_input_direction.x)
 	else:
-		last_movement_direction = Vector2.DOWN * sign(vertical_input)
+		last_movement_direction = Vector2.DOWN * sign(last_input_direction.y)
 	
 	move()
 
 func move() -> void:
 	target_position = GameManager.instance.clamp_position(target_position + last_movement_direction)
 	if current_position.is_equal_approx(target_position): # Invalid movement
-		finish_movement()
+		if consecutive_movement_amount != 0:
+			finish_movement()
 		return
 	
 	movement_timer = 0

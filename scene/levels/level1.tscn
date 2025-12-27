@@ -8,11 +8,11 @@
 [node name="World" type="Node"]
 
 [node name="GameManager" parent="." instance=ExtResource("1_tesh5")]
-grid_size = Vector2i(8, 3)
-level_start_time = 6
+grid_size = Vector2i(5, 3)
+level_start_time = 4
 
 [node name="Player" parent="." instance=ExtResource("2_yynsy")]
-position = Vector2(152, 150)
+position = Vector2(50, 150)
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(700, 150)
@@ -23,4 +23,4 @@ limit_enabled = false
 position = Vector2(250, 150)
 
 [node name="NPC" parent="." instance=ExtResource("2_hpkiy")]
-position = Vector2(650, 150)
+position = Vector2(450, 150)
