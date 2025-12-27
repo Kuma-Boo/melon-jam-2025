@@ -13,4 +13,3 @@ func _process(_delta: float) -> void:
 
 func finish() -> void:
 	get_tree().change_scene_to_file("res://scene/title.tscn")
-	return
