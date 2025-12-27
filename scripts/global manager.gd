@@ -8,7 +8,9 @@ var level_list : Array = [
 	"res://scene/levels/level5.tscn",
 	"res://scene/levels/level6.tscn",
 	"res://scene/levels/level7.tscn",
-	"res://scene/levels/level8.tscn"
+	"res://scene/levels/level8.tscn",
+	"res://scene/levels/level9.tscn",
+	"res://scene/levels/level10.tscn"
 ]
 
 var current_level_index : int

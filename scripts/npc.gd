@@ -17,10 +17,6 @@ class_name NPC
 @export var animator : AnimationPlayer
 
 func _enter_tree() -> void:
-	if animator != null:
-		animator.play("RESET")
-		animator.advance(0.0)
-	
 	update_npc()
 
 func _ready() -> void:
@@ -35,6 +31,10 @@ func update_npc() -> void:
 		update_direction()
 	
 	if animator != null:
+		if Engine.is_editor_hint():
+			animator.play("RESET")
+			animator.advance(0.0)
+		
 		if npc_type == 0:
 			animator.play("boy")
 		else:

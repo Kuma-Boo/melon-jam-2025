@@ -26,7 +26,6 @@ limit_enabled = false
 position = Vector2(250, 160)
 npc_type = 1
 is_facing_right = true
-desired_mask_resource = ExtResource("7_gn70y")
 
 [node name="Mask1" parent="." instance=ExtResource("6_5lvjh")]
 position = Vector2(350, 250)
