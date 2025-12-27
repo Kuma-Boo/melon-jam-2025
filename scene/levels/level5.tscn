@@ -16,30 +16,33 @@
 grid_size = Vector2i(3, 5)
 level_start_time = 8
 
-[node name="Player" parent="." instance=ExtResource("2_1jvf8")]
+[node name="Level" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="Level" instance=ExtResource("2_1jvf8")]
 position = Vector2(250, 450)
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="Level"]
 position = Vector2(400, 250)
 zoom = Vector2(1.2, 1.2)
 limit_enabled = false
 
-[node name="Fire" parent="." instance=ExtResource("3_nxili")]
+[node name="Fire" parent="Level" instance=ExtResource("3_nxili")]
 position = Vector2(50, 50)
 
-[node name="NPC" parent="." instance=ExtResource("4_7nrgl")]
+[node name="NPC" parent="Level" instance=ExtResource("4_7nrgl")]
 position = Vector2(250, 40)
 initial_mask_resource = ExtResource("5_mrgcb")
 
-[node name="Mask" parent="." instance=ExtResource("6_ik1mq")]
+[node name="Mask" parent="Level" instance=ExtResource("6_ik1mq")]
 position = Vector2(50, 250)
 resource = ExtResource("7_2i1rv")
 
-[node name="GrowthWall" parent="." instance=ExtResource("8_1jvf8")]
+[node name="GrowthWall" parent="Level" instance=ExtResource("8_1jvf8")]
 position = Vector2(250, 250)
 
-[node name="GrowthWall2" parent="." instance=ExtResource("8_1jvf8")]
+[node name="GrowthWall2" parent="Level" instance=ExtResource("8_1jvf8")]
 position = Vector2(50, 450)
 
-[node name="Wall" parent="." instance=ExtResource("9_nxili")]
+[node name="Wall" parent="Level" instance=ExtResource("9_nxili")]
 position = Vector2(150, 350)

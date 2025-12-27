@@ -11,16 +11,19 @@
 grid_size = Vector2i(5, 3)
 level_start_time = 4
 
-[node name="Player" parent="." instance=ExtResource("2_yynsy")]
+[node name="Level" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="Level" instance=ExtResource("2_yynsy")]
 position = Vector2(50, 150)
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="Level"]
 position = Vector2(450, 150)
 zoom = Vector2(1.4, 1.4)
 limit_enabled = false
 
-[node name="Mask" parent="." instance=ExtResource("3_hpkiy")]
+[node name="Mask" parent="Level" instance=ExtResource("3_hpkiy")]
 position = Vector2(250, 150)
 
-[node name="NPC" parent="." instance=ExtResource("2_hpkiy")]
+[node name="NPC" parent="Level" instance=ExtResource("2_hpkiy")]
 position = Vector2(450, 150)

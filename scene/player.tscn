@@ -135,7 +135,6 @@ _data = {
 }
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("mask", "visual_root", "animator")]
-z_index = 1
 script = ExtResource("1_hjaqi")
 mask = NodePath("Root/AnimatedRoot/Feet/Mask")
 movement_curve = SubResource("Curve_fwul8")
@@ -157,14 +156,11 @@ shape = SubResource("CircleShape2D_hjaqi")
 position = Vector2(0, 40)
 
 [node name="Sprite" type="Sprite2D" parent="Root/AnimatedRoot/Feet"]
-y_sort_enabled = true
 position = Vector2(0, -70)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_hjaqi")
 
 [node name="Mask" type="Sprite2D" parent="Root/AnimatedRoot/Feet" node_paths=PackedStringArray("sprite")]
-z_index = 1
-y_sort_enabled = true
 position = Vector2(10, -40)
 scale = Vector2(0.3, 0.3)
 script = ExtResource("3_ct4mp")

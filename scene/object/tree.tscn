@@ -1,13 +1,130 @@
-[gd_scene load_steps=4 format=3 uid="uid://dy02pqx084coo"]
+[gd_scene load_steps=9 format=3 uid="uid://dy02pqx084coo"]
 
 [ext_resource type="Script" uid="uid://blojghfoexndp" path="res://scripts/tree.gd" id="1_ig6cm"]
 [ext_resource type="Texture2D" uid="uid://dl1d3oe3wvcd5" path="res://img/object/tree.png" id="2_ig6cm"]
+[ext_resource type="Texture2D" uid="uid://7uitxux7tf75" path="res://img/object/stump.png" id="3_s8eqp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o81og"]
 radius = 30.0
 
-[node name="Tree" type="Node2D"]
+[sub_resource type="Animation" id="Animation_aotr1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedRoot/Root/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_ig6cm")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedRoot/Root/Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -50)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedRoot:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_s8eqp"]
+resource_name = "shatter"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedRoot/Root/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.049999997),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_ig6cm"), ExtResource("3_s8eqp")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedRoot/Root/Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -50), Vector2(0, -50), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedRoot:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 1.2), Vector2(1.1, 0.9), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ig6cm"]
+resource_name = "shattered"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedRoot/Root/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_s8eqp")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedRoot/Root/Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s8eqp"]
+_data = {
+&"RESET": SubResource("Animation_aotr1"),
+&"shatter": SubResource("Animation_s8eqp"),
+&"shattered": SubResource("Animation_ig6cm")
+}
+
+[node name="Tree" type="Node2D" node_paths=PackedStringArray("animator")]
 script = ExtResource("1_ig6cm")
+animator = NodePath("AnimationPlayer")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -16,10 +133,20 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_o81og")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="AnimatedRoot" type="Node2D" parent="."]
+position = Vector2(0, 30)
+
+[node name="Root" type="Node2D" parent="AnimatedRoot"]
+position = Vector2(0, -30)
+
+[node name="Sprite" type="Sprite2D" parent="AnimatedRoot/Root"]
 position = Vector2(0, -50)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_ig6cm")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_s8eqp")
+}
+
 [connection signal="area_entered" from="Area2D" to="." method="on_area_entered"]
-[connection signal="area_exited" from="Area2D" to="." method="on_area_exited"]
