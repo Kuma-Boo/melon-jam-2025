@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://dm07c1v7dsib6"]
+[gd_scene load_steps=21 format=3 uid="uid://dm07c1v7dsib6"]
 
 [ext_resource type="Script" uid="uid://bbp0o4nc6gv6u" path="res://scripts/fire.gd" id="1_hv5h5"]
 [ext_resource type="Shader" uid="uid://ckb7643exfuv0" path="res://shader/fire.gdshader" id="2_4uq7g"]
 [ext_resource type="Texture2D" uid="uid://bwgyjhjc8v3c8" path="res://img/object/flame.png" id="3_l7rlu"]
 [ext_resource type="Texture2D" uid="uid://dkigevg5mg2xc" path="res://img/object/displacement.png" id="4_uf5y2"]
+[ext_resource type="Texture2D" uid="uid://casfgaks4x3kq" path="res://img/object/fireplace.png" id="5_srsca"]
 [ext_resource type="Texture2D" uid="uid://h0kucjtpfhv8" path="res://img/object/ember.png" id="5_uf5y2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hv5h5"]
@@ -13,7 +14,7 @@ radius = 30.0
 shader = ExtResource("2_4uq7g")
 shader_parameter/displacement = ExtResource("4_uf5y2")
 shader_parameter/base_flame = ExtResource("3_l7rlu")
-shader_parameter/displacement_scale = Vector2(0.5, 1.835)
+shader_parameter/displacement_scale = Vector2(0.5, 0.8)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_uf5y2"]
 blend_mode = 1
@@ -28,27 +29,37 @@ width = 64
 texture_mode = 1
 curve = SubResource("Curve_uf5y2")
 
+[sub_resource type="Gradient" id="Gradient_srsca"]
+offsets = PackedFloat32Array(0.43030304, 0.75454545, 1)
+colors = PackedColorArray(0.85, 0.1926667, 0.17, 1, 0.62, 0.30266336, 0.10540001, 1, 0.97, 0.7663, 0.5626001, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rgjxt"]
+gradient = SubResource("Gradient_srsca")
+width = 64
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qdtbh"]
 particle_flag_align_y = true
 particle_flag_disable_z = true
-emission_shape_offset = Vector3(0, 30, 0)
+emission_shape_offset = Vector3(0, -30, 0)
 emission_shape = 3
-emission_box_extents = Vector3(60, 30, 1)
+emission_box_extents = Vector3(30, 30, 1)
 direction = Vector3(0, -1, 0)
+spread = 30.0
 initial_velocity_min = 100.0
 initial_velocity_max = 150.0
 gravity = Vector3(0, 0, 0)
-scale_min = 0.19999999
-scale_max = 0.39999998
-color = Color(1, 0.16470589, 0, 1)
+scale_min = 0.14999999
+scale_max = 0.29999998
+color_initial_ramp = SubResource("GradientTexture1D_rgjxt")
 alpha_curve = SubResource("CurveTexture_eyuee")
 
 [sub_resource type="Gradient" id="Gradient_uf5y2"]
 offsets = PackedFloat32Array(0.048484847, 0.56060606, 1)
-colors = PackedColorArray(0.67058825, 0, 0, 1, 0.49050194, 0, 0.15017667, 1, 0.92941177, 0.4117647, 0, 1)
+colors = PackedColorArray(1, 0.2452403, 0.18784595, 1, 0.8630526, 7.561341e-05, 0.29031074, 1, 1, 0.7371018, 0.60722923, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_eyuee"]
 gradient = SubResource("Gradient_uf5y2")
+width = 64
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uf5y2"]
 particle_flag_align_y = true
@@ -92,7 +103,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimationRoot:visible")
+tracks/2/path = NodePath("Area2D:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -104,20 +115,32 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Area2D:monitoring")
+tracks/3/path = NodePath("AnimationRoot/FlameScale/Flame:self_modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimationRoot/FlameScale:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_wsd46"]
 resource_name = "defuse"
 length = 0.5
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -140,31 +163,57 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
 "transitions": PackedFloat32Array(0.5, 0.5, 2, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1.2, 0.8), Vector2(0.8, 1.2), Vector2(1, 0)]
+"values": [Vector2(1, 1), Vector2(1.2, 0.8), Vector2(0.8, 1.2), Vector2(1, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimationRoot:visible")
+tracks/2/path = NodePath("Area2D:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Area2D:monitoring")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Explosion")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"restart"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimationRoot/FlameScale/Flame:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimationRoot/FlameScale:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(2, 2)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_srsca"]
@@ -173,9 +222,8 @@ _data = {
 &"defuse": SubResource("Animation_wsd46")
 }
 
-[node name="Fire" type="Node2D" node_paths=PackedStringArray("explosion_vfx", "animator")]
+[node name="Fire" type="Node2D" node_paths=PackedStringArray("animator")]
 script = ExtResource("1_hv5h5")
-explosion_vfx = NodePath("Explosion")
 animator = NodePath("AnimationPlayer")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -188,9 +236,16 @@ shape = SubResource("CircleShape2D_hv5h5")
 [node name="AnimationRoot" type="Node2D" parent="."]
 position = Vector2(0, 39.999996)
 
-[node name="Sprite" type="Sprite2D" parent="AnimationRoot"]
-material = SubResource("ShaderMaterial_fr6wy")
+[node name="Base" type="Sprite2D" parent="AnimationRoot"]
 position = Vector2(0, -59.999992)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_srsca")
+
+[node name="FlameScale" type="Node2D" parent="AnimationRoot"]
+position = Vector2(0, -59.999992)
+
+[node name="Flame" type="Sprite2D" parent="AnimationRoot/FlameScale"]
+material = SubResource("ShaderMaterial_fr6wy")
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("4_uf5y2")
 
@@ -201,7 +256,7 @@ lifetime = 0.6
 process_material = SubResource("ParticleProcessMaterial_qdtbh")
 
 [node name="Explosion" type="GPUParticles2D" parent="."]
-position = Vector2(0, 20)
+position = Vector2(0, -20)
 emitting = false
 amount = 16
 texture = ExtResource("5_uf5y2")

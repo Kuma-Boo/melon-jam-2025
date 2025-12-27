@@ -17,6 +17,9 @@ func on_area_exited(area: Area2D) -> void:
 	if !area.is_in_group("player"):
 		return
 	
+	if is_active:
+		return
+	
 	is_active = true
 	animator.play("grow")
 	

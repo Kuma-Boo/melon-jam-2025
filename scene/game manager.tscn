@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bx400gh04q068"]
+[gd_scene load_steps=12 format=3 uid="uid://bx400gh04q068"]
 
 [ext_resource type="Script" uid="uid://bbnj6lv7iyi4x" path="res://scripts/game manager.gd" id="1_886ea"]
+[ext_resource type="Texture2D" uid="uid://brfh4mlovxyf6" path="res://img/background.png" id="2_1ttmm"]
 [ext_resource type="Texture2D" uid="uid://dbinu25iwao84" path="res://img/interface/grid.png" id="2_l2vnv"]
 [ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://MochiyPopOne-Regular.ttf" id="3_1ttmm"]
 [ext_resource type="Texture2D" uid="uid://blj4xa86m6quy" path="res://img/interface/current time.png" id="4_myrvm"]
@@ -302,6 +303,16 @@ level_start_time = 10
 time_interface_head = NodePath("HUD/HUD/Time/Time/HeadPosition/Head")
 remaining_moves_label = NodePath("HUD/HUD/Time/TimeLabel/MoveLabel")
 bonus_moves_label = NodePath("HUD/HUD/Time/TimeLabel/BonusLabel")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -1160.0
+offset_top = -320.0
+offset_right = 11600.0
+offset_bottom = 6360.0
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_1ttmm")
+stretch_mode = 1
 
 [node name="Grid" type="TextureRect" parent="."]
 layout_mode = 0

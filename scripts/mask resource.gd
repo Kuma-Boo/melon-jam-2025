@@ -11,3 +11,4 @@ enum MASK_TYPES {
 
 @export var mask_type : MASK_TYPES
 @export var texture : Texture2D
+@export var desire_texture : Texture2D

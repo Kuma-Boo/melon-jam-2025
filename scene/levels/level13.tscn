@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dx01j66c0fyj1"]
+
+[ext_resource type="PackedScene" uid="uid://bx400gh04q068" path="res://scene/game manager.tscn" id="1_xbag8"]
+[ext_resource type="PackedScene" uid="uid://dsfgv8eyv7r05" path="res://scene/player.tscn" id="2_f4ok1"]
+[ext_resource type="Resource" uid="uid://bs1j4hsffgwxf" path="res://resource/fox mask.tres" id="3_048lp"]
+[ext_resource type="PackedScene" uid="uid://eyoxqf1wjhdm" path="res://scene/npc.tscn" id="6_idnuy"]
+
+[node name="World" type="Node"]
+
+[node name="GameManager" parent="." instance=ExtResource("1_xbag8")]
+grid_size = Vector2i(5, 5)
+level_start_time = 6
+
+[node name="Level" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="Level" instance=ExtResource("2_f4ok1")]
+position = Vector2(50, 240)
+starting_mask = ExtResource("3_048lp")
+
+[node name="Camera" type="Camera2D" parent="Level"]
+position = Vector2(600, 250)
+limit_enabled = false
+
+[node name="NPC" parent="Level" instance=ExtResource("6_idnuy")]
+position = Vector2(450, 250)

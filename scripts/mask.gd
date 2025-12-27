@@ -5,6 +5,7 @@ class_name Mask
 @export_tool_button("Update Sprite") var update = update_sprite;
 @export var resource : MaskResource
 @export var sprite : Sprite2D
+@export var use_desire_sprite : bool
 
 func _enter_tree() -> void:
 	update_sprite()
@@ -13,7 +14,11 @@ func update_sprite() -> void:
 	if resource == null:
 		sprite.texture = null
 		return
-	sprite.texture = resource.texture
+	
+	if use_desire_sprite:
+		sprite.texture = resource.desire_texture
+	else:
+		sprite.texture = resource.texture
 
 # Pick-up logic
 func on_area_entered(area: Area2D) -> void:

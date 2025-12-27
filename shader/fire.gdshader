@@ -2,7 +2,6 @@ shader_type canvas_item;
 
 uniform sampler2D displacement : source_color, repeat_enable;
 uniform sampler2D base_flame : source_color;
-uniform sampler2D alpha_mask : source_color;
 uniform vec2 displacement_scale;
 
 void fragment() {
@@ -11,5 +10,6 @@ void fragment() {
 	uv_offset = displacement_amount.xy - vec2(0.6);
 	uv_offset *= 1.0 - UV.y;
 	vec4 col = texture(base_flame, UV + uv_offset);
-	COLOR = col;
+	COLOR.rgb = col.rgb;
+	COLOR.a *= col.a;
 }

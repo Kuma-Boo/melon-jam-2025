@@ -1,6 +1,5 @@
 extends Node
 
-@export var explosion_vfx : GPUParticles2D
 @export var animator : AnimationPlayer
 
 func on_area_entered(area: Area2D) -> void:
@@ -17,5 +16,4 @@ func on_area_entered(area: Area2D) -> void:
 	if current_mask.mask_type != MaskResource.MASK_TYPES.CURSED:
 		GameManager.instance.add_bonus_time()
 	
-	explosion_vfx.restart()
 	animator.play("defuse")

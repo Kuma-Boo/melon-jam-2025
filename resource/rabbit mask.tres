@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="MaskResource" load_steps=3 format=3 uid="uid://8jodir6k611e"]
+[gd_resource type="Resource" script_class="MaskResource" load_steps=4 format=3 uid="uid://8jodir6k611e"]
 
+[ext_resource type="Texture2D" uid="uid://lo7c21u6jgh1" path="res://img/mask/bubble_bunny.png" id="1_f4x4x"]
 [ext_resource type="Script" uid="uid://cdn6eshyqm6lg" path="res://scripts/mask resource.gd" id="1_sy8co"]
 [ext_resource type="Texture2D" uid="uid://dy0jgbkwyfwfj" path="res://img/mask/mask_rabbit.png" id="2_sy8co"]
 
@@ -7,4 +8,5 @@
 script = ExtResource("1_sy8co")
 mask_type = 2
 texture = ExtResource("2_sy8co")
+desire_texture = ExtResource("1_f4x4x")
 metadata/_custom_type_script = "uid://cdn6eshyqm6lg"
