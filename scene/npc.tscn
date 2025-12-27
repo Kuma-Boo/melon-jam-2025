@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://eyoxqf1wjhdm"]
+[gd_scene load_steps=14 format=3 uid="uid://eyoxqf1wjhdm"]
 
 [ext_resource type="Script" uid="uid://r0auaahxf8bo" path="res://scripts/npc.gd" id="1_54ctn"]
 [ext_resource type="Texture2D" uid="uid://ckmwh6iter3mt" path="res://img/character/sprite_boy_1.png" id="2_54ctn"]
@@ -35,6 +35,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Icon:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_06vv4"]
 resource_name = "boy"
@@ -42,7 +54,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Root/AnimatedRoot/Feet/Icon:texture")
+tracks/0/path = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Icon:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -58,7 +70,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Root/AnimatedRoot/Feet/Icon:texture")
+tracks/0/path = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Icon:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -67,10 +79,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ExtResource("3_8oust")]
 }
-
-[sub_resource type="Animation" id="Animation_04kj1"]
-resource_name = "desire"
-length = 0.001
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Icon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 15)]
+}
 
 [sub_resource type="Animation" id="Animation_fb5s2"]
 resource_name = "girl"
@@ -78,7 +98,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Root/AnimatedRoot/Feet/Icon:texture")
+tracks/0/path = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Icon:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -139,7 +159,6 @@ _data = {
 &"RESET": SubResource("Animation_fvtld"),
 &"boy": SubResource("Animation_06vv4"),
 &"dead": SubResource("Animation_ab2no"),
-&"desire": SubResource("Animation_04kj1"),
 &"girl": SubResource("Animation_fb5s2"),
 &"happy": SubResource("Animation_hjaqi"),
 &"idle": SubResource("Animation_pesj1")
@@ -148,9 +167,9 @@ _data = {
 [node name="NPC" type="Node2D" node_paths=PackedStringArray("visual_root", "sprite", "mask", "desired_mask", "animator")]
 script = ExtResource("1_54ctn")
 visual_root = NodePath("Root")
-sprite = NodePath("Root/AnimatedRoot/Feet/Icon")
-mask = NodePath("Root/AnimatedRoot/Feet/Mask")
-desired_mask = NodePath("Root/AnimatedRoot/Feet/DesireMask")
+sprite = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Icon")
+mask = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Mask")
+desired_mask = NodePath("Root/AnimatedRoot/Feet/LocalPosition/DesireMask")
 animator = NodePath("AnimationPlayer")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -166,22 +185,24 @@ shape = SubResource("CircleShape2D_hjaqi")
 
 [node name="Feet" type="Node2D" parent="Root/AnimatedRoot"]
 position = Vector2(0, 30)
+scale = Vector2(1.0431396, 0.95686036)
 
-[node name="Icon" type="Sprite2D" parent="Root/AnimatedRoot/Feet"]
-position = Vector2(0, -50)
+[node name="LocalPosition" type="Node2D" parent="Root/AnimatedRoot/Feet"]
+position = Vector2(0, -40)
+
+[node name="Icon" type="Sprite2D" parent="Root/AnimatedRoot/Feet/LocalPosition"]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_54ctn")
 
-[node name="Mask" type="Sprite2D" parent="Root/AnimatedRoot/Feet" node_paths=PackedStringArray("sprite")]
-position = Vector2(0, -50)
-scale = Vector2(0.47, 0.47)
+[node name="Mask" type="Sprite2D" parent="Root/AnimatedRoot/Feet/LocalPosition" node_paths=PackedStringArray("sprite")]
+scale = Vector2(0.47000003, 0.47000003)
+offset = Vector2(-12, -20)
 script = ExtResource("3_pesj1")
 sprite = NodePath(".")
-use_desire_sprite = null
 
-[node name="DesireMask" type="Sprite2D" parent="Root/AnimatedRoot/Feet" node_paths=PackedStringArray("sprite")]
-position = Vector2(-58.5, -100)
-scale = Vector2(0.6, 0.6)
+[node name="DesireMask" type="Sprite2D" parent="Root/AnimatedRoot/Feet/LocalPosition" node_paths=PackedStringArray("sprite")]
+position = Vector2(-58.500008, -50.000008)
+scale = Vector2(0.6000001, 0.6000001)
 flip_h = true
 script = ExtResource("3_pesj1")
 sprite = NodePath(".")

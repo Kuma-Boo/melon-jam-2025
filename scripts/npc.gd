@@ -51,10 +51,6 @@ func update_npc() -> void:
 	if desired_mask_resource != null:
 		desired_mask.resource = desired_mask_resource
 		desired_mask.update_sprite()
-		
-		if animator != null:
-			animator.play("desire")
-			animator.advance(0.0)
 
 func update_direction() -> void:
 	visual_root.scale.x = -1 if is_facing_right else 1

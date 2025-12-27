@@ -42,6 +42,7 @@ func _ready():
 	current_position = get_starting_position()
 	target_position = current_position
 	position = current_position * GameManager.TILE_SIZE + GameManager.TILE_OFFSET
+	get_parent().call_deferred("move_child", self, get_parent().get_child_count() - 1) # Fix z-indexing
 
 func initialize() -> void:
 	set_held_mask(starting_mask)
@@ -58,11 +59,7 @@ func _process(delta: float) -> void:
 	
 	process_space_sharing(delta)
 	
-	if GameManager.is_transition_active:
-		return
-	
-	if Input.is_action_just_pressed("restart_level"):
-		GameManager.instance.reload_transition()
+	if state == STATE.TIMEOVER:
 		return
 	
 	process_inputs()
@@ -96,6 +93,9 @@ func process_inputs() -> void:
 		last_input_direction = Vector2.DOWN * vertical_input
 	else:
 		last_input_direction = Vector2.ZERO
+	
+	if !GameManager.is_transition_active && Input.is_action_just_pressed("restart_level"):
+		GameManager.instance.reload_transition()
 
 func check_movement_inputs() -> void:
 	if last_input_direction.is_zero_approx():
