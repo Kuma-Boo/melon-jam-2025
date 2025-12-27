@@ -20,7 +20,10 @@ func _enter_tree() -> void:
 	
 	instance = self
 	GlobalManager.update_current_level_index()
+	
 	time_left = level_start_time
+	update_time_left_interface()
+	
 	animator.play("fade-in")
 	animator.advance(0.0)
 
@@ -57,14 +60,19 @@ func spirit_transition() -> void:
 
 @export var level_start_time : int
 @export var time_interface_head : Sprite2D
+@export var remaining_moves_label : Label
 var time_left : int
 const max_head_position = 380;
 
 func update_time() -> bool:
 	time_left -= 1
+	update_time_left_interface()
+	return time_left == 0
+
+func update_time_left_interface() -> void:
 	var target_head_position = lerp(max_head_position, 0, time_left / (level_start_time as float));
 	time_interface_head.position = Vector2(target_head_position, time_interface_head.position.y)
-	return time_left == 0
+	remaining_moves_label.text = "x" + ("%0*d" % [2, time_left])
 
 var npcs : Array[NPC]
 func register_npc(npc : NPC) -> void:

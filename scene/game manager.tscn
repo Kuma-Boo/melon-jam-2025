@@ -92,6 +92,85 @@ tracks/6/keys = {
 "values": [Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_y14uc"]
+resource_name = "clear"
+length = 1.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transitions/Clear:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Transitions/Clear/TimeLabel:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 0.7, 0.9, 1),
+"transitions": PackedFloat32Array(0.5, 2, 0.5, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.2, 1.2), Vector2(0.9, 0.9), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Transitions/Clear/Layer1:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 900), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Transitions/Clear/Layer2:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(0.5, 2, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, 900), Vector2(0, 0), Vector2(0, 80), Vector2(0, 50)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Transitions/FadeTransition:color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.2, 1.4000001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"load_scene"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_1ttmm"]
 resource_name = "fade-in"
 length = 0.1
@@ -199,85 +278,6 @@ tracks/2/keys = {
 "values": [Color(1, 0.49411765, 0.49019608, 0), Color(0.80784315, 0, 1, 1), Color(1, 0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_y14uc"]
-resource_name = "clear"
-length = 1.5
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Transitions/Clear:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Transitions/Clear/TimeLabel:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.5, 0.7, 0.9, 1),
-"transitions": PackedFloat32Array(0.5, 2, 0.5, 1),
-"update": 0,
-"values": [Vector2(1e-05, 1e-05), Vector2(1.2, 1.2), Vector2(0.9, 0.9), Vector2(1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Transitions/Clear/Layer1:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [Vector2(0, 900), Vector2(0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Transitions/Clear/Layer2:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(0.5, 2, 0.5, 1),
-"update": 0,
-"values": [Vector2(0, 900), Vector2(0, 0), Vector2(0, 80), Vector2(0, 50)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Transitions/FadeTransition:color")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(1.2, 1.4000001),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(1.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"load_scene"
-}]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l2vnv"]
 _data = {
 &"RESET": SubResource("Animation_l2vnv"),
@@ -287,7 +287,7 @@ _data = {
 &"spirit": SubResource("Animation_myrvm")
 }
 
-[node name="GameManager" type="Control" node_paths=PackedStringArray("grid_rect", "animator", "time_interface_head")]
+[node name="GameManager" type="Control" node_paths=PackedStringArray("grid_rect", "animator", "time_interface_head", "remaining_moves_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -300,6 +300,7 @@ grid_rect = NodePath("Grid")
 animator = NodePath("AnimationPlayer")
 level_start_time = 10
 time_interface_head = NodePath("HUD/HUD/Time/Time/HeadPosition/Head")
+remaining_moves_label = NodePath("HUD/HUD/Time/TimeLabel/MoveLabel")
 
 [node name="Grid" type="TextureRect" parent="."]
 layout_mode = 0
@@ -327,12 +328,31 @@ offset_bottom = 130.0
 
 [node name="TimeLabel" type="Label" parent="HUD/HUD/Time"]
 layout_mode = 0
-offset_right = 440.0
+offset_left = 40.0
+offset_right = 320.0
 offset_bottom = 60.0
 theme_override_fonts/font = ExtResource("3_1ttmm")
 theme_override_font_sizes/font_size = 32
-text = "CURRENT TIME"
-horizontal_alignment = 1
+text = "MOVES LEFT :"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MoveLabel" type="Label" parent="HUD/HUD/Time/TimeLabel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -30.0
+offset_right = 160.0
+offset_bottom = 30.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_1ttmm")
+theme_override_font_sizes/font_size = 32
+text = "x10"
 vertical_alignment = 1
 
 [node name="8AM" type="Label" parent="HUD/HUD/Time"]
