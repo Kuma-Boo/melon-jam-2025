@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://eyoxqf1wjhdm"]
+[gd_scene load_steps=16 format=3 uid="uid://eyoxqf1wjhdm"]
 
 [ext_resource type="Script" uid="uid://r0auaahxf8bo" path="res://scripts/npc.gd" id="1_54ctn"]
 [ext_resource type="Texture2D" uid="uid://ckmwh6iter3mt" path="res://img/character/sprite_boy_1.png" id="2_54ctn"]
 [ext_resource type="Texture2D" uid="uid://dw6odyil474ak" path="res://img/character/sprite_dead_1.png" id="3_8oust"]
 [ext_resource type="Script" uid="uid://or682mv86ewx" path="res://scripts/mask.gd" id="3_pesj1"]
+[ext_resource type="Texture2D" uid="uid://clpjoe8csjm68" path="res://img/character/bubble.png" id="4_06vv4"]
 [ext_resource type="Texture2D" uid="uid://diqs6833q8nn5" path="res://img/character/sprite_girl_1.png" id="4_pesj1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hjaqi"]
@@ -34,6 +35,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Root/AnimatedRoot/Feet/DesireBubble:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_06vv4"]
@@ -66,6 +79,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("3_8oust")]
+}
+
+[sub_resource type="Animation" id="Animation_04kj1"]
+resource_name = "desire"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Root/AnimatedRoot/Feet/DesireBubble:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_fb5s2"]
@@ -135,16 +164,18 @@ _data = {
 &"RESET": SubResource("Animation_fvtld"),
 &"boy": SubResource("Animation_06vv4"),
 &"dead": SubResource("Animation_ab2no"),
+&"desire": SubResource("Animation_04kj1"),
 &"girl": SubResource("Animation_fb5s2"),
 &"happy": SubResource("Animation_hjaqi"),
 &"idle": SubResource("Animation_pesj1")
 }
 
-[node name="NPC" type="Node2D" node_paths=PackedStringArray("visual_root", "sprite", "mask", "animator")]
+[node name="NPC" type="Node2D" node_paths=PackedStringArray("visual_root", "sprite", "mask", "desired_mask", "animator")]
 script = ExtResource("1_54ctn")
 visual_root = NodePath("Root")
 sprite = NodePath("Root/AnimatedRoot/Feet/Icon")
 mask = NodePath("Root/AnimatedRoot/Feet/Mask")
+desired_mask = NodePath("Root/AnimatedRoot/Feet/DesireBubble/DesireMask")
 animator = NodePath("AnimationPlayer")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -169,6 +200,18 @@ texture = ExtResource("2_54ctn")
 [node name="Mask" type="Sprite2D" parent="Root/AnimatedRoot/Feet" node_paths=PackedStringArray("sprite")]
 position = Vector2(0, -50)
 scale = Vector2(0.47, 0.47)
+script = ExtResource("3_pesj1")
+sprite = NodePath(".")
+
+[node name="DesireBubble" type="Sprite2D" parent="Root/AnimatedRoot/Feet"]
+visible = false
+z_index = 10
+position = Vector2(-60, -100)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_06vv4")
+
+[node name="DesireMask" type="Sprite2D" parent="Root/AnimatedRoot/Feet/DesireBubble" node_paths=PackedStringArray("sprite")]
+position = Vector2(5, 0)
 script = ExtResource("3_pesj1")
 sprite = NodePath(".")
 

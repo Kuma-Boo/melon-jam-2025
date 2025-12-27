@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://or682mv86ewx" path="res://scripts/mask.gd" id="1_1h5ay"]
 [ext_resource type="Resource" uid="uid://bs1j4hsffgwxf" path="res://resource/fox mask.tres" id="2_xikr7"]
-[ext_resource type="Texture2D" uid="uid://qxb874nt8vtt" path="res://icon.svg" id="3_a7t7s"]
+[ext_resource type="Texture2D" uid="uid://bh5bw7lr8xugj" path="res://img/mask/mask_fox.png" id="3_xikr7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1h5ay"]
 radius = 30.0
@@ -21,7 +21,7 @@ shape = SubResource("CircleShape2D_1h5ay")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_a7t7s")
+texture = ExtResource("3_xikr7")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 

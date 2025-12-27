@@ -1,0 +1,219 @@
+[gd_scene load_steps=18 format=3 uid="uid://dm07c1v7dsib6"]
+
+[ext_resource type="Script" uid="uid://bbp0o4nc6gv6u" path="res://scripts/fire.gd" id="1_hv5h5"]
+[ext_resource type="Shader" uid="uid://ckb7643exfuv0" path="res://shader/fire.gdshader" id="2_4uq7g"]
+[ext_resource type="Texture2D" uid="uid://bwgyjhjc8v3c8" path="res://img/object/flame.png" id="3_l7rlu"]
+[ext_resource type="Texture2D" uid="uid://dkigevg5mg2xc" path="res://img/object/displacement.png" id="4_uf5y2"]
+[ext_resource type="Texture2D" uid="uid://h0kucjtpfhv8" path="res://img/object/ember.png" id="5_uf5y2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hv5h5"]
+radius = 30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fr6wy"]
+shader = ExtResource("2_4uq7g")
+shader_parameter/displacement = ExtResource("4_uf5y2")
+shader_parameter/base_flame = ExtResource("3_l7rlu")
+shader_parameter/displacement_scale = Vector2(0.5, 1.835)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_uf5y2"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_uf5y2"]
+_data = [Vector2(0, 0), 0.0, 11.214368, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_eyuee"]
+width = 64
+texture_mode = 1
+curve = SubResource("Curve_uf5y2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qdtbh"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 30, 0)
+emission_shape = 3
+emission_box_extents = Vector3(60, 30, 1)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.19999999
+scale_max = 0.39999998
+color = Color(1, 0.16470589, 0, 1)
+alpha_curve = SubResource("CurveTexture_eyuee")
+
+[sub_resource type="Gradient" id="Gradient_uf5y2"]
+offsets = PackedFloat32Array(0.048484847, 0.56060606, 1)
+colors = PackedColorArray(0.67058825, 0, 0, 1, 0.49050194, 0, 0.15017667, 1, 0.92941177, 0.4117647, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_eyuee"]
+gradient = SubResource("Gradient_uf5y2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uf5y2"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.19999999
+scale_max = 0.39999998
+color_initial_ramp = SubResource("GradientTexture1D_eyuee")
+alpha_curve = SubResource("CurveTexture_eyuee")
+
+[sub_resource type="Animation" id="Animation_srsca"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Embers:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationRoot:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationRoot:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Area2D:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_wsd46"]
+resource_name = "defuse"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Embers:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationRoot:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(0.5, 0.5, 2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 0.8), Vector2(0.8, 1.2), Vector2(1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationRoot:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Area2D:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_srsca"]
+_data = {
+&"RESET": SubResource("Animation_srsca"),
+&"defuse": SubResource("Animation_wsd46")
+}
+
+[node name="Fire" type="Node2D" node_paths=PackedStringArray("explosion_vfx", "animator")]
+script = ExtResource("1_hv5h5")
+explosion_vfx = NodePath("Explosion")
+animator = NodePath("AnimationPlayer")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_hv5h5")
+
+[node name="AnimationRoot" type="Node2D" parent="."]
+position = Vector2(0, 39.999996)
+
+[node name="w" type="Sprite2D" parent="AnimationRoot"]
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_fr6wy")
+position = Vector2(0, -59.999992)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("4_uf5y2")
+
+[node name="Embers" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_uf5y2")
+texture = ExtResource("5_uf5y2")
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_qdtbh")
+
+[node name="Explosion" type="GPUParticles2D" parent="."]
+position = Vector2(0, 20)
+emitting = false
+amount = 16
+texture = ExtResource("5_uf5y2")
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_uf5y2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_srsca")
+}
+
+[connection signal="area_entered" from="Area2D" to="." method="on_area_entered"]

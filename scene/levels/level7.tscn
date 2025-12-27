@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://c3djw2e33vrli"]
+
+[ext_resource type="PackedScene" uid="uid://bx400gh04q068" path="res://scene/game manager.tscn" id="1_uhynm"]
+[ext_resource type="PackedScene" uid="uid://dsfgv8eyv7r05" path="res://scene/player.tscn" id="2_hs8q1"]
+[ext_resource type="Resource" uid="uid://bs1j4hsffgwxf" path="res://resource/fox mask.tres" id="4_uhynm"]
+[ext_resource type="PackedScene" uid="uid://eyoxqf1wjhdm" path="res://scene/npc.tscn" id="4_xkamj"]
+[ext_resource type="PackedScene" uid="uid://cggyenydyg3q1" path="res://scene/mask.tscn" id="6_5lvjh"]
+[ext_resource type="Resource" uid="uid://8jodir6k611e" path="res://resource/rabbit mask.tres" id="7_gn70y"]
+[ext_resource type="PackedScene" uid="uid://cfo5fxt18ptxw" path="res://scene/object/wall.tscn" id="10_uub8f"]
+[ext_resource type="PackedScene" uid="uid://h7po604lpid5" path="res://scene/object/growth wall.tscn" id="11_5lvjh"]
+
+[node name="World" type="Node"]
+
+[node name="GameManager" parent="." instance=ExtResource("1_uhynm")]
+grid_size = Vector2i(5, 4)
+level_start_time = 13
+
+[node name="Player" parent="." instance=ExtResource("2_hs8q1")]
+position = Vector2(250, 350)
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(450, 200)
+zoom = Vector2(1.2, 1.2)
+limit_enabled = false
+
+[node name="NPC1" parent="." instance=ExtResource("4_xkamj")]
+position = Vector2(450, 150)
+desired_mask_resource = ExtResource("4_uhynm")
+
+[node name="NPC2" parent="." instance=ExtResource("4_xkamj")]
+position = Vector2(50, 50)
+npc_type = 1
+is_facing_right = true
+desired_mask_resource = ExtResource("7_gn70y")
+
+[node name="Mask1" parent="." instance=ExtResource("6_5lvjh")]
+position = Vector2(150, 350)
+resource = ExtResource("7_gn70y")
+
+[node name="Mask2" parent="." instance=ExtResource("6_5lvjh")]
+position = Vector2(350, 350)
+
+[node name="GrowthWall7" parent="." instance=ExtResource("11_5lvjh")]
+position = Vector2(350, 150)
+
+[node name="GrowthWall9" parent="." instance=ExtResource("11_5lvjh")]
+position = Vector2(150, 150)
+
+[node name="Wall" parent="." instance=ExtResource("10_uub8f")]
+position = Vector2(50, 250)
+
+[node name="Wall2" parent="." instance=ExtResource("10_uub8f")]
+position = Vector2(450, 250)

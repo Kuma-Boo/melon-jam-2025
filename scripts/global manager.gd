@@ -6,12 +6,15 @@ var level_list : Array = [
 	"res://scene/levels/level3.tscn",
 	"res://scene/levels/level4.tscn",
 	"res://scene/levels/level5.tscn",
+	"res://scene/levels/level6.tscn",
+	"res://scene/levels/level7.tscn",
+	"res://scene/levels/level8.tscn"
 ]
 
 var current_level_index : int
 
 func update_current_level_index() -> void:
-	current_level_index = level_list.find(get_tree().current_scene)
+	current_level_index = level_list.find(get_tree().current_scene.get_scene_file_path())
 
 func get_next_level() -> String:
 	current_level_index += 1

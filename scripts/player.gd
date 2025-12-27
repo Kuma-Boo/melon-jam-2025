@@ -116,12 +116,16 @@ func start_movement_animation(input_direction : int):
 	animator.play("move")
 
 func finish_movement():
+	is_mask_just_picked_up = false
 	start_idle()
-	
+	if consecutive_movement_amount != 0:
+		advance_time()
+	consecutive_movement_amount = 0
+
+func advance_time():
 	if GameManager.instance.update_time():
 		state = STATE.TIMEOVER
 		GameManager.instance.spirit_transition()
-		return
 
 var movement_direction : int
 func process_movement(delta : float) -> void:
@@ -134,15 +138,15 @@ func process_movement(delta : float) -> void:
 	
 	if (is_zero_approx(position_interpolation_value) && movement_direction < 0) || (is_equal_approx(position_interpolation_value, 1.0) && movement_direction > 0):
 		if movement_direction < 0:
-			start_idle()
+			finish_movement()
 			target_position = current_position
 			return
 		
 		current_position = target_position
+		consecutive_movement_amount += 1
 		
 		if mask.resource != null && mask.resource.mask_type == MaskResource.MASK_TYPES.RABBIT:
-			consecutive_movement_amount += 1
-			if consecutive_movement_amount < 2:
+			if consecutive_movement_amount < 2 && !is_mask_just_picked_up:
 				state = STATE.IDLE
 				move()
 				return
@@ -151,16 +155,17 @@ func process_movement(delta : float) -> void:
 
 func start_idle():
 	state = STATE.IDLE
-	consecutive_movement_amount = 0
 	animator.play("idle")
 
 func cancel_movement() -> void:
 	movement_direction = -1
 
+var is_mask_just_picked_up : bool
 func get_held_mask() -> MaskResource:
 	return mask.resource
 
 func set_held_mask(new_mask : MaskResource) -> void:
+	is_mask_just_picked_up = true
 	mask.resource = new_mask
 	mask.update_sprite()
 

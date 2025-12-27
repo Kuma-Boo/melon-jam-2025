@@ -6,16 +6,21 @@ class_name NPC
 
 @export_enum("Boy", "Girl") var npc_type : int = 0
 @export var is_facing_right : bool
-@export var initial_mask : MaskResource
-@export var desired_mask : MaskResource
+@export var initial_mask_resource : MaskResource
+@export var desired_mask_resource : MaskResource
 
 @export_group("Components")
 @export var visual_root : Node2D
 @export var sprite : Sprite2D
 @export var mask : Mask
+@export var desired_mask : Mask
 @export var animator : AnimationPlayer
 
 func _enter_tree() -> void:
+	if animator != null:
+		animator.play("RESET")
+		animator.advance(0.0)
+	
 	update_npc()
 
 func _ready() -> void:
@@ -37,8 +42,16 @@ func update_npc() -> void:
 		animator.advance(0.0)
 	
 	if mask != null:
-		mask.resource = initial_mask
+		mask.resource = initial_mask_resource
 		mask.update_sprite()
+	
+	if desired_mask_resource != null:
+		desired_mask.resource = desired_mask_resource
+		desired_mask.update_sprite()
+		
+		if animator != null:
+			animator.play("desire")
+			animator.advance(0.0)
 
 func update_direction() -> void:
 	visual_root.scale.x = -1 if is_facing_right else 1
@@ -68,7 +81,7 @@ func on_area_entered(area: Area2D) -> void:
 	# Swap masks with the player
 	var new_mask : MaskResource = area.get_parent().get_held_mask()
 	
-	if desired_mask != null && desired_mask != new_mask: # NPC doesn't want this mask
+	if desired_mask_resource != null && desired_mask_resource != new_mask: # NPC doesn't want this mask
 		return
 	
 	is_facing_right = !area.get_parent().is_facing_right

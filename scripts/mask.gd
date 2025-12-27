@@ -20,9 +20,16 @@ func on_area_entered(area: Area2D) -> void:
 	if !area.is_in_group("player"):
 		return
 	
-	if area.get_parent().get_held_mask() != null:
+	var new_mask : MaskResource = area.get_parent().get_held_mask()
+	if new_mask != null && new_mask.mask_type == MaskResource.MASK_TYPES.CURSED:
 		return
 	
 	area.get_parent().set_held_mask(resource)
+	resource = new_mask
+	update_sprite()
+	
+	if new_mask != null:
+		return
+	
 	visible = false
 	set_deferred("process_mode", Node.PROCESS_MODE_DISABLED)

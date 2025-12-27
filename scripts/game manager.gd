@@ -19,6 +19,7 @@ func _enter_tree() -> void:
 		return
 	
 	instance = self
+	GlobalManager.update_current_level_index()
 	time_left = level_start_time
 	animator.play("fade-in")
 	animator.advance(0.0)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwgyjhjc8v3c8"
-path="res://.godot/imported/flame.png-7178cfd77a307f65275fbd772d5e88d0.ctex"
+uid="uid://dtatnv6sf2nlf"
+path="res://.godot/imported/mask_bear.png-cf989829ed950da018b1e48743ccbcc9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/fire/flame.png"
-dest_files=["res://.godot/imported/flame.png-7178cfd77a307f65275fbd772d5e88d0.ctex"]
+source_file="res://img/mask/mask_bear.png"
+dest_files=["res://.godot/imported/mask_bear.png-cf989829ed950da018b1e48743ccbcc9.ctex"]
 
 [params]
 

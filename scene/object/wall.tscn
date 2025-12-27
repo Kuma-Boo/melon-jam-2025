@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfo5fxt18ptxw"]
+
+[ext_resource type="Script" uid="uid://mgp3tbhchch4" path="res://scripts/wall.gd" id="1_nm746"]
+[ext_resource type="Texture2D" uid="uid://7uitxux7tf75" path="res://img/object/stump.png" id="2_nm746"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o81og"]
+radius = 30.0
+
+[node name="Wall" type="Node2D"]
+script = ExtResource("1_nm746")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_o81og")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_nm746")
+
+[connection signal="area_entered" from="Area2D" to="." method="on_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="on_area_exited"]

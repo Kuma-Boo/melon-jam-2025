@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkigevg5mg2xc"
-path="res://.godot/imported/displacement.png-0edf35b23db71eeff5758f1312b06bd9.ctex"
+uid="uid://h0kucjtpfhv8"
+path="res://.godot/imported/ember.png-3f8330fa96c934bbb325f13192b2cfd4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/fire/displacement.png"
-dest_files=["res://.godot/imported/displacement.png-0edf35b23db71eeff5758f1312b06bd9.ctex"]
+source_file="res://img/object/ember.png"
+dest_files=["res://.godot/imported/ember.png-3f8330fa96c934bbb325f13192b2cfd4.ctex"]
 
 [params]
 

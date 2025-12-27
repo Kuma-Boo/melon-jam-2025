@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://h0kucjtpfhv8"
-path="res://.godot/imported/ember.png-51ba8018ea6b3a414e049074f1b2f528.ctex"
+uid="uid://bwgyjhjc8v3c8"
+path="res://.godot/imported/flame.png-61f0369fee22ff3e812a13cdfb36b47d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/fire/ember.png"
-dest_files=["res://.godot/imported/ember.png-51ba8018ea6b3a414e049074f1b2f528.ctex"]
+source_file="res://img/object/flame.png"
+dest_files=["res://.godot/imported/flame.png-61f0369fee22ff3e812a13cdfb36b47d.ctex"]
 
 [params]
 
