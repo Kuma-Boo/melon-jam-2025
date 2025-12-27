@@ -41,10 +41,7 @@ func update_npc() -> void:
 		mask.update_sprite()
 
 func update_direction() -> void:
-	if is_facing_right:
-		visual_root.scale.x = -1
-	else:
-		visual_root.scale.x = 1
+	visual_root.scale.x = -1 if is_facing_right else 1
 
 func has_mask() -> bool:
 	return mask.resource != null
@@ -55,13 +52,14 @@ func process_space_sharing(delta : float) -> void:
 	var target_space_share_position = space_share_direction * Vector2.RIGHT * GameManager.SPACE_SHARE_AMOUNT
 	visual_root.position = visual_root.position.move_toward(target_space_share_position,  SPACE_SHARE_SMOOTHING * delta)
 
-func kill_npc() -> void:
+func kill_npc() -> bool:
 	if has_mask() && mask.resource.mask_type != MaskResource.MASK_TYPES.CURSED:
-		return
+		return false
 	
 	animator.play("dead")
 	animator.advance(0.0)
 	animator.play("idle")
+	return true
 
 func on_area_entered(area: Area2D) -> void:
 	if !area.is_in_group("player"):
@@ -75,10 +73,7 @@ func on_area_entered(area: Area2D) -> void:
 	
 	is_facing_right = !area.get_parent().is_facing_right
 	update_direction()
-	if is_facing_right:
-		space_share_direction = -1
-	else:
-		space_share_direction = 1
+	space_share_direction = -1 if is_facing_right else 1
 	area.get_parent().set_space_share_direction(-space_share_direction)
 	
 	area.get_parent().set_held_mask(mask.resource)

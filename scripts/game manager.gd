@@ -20,8 +20,8 @@ func _enter_tree() -> void:
 	
 	instance = self
 	time_left = level_start_time
-	transition_animator.play("fade-in")
-	transition_animator.advance(0.0)
+	animator.play("fade-in")
+	animator.advance(0.0)
 
 func setup_grid() -> void:
 	if grid_rect != null:
@@ -33,21 +33,26 @@ func clamp_position(pos : Vector2) -> Vector2:
 	pos = pos.round()
 	return pos
 
-@export var transition_animator : AnimationPlayer
+@export var animator : AnimationPlayer
 static var is_transition_active : bool
 func reload_transition() -> void:
+	target_scene = ""
 	is_transition_active = true
-	transition_animator.play("fade-out")
+	animator.play("fade-out")
 
 func finish_transition() -> void:
 	is_transition_active = false
 
-func reload_scene() -> void:
-	get_tree().reload_current_scene()
+var target_scene : StringName
+func load_scene() -> void:
+	if target_scene.is_empty():
+		get_tree().reload_current_scene()
+	else:
+		get_tree().change_scene_to_file(target_scene)
 
 func spirit_transition() -> void:
 	is_transition_active = true
-	transition_animator.play("spirit");
+	animator.play("spirit");
 
 @export var level_start_time : int
 @export var time_interface_head : Sprite2D
@@ -65,7 +70,14 @@ func register_npc(npc : NPC) -> void:
 	npcs.append(npc)
 
 func kill_npcs() -> void:
+	var is_mission_cleared : bool = true
 	for npc in npcs:
-		npc.kill_npc()
+		if npc.kill_npc():
+			is_mission_cleared = false
 	
-	Player.instance.kill_player()
+	if Player.instance.kill_player():
+		is_mission_cleared = false
+	
+	if is_mission_cleared:
+		target_scene = GlobalManager.get_next_level()
+		animator.play("clear")
