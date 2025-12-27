@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://eyoxqf1wjhdm"]
+[gd_scene load_steps=15 format=3 uid="uid://eyoxqf1wjhdm"]
 
 [ext_resource type="Script" uid="uid://r0auaahxf8bo" path="res://scripts/npc.gd" id="1_54ctn"]
+[ext_resource type="Resource" uid="uid://chgjifa0lwmee" path="res://resource/satisfied mask.tres" id="2_06vv4"]
 [ext_resource type="Texture2D" uid="uid://ckmwh6iter3mt" path="res://img/character/sprite_boy_1.png" id="2_54ctn"]
 [ext_resource type="Texture2D" uid="uid://dw6odyil474ak" path="res://img/character/sprite_dead_1.png" id="3_8oust"]
 [ext_resource type="Script" uid="uid://or682mv86ewx" path="res://scripts/mask.gd" id="3_pesj1"]
@@ -170,6 +171,7 @@ visual_root = NodePath("Root")
 sprite = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Icon")
 mask = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Mask")
 desired_mask = NodePath("Root/AnimatedRoot/Feet/LocalPosition/DesireMask")
+satisfied_mask_resource = ExtResource("2_06vv4")
 animator = NodePath("AnimationPlayer")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -201,9 +203,9 @@ script = ExtResource("3_pesj1")
 sprite = NodePath(".")
 
 [node name="DesireMask" type="Sprite2D" parent="Root/AnimatedRoot/Feet/LocalPosition" node_paths=PackedStringArray("sprite")]
-position = Vector2(-58.500008, -50.000008)
+z_index = 1
+position = Vector2(58, -50)
 scale = Vector2(0.6000001, 0.6000001)
-flip_h = true
 script = ExtResource("3_pesj1")
 sprite = NodePath(".")
 use_desire_sprite = true

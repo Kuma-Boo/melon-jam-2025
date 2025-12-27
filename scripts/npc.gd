@@ -14,6 +14,7 @@ class_name NPC
 @export var sprite : Sprite2D
 @export var mask : Mask
 @export var desired_mask : Mask
+@export var satisfied_mask_resource : MaskResource
 @export var animator : AnimationPlayer
 
 func _enter_tree() -> void:
@@ -48,9 +49,14 @@ func update_npc() -> void:
 		mask.resource = initial_mask_resource
 		mask.update_sprite()
 	
-	if desired_mask_resource != null:
-		desired_mask.resource = desired_mask_resource
-		desired_mask.update_sprite()
+	update_mask_bubble()
+
+func update_mask_bubble() -> void:
+	if desired_mask_resource == null:
+		return
+	
+	desired_mask.resource = satisfied_mask_resource if desired_mask.resource == desired_mask_resource else desired_mask_resource
+	desired_mask.update_sprite()
 
 func update_direction() -> void:
 	visual_root.scale.x = -1 if is_facing_right else 1
@@ -91,6 +97,7 @@ func on_area_entered(area: Area2D) -> void:
 	area.get_parent().set_held_mask(mask.resource)
 	mask.resource = new_mask
 	mask.update_sprite()
+	update_mask_bubble()
 	
 	if new_mask != null && new_mask.mask_type != MaskResource.MASK_TYPES.CURSED:
 		animator.play("happy")

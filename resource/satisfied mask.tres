@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MaskResource" load_steps=3 format=3 uid="uid://chgjifa0lwmee"]
+
+[ext_resource type="Texture2D" uid="uid://dhy15pj8dp4uf" path="res://img/mask/heart_bubble.png" id="1_8rtjg"]
+[ext_resource type="Script" uid="uid://cdn6eshyqm6lg" path="res://scripts/mask resource.gd" id="2_r7iyp"]
+
+[resource]
+script = ExtResource("2_r7iyp")
+mask_type = 4
+desire_texture = ExtResource("1_8rtjg")
+metadata/_custom_type_script = "uid://cdn6eshyqm6lg"

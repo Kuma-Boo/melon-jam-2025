@@ -189,8 +189,11 @@ func set_held_mask(new_mask : MaskResource) -> void:
 
 func kill_player() -> bool:
 	if mask.resource != null && mask.resource.mask_type == MaskResource.MASK_TYPES.CURSED:
-		animator.play("dead")
-		animator.advance(0.0)
-		animator.play("idle")
+		force_kill_player()
 		return true
 	return false
+
+func force_kill_player() -> void:
+	animator.play("dead")
+	animator.advance(0.0)
+	animator.play("idle")

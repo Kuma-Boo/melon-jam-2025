@@ -42,7 +42,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Root/AnimatedRoot/Feet/Sprite:texture")
+tracks/2/path = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Sprite:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -63,6 +63,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Root/AnimatedRoot/Feet/LocalPosition:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -40)]
+}
 
 [sub_resource type="Animation" id="Animation_ct4mp"]
 resource_name = "dead"
@@ -70,7 +82,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Root/AnimatedRoot/Feet/Sprite:texture")
+tracks/0/path = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Sprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -78,6 +90,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("4_ct4mp")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Root/AnimatedRoot/Feet/LocalPosition:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_s4jxa"]
@@ -136,7 +160,7 @@ _data = {
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("mask", "visual_root", "animator")]
 script = ExtResource("1_hjaqi")
-mask = NodePath("Root/AnimatedRoot/Feet/Mask")
+mask = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Mask")
 movement_curve = SubResource("Curve_fwul8")
 visual_root = NodePath("Root")
 animator = NodePath("AnimationPlayer")
@@ -155,13 +179,16 @@ shape = SubResource("CircleShape2D_hjaqi")
 [node name="Feet" type="Node2D" parent="Root/AnimatedRoot"]
 position = Vector2(0, 40)
 
-[node name="Sprite" type="Sprite2D" parent="Root/AnimatedRoot/Feet"]
-position = Vector2(0, -70)
+[node name="LocalPosition" type="Node2D" parent="Root/AnimatedRoot/Feet"]
+position = Vector2(0, -40)
+
+[node name="Sprite" type="Sprite2D" parent="Root/AnimatedRoot/Feet/LocalPosition"]
+position = Vector2(0, -30)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_hjaqi")
 
-[node name="Mask" type="Sprite2D" parent="Root/AnimatedRoot/Feet" node_paths=PackedStringArray("sprite")]
-position = Vector2(10, -40)
+[node name="Mask" type="Sprite2D" parent="Root/AnimatedRoot/Feet/LocalPosition" node_paths=PackedStringArray("sprite")]
+position = Vector2(10, 0)
 scale = Vector2(0.3, 0.3)
 script = ExtResource("3_ct4mp")
 sprite = NodePath(".")

@@ -4,6 +4,7 @@ class_name GameManager
 
 static var instance : GameManager
 
+signal killing_characters
 const TILE_SIZE = 100
 const TILE_OFFSET = Vector2.ONE * TILE_SIZE * 0.5
 const SPACE_SHARE_AMOUNT = TILE_SIZE * 0.3
@@ -71,9 +72,15 @@ func update_time() -> bool:
 		bonus_time -= 1
 	else:
 		time_left -= 1
+	time_left = max(time_left, 0)
 	
 	update_time_left_interface()
 	return time_left == 0
+
+func force_timeout() -> void:
+	time_left = 0
+	bonus_time = 0
+	Player.instance.advance_time()
 
 func add_bonus_time() -> void:
 	bonus_time = 5
@@ -101,3 +108,5 @@ func kill_npcs() -> void:
 	if is_mission_cleared:
 		target_scene = GlobalManager.get_next_level()
 		animator.play("clear")
+	
+	emit_signal("killing_characters")

@@ -1,26 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://dx01j66c0fyj1"]
+[gd_scene load_steps=7 format=3 uid="uid://dx01j66c0fyj1"]
 
 [ext_resource type="PackedScene" uid="uid://bx400gh04q068" path="res://scene/game manager.tscn" id="1_xbag8"]
 [ext_resource type="PackedScene" uid="uid://dsfgv8eyv7r05" path="res://scene/player.tscn" id="2_f4ok1"]
-[ext_resource type="Resource" uid="uid://bs1j4hsffgwxf" path="res://resource/fox mask.tres" id="3_048lp"]
+[ext_resource type="PackedScene" uid="uid://cggyenydyg3q1" path="res://scene/mask.tscn" id="5_xbag8"]
+[ext_resource type="Resource" uid="uid://c3lthb3kw0ex7" path="res://resource/cursed mask.tres" id="6_f4ok1"]
 [ext_resource type="PackedScene" uid="uid://eyoxqf1wjhdm" path="res://scene/npc.tscn" id="6_idnuy"]
+[ext_resource type="PackedScene" uid="uid://dm07c1v7dsib6" path="res://scene/object/fire.tscn" id="6_xbag8"]
 
 [node name="World" type="Node"]
 
 [node name="GameManager" parent="." instance=ExtResource("1_xbag8")]
-grid_size = Vector2i(5, 5)
+grid_size = Vector2i(4, 3)
 level_start_time = 6
 
 [node name="Level" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="Player" parent="Level" instance=ExtResource("2_f4ok1")]
-position = Vector2(50, 240)
-starting_mask = ExtResource("3_048lp")
+position = Vector2(50, 150)
 
 [node name="Camera" type="Camera2D" parent="Level"]
-position = Vector2(600, 250)
+position = Vector2(480, 150)
+zoom = Vector2(1.2, 1.2)
 limit_enabled = false
 
 [node name="NPC" parent="Level" instance=ExtResource("6_idnuy")]
-position = Vector2(450, 250)
+position = Vector2(350, 150)
+
+[node name="Mask" parent="Level" instance=ExtResource("5_xbag8")]
+position = Vector2(250, 150)
+resource = ExtResource("6_f4ok1")
+
+[node name="Mask2" parent="Level" instance=ExtResource("5_xbag8")]
+position = Vector2(250, 50)
+resource = ExtResource("6_f4ok1")
+
+[node name="Mask3" parent="Level" instance=ExtResource("5_xbag8")]
+position = Vector2(250, 250)
+resource = ExtResource("6_f4ok1")
+
+[node name="Mask4" parent="Level" instance=ExtResource("5_xbag8")]
+position = Vector2(150, 150)
+
+[node name="Fire" parent="Level" instance=ExtResource("6_xbag8")]
+position = Vector2(350, 250)
+
+[node name="Fire2" parent="Level" instance=ExtResource("6_xbag8")]
+position = Vector2(350, 50)
