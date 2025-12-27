@@ -27,6 +27,15 @@ func _enter_tree() -> void:
 	
 	animator.play("fade-in")
 	animator.advance(0.0)
+	
+	update_level_text()
+
+func update_level_text() -> void:
+	var level_text : String = get_tree().current_scene.get_scene_file_path()
+	var level_text_array = level_text.split("/")
+	level_text = level_text_array[level_text_array.size() - 1].replace(".tscn", "")
+	level_text = level_text.replace("level", "LEVEL ")
+	level_label.text = level_text
 
 func setup_grid() -> void:
 	if grid_rect != null:
@@ -63,6 +72,7 @@ func spirit_transition() -> void:
 @export var time_interface_head : Sprite2D
 @export var remaining_moves_label : Label
 @export var bonus_moves_label : Label
+@export var level_label : Label
 var time_left : int
 var bonus_time : int
 const max_head_position = 380;

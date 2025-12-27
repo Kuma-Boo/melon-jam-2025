@@ -288,7 +288,7 @@ _data = {
 &"spirit": SubResource("Animation_myrvm")
 }
 
-[node name="GameManager" type="Control" node_paths=PackedStringArray("grid_rect", "animator", "time_interface_head", "remaining_moves_label", "bonus_moves_label")]
+[node name="GameManager" type="Control" node_paths=PackedStringArray("grid_rect", "animator", "time_interface_head", "remaining_moves_label", "bonus_moves_label", "level_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -303,8 +303,9 @@ level_start_time = 10
 time_interface_head = NodePath("HUD/HUD/Time/Time/HeadPosition/Head")
 remaining_moves_label = NodePath("HUD/HUD/Time/TimeLabel/MoveLabel")
 bonus_moves_label = NodePath("HUD/HUD/Time/TimeLabel/BonusLabel")
+level_label = NodePath("HUD/HUD/Level/LevelLabel")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = -1160.0
 offset_top = -320.0
@@ -438,6 +439,22 @@ offset_bottom = 10.0
 position = Vector2(0, -2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_myrvm")
+
+[node name="Level" type="Control" parent="HUD/HUD"]
+anchors_preset = 0
+offset_top = 20.0
+offset_right = 440.0
+offset_bottom = 80.0
+
+[node name="LevelLabel" type="Label" parent="HUD/HUD/Level"]
+layout_mode = 0
+offset_left = 40.0
+offset_right = 320.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("3_1ttmm")
+theme_override_font_sizes/font_size = 32
+text = "Level 1"
+vertical_alignment = 1
 
 [node name="Transitions" type="CanvasLayer" parent="."]
 
