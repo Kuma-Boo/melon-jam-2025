@@ -61,18 +61,29 @@ func spirit_transition() -> void:
 @export var level_start_time : int
 @export var time_interface_head : Sprite2D
 @export var remaining_moves_label : Label
+@export var bonus_moves_label : Label
 var time_left : int
+var bonus_time : int
 const max_head_position = 380;
 
 func update_time() -> bool:
-	time_left -= 1
+	if bonus_time > 0:
+		bonus_time -= 1
+	else:
+		time_left -= 1
+	
 	update_time_left_interface()
 	return time_left == 0
+
+func add_bonus_time() -> void:
+	bonus_time = 5
 
 func update_time_left_interface() -> void:
 	var target_head_position = lerp(max_head_position, 0, time_left / (level_start_time as float));
 	time_interface_head.position = Vector2(target_head_position, time_interface_head.position.y)
 	remaining_moves_label.text = "x" + ("%0*d" % [2, time_left])
+	bonus_moves_label.text = "+" + str(bonus_time)
+	bonus_moves_label.visible = bonus_time > 0
 
 var npcs : Array[NPC]
 func register_npc(npc : NPC) -> void:

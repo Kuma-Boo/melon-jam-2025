@@ -287,7 +287,7 @@ _data = {
 &"spirit": SubResource("Animation_myrvm")
 }
 
-[node name="GameManager" type="Control" node_paths=PackedStringArray("grid_rect", "animator", "time_interface_head", "remaining_moves_label")]
+[node name="GameManager" type="Control" node_paths=PackedStringArray("grid_rect", "animator", "time_interface_head", "remaining_moves_label", "bonus_moves_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -301,6 +301,7 @@ animator = NodePath("AnimationPlayer")
 level_start_time = 10
 time_interface_head = NodePath("HUD/HUD/Time/Time/HeadPosition/Head")
 remaining_moves_label = NodePath("HUD/HUD/Time/TimeLabel/MoveLabel")
+bonus_moves_label = NodePath("HUD/HUD/Time/TimeLabel/BonusLabel")
 
 [node name="Grid" type="TextureRect" parent="."]
 layout_mode = 0
@@ -323,8 +324,9 @@ color = Color(0.24705882, 0.28627452, 0.5529412, 1)
 
 [node name="Time" type="Control" parent="HUD/HUD"]
 anchors_preset = 0
+offset_top = 100.0
 offset_right = 440.0
-offset_bottom = 130.0
+offset_bottom = 230.0
 
 [node name="TimeLabel" type="Label" parent="HUD/HUD/Time"]
 layout_mode = 0
@@ -353,6 +355,24 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_1ttmm")
 theme_override_font_sizes/font_size = 32
 text = "x10"
+vertical_alignment = 1
+
+[node name="BonusLabel" type="Label" parent="HUD/HUD/Time/TimeLabel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -70.0
+offset_right = 160.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_1ttmm")
+theme_override_font_sizes/font_size = 32
+text = "+1"
 vertical_alignment = 1
 
 [node name="8AM" type="Label" parent="HUD/HUD/Time"]

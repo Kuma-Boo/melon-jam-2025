@@ -24,6 +24,9 @@ func _ready() -> void:
 		GameManager.instance.register_npc(self)
 
 func _process(delta : float) -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	process_space_sharing(delta)
 
 func update_npc() -> void:

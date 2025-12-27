@@ -1,9 +1,13 @@
+@tool
 extends Node2D
 class_name Player
 
 static var instance : Player
 
+@export_tool_button("Editor Update") var editor_update = initialize
+
 @export_group("Components")
+@export var starting_mask : MaskResource
 @export var mask : Mask
 @export var movement_curve : Curve
 @export var visual_root : Node2D
@@ -25,12 +29,22 @@ enum STATE {
 }
 
 func _enter_tree() -> void:
+	initialize()
+	if Engine.is_editor_hint():
+		return
+	
 	instance = self
 
 func _ready():
+	if Engine.is_editor_hint():
+		return
+	
 	current_position = get_starting_position()
 	target_position = current_position
 	position = current_position * GameManager.TILE_SIZE + GameManager.TILE_OFFSET
+
+func initialize() -> void:
+	set_held_mask(starting_mask)
 
 func get_starting_position() -> Vector2:
 	var pos : Vector2 = (position - GameManager.TILE_OFFSET)
@@ -39,6 +53,9 @@ func get_starting_position() -> Vector2:
 	return pos
 
 func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	process_space_sharing(delta)
 	
 	if GameManager.is_transition_active:
@@ -165,7 +182,8 @@ func get_held_mask() -> MaskResource:
 	return mask.resource
 
 func set_held_mask(new_mask : MaskResource) -> void:
-	is_mask_just_picked_up = true
+	if !Engine.is_editor_hint():
+		is_mask_just_picked_up = true
 	mask.resource = new_mask
 	mask.update_sprite()
 
