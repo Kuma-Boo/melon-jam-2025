@@ -15,6 +15,7 @@ var movement_timer : float
 var last_input_direction : Vector2
 var last_movement_direction : Vector2
 var consecutive_movement_amount : int
+var is_facing_right : bool = true
 
 var state : STATE
 enum STATE {
@@ -38,6 +39,8 @@ func get_starting_position() -> Vector2:
 	return pos
 
 func _process(delta: float) -> void:
+	process_space_sharing(delta)
+	
 	if GameManager.is_transition_active:
 		return
 	
@@ -46,13 +49,22 @@ func _process(delta: float) -> void:
 		return
 	
 	process_inputs()
+	
 	if state == STATE.IDLE:
 		check_movement_inputs()
 	elif state == STATE.MOVING:
 		process_movement(delta)
 
-var prioritize_horizontal_inputs : bool
+var space_share_direction : int
+const SPACE_SHARE_SMOOTHING : float = 500.0
+func process_space_sharing(delta : float) -> void:
+	var target_space_share_position = space_share_direction * Vector2.RIGHT * GameManager.SPACE_SHARE_AMOUNT
+	visual_root.position = visual_root.position.move_toward(target_space_share_position,  SPACE_SHARE_SMOOTHING * delta)
 
+func set_space_share_direction(direction : int) -> void:
+	space_share_direction = direction
+
+var prioritize_horizontal_inputs : bool
 func process_inputs() -> void:
 	if Input.is_action_just_pressed("move_left") || Input.is_action_just_pressed("move_right"):
 		prioritize_horizontal_inputs = true
@@ -94,6 +106,11 @@ func move() -> void:
 func start_movement_animation(input_direction : int):
 	if !is_zero_approx(input_direction):
 		visual_root.scale.x = input_direction
+	
+	if input_direction > 0:
+		is_facing_right = true
+	elif input_direction < 0:
+		is_facing_right = false
 	
 	animator.seek(0.0)
 	animator.play("move")

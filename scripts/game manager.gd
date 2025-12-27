@@ -6,6 +6,7 @@ static var instance : GameManager
 
 const TILE_SIZE = 100
 const TILE_OFFSET = Vector2.ONE * TILE_SIZE * 0.5
+const SPACE_SHARE_AMOUNT = TILE_SIZE * 0.3
 
 @export_tool_button("Generate Grid") var generate = setup_grid
 @export var grid_size : Vector2i

@@ -154,7 +154,7 @@ shape = SubResource("CircleShape2D_hjaqi")
 [node name="AnimatedRoot" type="Node2D" parent="Root"]
 
 [node name="Feet" type="Node2D" parent="Root/AnimatedRoot"]
-position = Vector2(0, 50)
+position = Vector2(0, 40)
 
 [node name="Sprite" type="Sprite2D" parent="Root/AnimatedRoot/Feet"]
 y_sort_enabled = true

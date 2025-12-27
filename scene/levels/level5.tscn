@@ -26,7 +26,6 @@ position = Vector2(450, 150)
 
 [node name="NPC" parent="." instance=ExtResource("4_7nrgl")]
 position = Vector2(250, 150)
-npc_type = 1
 initial_mask = ExtResource("5_mrgcb")
 
 [node name="Mask" parent="." instance=ExtResource("6_ik1mq")]
