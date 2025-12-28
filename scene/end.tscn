@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://br2nrpq8yy03t"]
+[gd_scene load_steps=12 format=3 uid="uid://br2nrpq8yy03t"]
 
 [ext_resource type="Script" uid="uid://bkoi2j5gfikkm" path="res://scripts/end.gd" id="1_acqqh"]
 [ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://font/MochiyPopOne-Regular.ttf" id="2_u4okq"]
 [ext_resource type="Texture2D" uid="uid://dhctn24xivvs5" path="res://img/end.png" id="2_xdgq8"]
 [ext_resource type="LabelSettings" uid="uid://bnpmqef5fblac" path="res://font/ main menu label style.tres" id="4_xdgq8"]
+[ext_resource type="AudioStream" uid="uid://btmg2qtfnqpwt" path="res://sfx/sfx playerpickupmask1.ogg" id="5_osy0p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_osy0p"]
 font = ExtResource("2_u4okq")
@@ -140,7 +141,7 @@ _data = {
 &"loop": SubResource("Animation_4fdtc")
 }
 
-[node name="End" type="Control" node_paths=PackedStringArray("animator")]
+[node name="End" type="Control" node_paths=PackedStringArray("animator", "select_sfx")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -149,6 +150,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_acqqh")
 animator = NodePath("AnimationPlayer")
+select_sfx = NodePath("SelectSfx")
 
 [node name="End" type="TextureRect" parent="."]
 layout_mode = 1
@@ -206,3 +208,6 @@ libraries = {
 }
 autoplay = "init"
 next/init = &"loop"
+
+[node name="SelectSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_osy0p")

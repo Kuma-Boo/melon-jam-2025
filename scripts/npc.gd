@@ -59,7 +59,7 @@ func update_mask_bubble() -> void:
 	if desired_mask_resource == null:
 		return
 	
-	var is_satisfied : bool = desired_mask.resource == desired_mask_resource && !Engine.is_editor_hint()
+	var is_satisfied : bool = desired_mask_resource != null && mask.resource == desired_mask_resource && !Engine.is_editor_hint()
 	desired_mask.resource = satisfied_mask_resource if is_satisfied else desired_mask_resource
 	desired_mask.update_sprite()
 
@@ -100,13 +100,16 @@ func on_area_entered(area: Area2D) -> void:
 	mask.resource = new_mask
 	mask.update_sprite()
 	
-	if new_mask != null && new_mask.mask_type != MaskResource.MASK_TYPES.CURSED:
+	if new_mask != null:
 		pickup_sfx.play()
-		if desired_mask_resource == null || desired_mask_resource == mask.resource:
+		if new_mask.mask_type == MaskResource.MASK_TYPES.CURSED || (desired_mask_resource != null && desired_mask_resource != mask.resource):
+			animator.play("idle")
+		else:
 			animator.play("happy")
-			update_mask_bubble()
 	else:
 		animator.play("idle")
+	
+	update_mask_bubble()
 
 func on_area_exited(area: Area2D) -> void:
 	if !area.is_in_group("player"):

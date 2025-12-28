@@ -4,6 +4,7 @@ var level_list : Array = [
 	"res://scene/levels/level1.tscn",
 	"res://scene/levels/level2.tscn",
 	"res://scene/levels/level3.tscn",
+	"res://scene/levels/level13.tscn",
 	"res://scene/levels/level4.tscn",
 	"res://scene/levels/level5.tscn",
 	"res://scene/levels/level6.tscn",
@@ -13,7 +14,6 @@ var level_list : Array = [
 	"res://scene/levels/level10.tscn",
 	"res://scene/levels/level11.tscn",
 	"res://scene/levels/level12.tscn",
-	"res://scene/levels/level13.tscn",
 	"res://scene/levels/level14.tscn",
 	"res://scene/levels/level15.tscn"
 ]

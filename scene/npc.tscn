@@ -155,6 +155,30 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.05, 0.95), Vector2(1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Root/AnimatedRoot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Root/AnimatedRoot:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ct4mp"]
 _data = {
@@ -189,7 +213,6 @@ shape = SubResource("CircleShape2D_hjaqi")
 
 [node name="Feet" type="Node2D" parent="Root/AnimatedRoot"]
 position = Vector2(0, 30)
-scale = Vector2(1.0431396, 0.95686036)
 
 [node name="LocalPosition" type="Node2D" parent="Root/AnimatedRoot/Feet"]
 position = Vector2(0, -40)
