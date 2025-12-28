@@ -75,13 +75,13 @@ func process_pause_menu(delta : float) -> void:
 			quit_transition()
 		return
 	
-	if !is_zero_approx(pause_selection_timer):
-		pause_selection_timer = move_toward(pause_selection_timer, 0, delta)
-		return
-	
 	var input : int = sign(Input.get_axis("move_left", "move_right"))
 	if input == 0:
 		pause_selection_timer = 0
+		return
+	
+	if !is_zero_approx(pause_selection_timer):
+		pause_selection_timer = move_toward(pause_selection_timer, 0, delta)
 		return
 	
 	var previous_selection = pause_menu_selection
