@@ -1,9 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://y1ibf8ll02wf"]
+[gd_scene load_steps=15 format=3 uid="uid://y1ibf8ll02wf"]
 
 [ext_resource type="Script" uid="uid://kthf0at2keou" path="res://scripts/level select.gd" id="1_hyp37"]
 [ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://font/MochiyPopOne-Regular.ttf" id="1_t5trm"]
 [ext_resource type="PackedScene" uid="uid://dtmb3lsippgwh" path="res://scene/level select option.tscn" id="2_xf7na"]
+[ext_resource type="Texture2D" uid="uid://dtvq7d403orlg" path="res://img/title/title_backgrounds.png" id="3_ndq4n"]
 [ext_resource type="Texture2D" uid="uid://bh5bw7lr8xugj" path="res://img/mask/mask_fox.png" id="3_xf7na"]
+[ext_resource type="Texture2D" uid="uid://ceus64ypq6ldh" path="res://img/title/title_bubble.png" id="4_1x5tu"]
+[ext_resource type="Texture2D" uid="uid://bcsv7qdcl8x6r" path="res://img/title/title_masks.png" id="5_438f0"]
+[ext_resource type="Texture2D" uid="uid://dvbsdicla4sn4" path="res://img/title/title_shaman.png" id="6_u8m2w"]
+[ext_resource type="LabelSettings" uid="uid://dfjsad66q5mmb" path="res://font/level select label style.tres" id="9_1x5tu"]
 
 [sub_resource type="Animation" id="Animation_yudmx"]
 length = 0.001
@@ -120,6 +125,54 @@ level_option = ExtResource("2_xf7na")
 cursor_position = NodePath("CursorRoot")
 animator = NodePath("AnimationPlayer")
 
+[node name="TitleBackgrounds" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_right = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_ndq4n")
+
+[node name="TItleBubble" type="TextureRect" parent="TitleBackgrounds"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_1x5tu")
+
+[node name="TItleMasks" type="TextureRect" parent="TitleBackgrounds"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_438f0")
+
+[node name="TItleShaman" type="TextureRect" parent="TitleBackgrounds"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_u8m2w")
+
+[node name="BackgroundFade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5882353)
+
 [node name="CursorRoot" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 200.0
@@ -178,6 +231,7 @@ grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_t5trm")
 theme_override_font_sizes/font_size = 72
 text = "SELECT A LEVEL!"
+label_settings = ExtResource("9_1x5tu")
 horizontal_alignment = 1
 vertical_alignment = 1
 

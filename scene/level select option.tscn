@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtmb3lsippgwh"]
+[gd_scene load_steps=3 format=3 uid="uid://dtmb3lsippgwh"]
 
 [ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://font/MochiyPopOne-Regular.ttf" id="1_o7twa"]
+[ext_resource type="LabelSettings" uid="uid://bnpmqef5fblac" path="res://font/ main menu label style.tres" id="2_wuep5"]
 
 [node name="Level1" type="Label"]
 custom_minimum_size = Vector2(400, 100)
 theme_override_fonts/font = ExtResource("1_o7twa")
 theme_override_font_sizes/font_size = 48
 text = "Level 1"
+label_settings = ExtResource("2_wuep5")
 vertical_alignment = 1
