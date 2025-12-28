@@ -1,5 +1,6 @@
 extends Node
 
+@export var text_visibility : Node2D
 @export var animator : AnimationPlayer
 @export var burn_sfx : AudioStreamPlayer
 @export var flame_material : ShaderMaterial
@@ -19,6 +20,7 @@ func on_area_entered(area: Area2D) -> void:
 	if !area.is_in_group("player"):
 		return
 	
+	text_visibility.visible = false
 	animator.play("defuse")
 	burn_sfx.play()
 	
@@ -33,3 +35,4 @@ func on_area_entered(area: Area2D) -> void:
 	
 	if current_mask.mask_type != MaskResource.MASK_TYPES.CURSED:
 		GameManager.instance.add_bonus_time()
+		text_visibility.visible = true

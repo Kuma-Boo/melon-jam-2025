@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://blojghfoexndp" path="res://scripts/tree.gd" id="1_ig6cm"]
 [ext_resource type="Texture2D" uid="uid://dl1d3oe3wvcd5" path="res://img/object/tree.png" id="2_ig6cm"]
 [ext_resource type="Texture2D" uid="uid://7uitxux7tf75" path="res://img/object/stump.png" id="3_s8eqp"]
-[ext_resource type="LabelSettings" uid="uid://drcd08ns84bx0" path="res://font/passthrough label style.tres" id="4_aotr1"]
+[ext_resource type="PackedScene" uid="uid://c5h00b4yrhi2v" path="res://scene/object/object text.tscn" id="4_a1rck"]
 [ext_resource type="AudioStream" uid="uid://0m4i6ropuxa6" path="res://sfx/sfx maskburn.ogg" id="5_a1rck"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o81og"]
@@ -71,42 +71,6 @@ tracks/4/keys = {
 "update": 0,
 "values": [0.0]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Text:modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Text:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [false]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Text:scale")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_a1rck"]
 resource_name = "pass"
@@ -127,50 +91,24 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Text:modulate")
-tracks/1/interp = 1
+tracks/1/path = NodePath("AnimatedRoot/Root:scale")
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Text:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Text:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1e-05), Vector2(1, 1.2), Vector2(1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("AnimatedRoot/Root:scale")
-tracks/4/interp = 2
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 1.2), Vector2(1.1, 0.9), Vector2(1, 1)]
+}
+tracks/2/type = "animation"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Object Text/AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": PackedStringArray("show"),
+"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="Animation" id="Animation_s8eqp"]
@@ -301,18 +239,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_s8eqp")
 }
 
-[node name="Text" type="Label" parent="."]
+[node name="Object Text" parent="." instance=ExtResource("4_a1rck")]
 visible = false
-z_index = 1
-offset_left = -100.0
-offset_top = -110.0
-offset_right = 100.0
-offset_bottom = -74.0
-pivot_offset = Vector2(100, 16)
-text = "-1 MOVE"
-label_settings = ExtResource("4_aotr1")
-horizontal_alignment = 1
-vertical_alignment = 1
+modulate = Color(1, 1, 1, 1)
 
 [node name="Pass" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_a1rck")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dm07c1v7dsib6"]
+[gd_scene load_steps=22 format=3 uid="uid://dm07c1v7dsib6"]
 
 [ext_resource type="Script" uid="uid://bbp0o4nc6gv6u" path="res://scripts/fire.gd" id="1_hv5h5"]
 [ext_resource type="Shader" uid="uid://ckb7643exfuv0" path="res://shader/fire.gdshader" id="2_4uq7g"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dkigevg5mg2xc" path="res://img/object/displacement.png" id="4_uf5y2"]
 [ext_resource type="Texture2D" uid="uid://casfgaks4x3kq" path="res://img/object/fireplace.png" id="5_srsca"]
 [ext_resource type="Texture2D" uid="uid://h0kucjtpfhv8" path="res://img/object/ember.png" id="5_uf5y2"]
+[ext_resource type="PackedScene" uid="uid://c5h00b4yrhi2v" path="res://scene/object/object text.tscn" id="7_gisw8"]
 [ext_resource type="AudioStream" uid="uid://0m4i6ropuxa6" path="res://sfx/sfx maskburn.ogg" id="7_rgjxt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fr6wy"]
@@ -204,6 +205,16 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 1), Vector2(2, 2)]
 }
+tracks/6/type = "animation"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TextVisibility/Text/AnimationPlayer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": PackedStringArray("show"),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_srsca"]
 _data = {
@@ -211,8 +222,9 @@ _data = {
 &"defuse": SubResource("Animation_wsd46")
 }
 
-[node name="Fire" type="Node2D" node_paths=PackedStringArray("animator", "burn_sfx")]
+[node name="Fire" type="Node2D" node_paths=PackedStringArray("text_visibility", "animator", "burn_sfx")]
 script = ExtResource("1_hv5h5")
+text_visibility = NodePath("TextVisibility")
 animator = NodePath("AnimationPlayer")
 burn_sfx = NodePath("Burn")
 flame_material = SubResource("ShaderMaterial_fr6wy")
@@ -269,6 +281,14 @@ scale_amount_min = 0.3
 scale_amount_max = 0.5
 color_ramp = SubResource("Gradient_rgjxt")
 color_initial_ramp = SubResource("Gradient_gisw8")
+
+[node name="TextVisibility" type="Node2D" parent="."]
+visible = false
+
+[node name="Text" parent="TextVisibility" instance=ExtResource("7_gisw8")]
+visible = false
+modulate = Color(1, 1, 1, 1)
+text = "+4 MOVE"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
