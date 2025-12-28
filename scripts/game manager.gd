@@ -11,7 +11,7 @@ const SPACE_SHARE_AMOUNT = TILE_SIZE * 0.3
 
 @export_tool_button("Generate Grid") var generate = setup_grid
 @export var grid_size : Vector2i
-@export var grid_rect : TextureRect
+@export var level_start_time : int
 
 func _enter_tree() -> void:
 	setup_grid()
@@ -30,6 +30,69 @@ func _enter_tree() -> void:
 	
 	update_level_text()
 
+func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+	
+	if is_transition_active:
+		return
+	
+	if animator.is_playing():
+		return
+	
+	if is_pause_menu_active:
+		process_pause_menu(delta)
+	else:
+		check_pause_menu()
+
+@export_group("Sound Effects")
+@export var move_sfx : AudioStreamPlayer
+@export var select_sfx : AudioStreamPlayer
+var is_pause_menu_active : bool
+var pause_menu_selection : int
+var pause_selection_timer : float
+const SELECTION_INTERVAL : float = 0.2
+func check_pause_menu() -> void:
+	if Input.is_action_just_pressed("space"):
+		get_tree().paused = true
+		pause_menu_selection = 0
+		is_pause_menu_active = true
+		select_sfx.play()
+		animator.play("pause-0")
+		animator.advance(0.0)
+		animator.play("pause-show")
+
+func process_pause_menu(delta : float) -> void:
+	if !is_zero_approx(pause_selection_timer):
+		pause_selection_timer = move_toward(pause_selection_timer, 0, delta)
+		return
+	
+	var input : int = sign(Input.get_axis("move_left", "move_right"))
+	if input == 0:
+		pause_selection_timer = 0
+	else:
+		var previous_selection = pause_menu_selection
+		pause_menu_selection += input
+		pause_menu_selection = clamp(pause_menu_selection, 0, 2)
+		
+		if previous_selection != pause_menu_selection:
+			pause_selection_timer = SELECTION_INTERVAL
+			move_sfx.play()
+			animator.play("pause-" + str(pause_menu_selection))
+			animator.advance(0.0)
+	
+	if Input.is_action_just_pressed("space"):
+		is_pause_menu_active = false
+		get_tree().paused = false
+		select_sfx.play()
+		if pause_menu_selection == 0:
+			animator.play("pause-hide")
+		elif pause_menu_selection == 1:
+			reload_transition()
+		elif pause_menu_selection == 2:
+			quit_transition()
+
+
 func update_level_text() -> void:
 	var level_text : String = get_tree().current_scene.get_scene_file_path()
 	var level_text_array = level_text.split("/")
@@ -37,6 +100,8 @@ func update_level_text() -> void:
 	level_text = level_text.replace("level", "LEVEL ")
 	level_label.text = level_text
 
+@export_group("Components")
+@export var grid_rect : TextureRect
 func setup_grid() -> void:
 	if grid_rect != null:
 		grid_rect.size = TILE_SIZE * (grid_size as Vector2)
@@ -54,6 +119,14 @@ func reload_transition() -> void:
 	is_transition_active = true
 	animator.play("fade-out")
 
+func quit_transition() -> void:
+	if GlobalManager.is_level_select:
+		target_scene = "res://scene/level select.tscn"
+	else:
+		target_scene = "res://scene/title.tscn"
+	is_transition_active = true
+	animator.play("fade-out")
+
 func finish_transition() -> void:
 	is_transition_active = false
 
@@ -68,7 +141,6 @@ func spirit_transition() -> void:
 	is_transition_active = true
 	animator.play("spirit");
 
-@export var level_start_time : int
 @export var time_interface_head : Sprite2D
 @export var remaining_moves_label : Label
 @export var bonus_moves_label : Label
