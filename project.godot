@@ -14,11 +14,13 @@ config/name="melon-jam-2025"
 run/main_scene="uid://cev6eorcoq280"
 config/features=PackedStringArray("4.5", "Forward Plus")
 run/max_fps=60
+boot_splash/image="uid://bt2ij1e5isbgh"
 config/icon="res://icon.svg"
 
 [autoload]
 
 GlobalManager="*res://scripts/global manager.gd"
+Bgm="res://scene/bgm.tscn"
 
 [display]
 
