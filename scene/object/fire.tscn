@@ -12,7 +12,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fr6wy"]
 shader = ExtResource("2_4uq7g")
-shader_parameter/time = 5.548767222222072
+shader_parameter/time = 138.35599079796935
 shader_parameter/displacement = ExtResource("4_uf5y2")
 shader_parameter/base_flame = ExtResource("3_l7rlu")
 shader_parameter/displacement_scale = Vector2(0.2, 0.8)

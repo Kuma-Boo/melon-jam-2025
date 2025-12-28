@@ -43,7 +43,7 @@ func _process(delta: float) -> void:
 	if is_transition_active:
 		return
 	
-	if animator.is_playing():
+	if pause_animator.is_playing():
 		return
 	
 	if is_pause_menu_active:
@@ -51,6 +51,8 @@ func _process(delta: float) -> void:
 	else:
 		check_pause_menu()
 
+@export_group("Components")
+@export var pause_animator : AnimationPlayer
 var is_pause_menu_active : bool
 var pause_menu_selection : int
 var pause_selection_timer : float
@@ -61,17 +63,17 @@ func check_pause_menu() -> void:
 		pause_menu_selection = 0
 		is_pause_menu_active = true
 		select_sfx.play()
-		animator.play("pause-0")
-		animator.advance(0.0)
-		animator.play("pause-show")
+		pause_animator.play("pause-0")
+		pause_animator.advance(0.0)
+		pause_animator.play("pause-show")
 
 func process_pause_menu(delta : float) -> void:
 	if Input.is_action_just_pressed("space"):
 		is_pause_menu_active = false
-		get_tree().paused = false
 		select_sfx.play()
 		if pause_menu_selection == 0:
-			animator.play("pause-hide")
+			get_tree().paused = false
+			pause_animator.play("pause-hide")
 		elif pause_menu_selection == 1:
 			reload_transition()
 		elif pause_menu_selection == 2:
@@ -96,18 +98,14 @@ func process_pause_menu(delta : float) -> void:
 	
 	pause_selection_timer = SELECTION_INTERVAL
 	move_sfx.play()
-	animator.play("pause-" + str(pause_menu_selection))
-	animator.advance(0.0)
+	pause_animator.play("pause-" + str(pause_menu_selection))
+	pause_animator.advance(0.0)
 
 
 func update_level_text() -> void:
-	var level_text : String = get_tree().current_scene.get_scene_file_path()
-	var level_text_array = level_text.split("/")
-	level_text = level_text_array[level_text_array.size() - 1].replace(".tscn", "")
-	level_text = level_text.replace("level", "LEVEL ")
+	var level_text : String = "LEVEL " + str(GlobalManager.current_level_index + 1)
 	level_label.text = level_text
 
-@export_group("Components")
 @export var grid_rect : TextureRect
 func setup_grid() -> void:
 	if grid_rect != null:
@@ -139,6 +137,7 @@ func finish_transition() -> void:
 
 var target_scene : StringName
 func load_scene() -> void:
+	get_tree().paused = false
 	if target_scene.is_empty():
 		get_tree().reload_current_scene()
 	else:
