@@ -136,11 +136,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -11.0
-offset_right = 11.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ndq4n")
+expand_mode = 5
 
 [node name="TItleBubble" type="TextureRect" parent="TitleBackgrounds"]
 visible = false
@@ -151,6 +150,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_1x5tu")
+expand_mode = 5
 
 [node name="TItleMasks" type="TextureRect" parent="TitleBackgrounds"]
 layout_mode = 1
@@ -160,6 +160,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_438f0")
+expand_mode = 5
 
 [node name="TItleShaman" type="TextureRect" parent="TitleBackgrounds"]
 layout_mode = 1
@@ -169,6 +170,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("6_u8m2w")
+expand_mode = 5
 
 [node name="BackgroundFade" type="ColorRect" parent="."]
 layout_mode = 1

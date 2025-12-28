@@ -10,39 +10,33 @@
 [node name="World" type="Node"]
 
 [node name="GameManager" parent="." instance=ExtResource("1_uhynm")]
-grid_size = Vector2i(5, 4)
-level_start_time = 8
+grid_size = Vector2i(3, 4)
+level_start_time = 9
 
 [node name="Level" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="Player" parent="Level" instance=ExtResource("2_hs8q1")]
-position = Vector2(250, 150)
+position = Vector2(50, 150)
 
 [node name="Camera" type="Camera2D" parent="Level"]
-position = Vector2(450, 200)
+position = Vector2(350, 200)
 zoom = Vector2(1.2, 1.2)
 limit_enabled = false
 
 [node name="NPC2" parent="Level" instance=ExtResource("4_xkamj")]
-position = Vector2(250, 50)
+position = Vector2(50, 50)
 npc_type = 1
 is_facing_right = true
 
 [node name="Mask1" parent="Level" instance=ExtResource("6_5lvjh")]
-position = Vector2(350, 350)
-
-[node name="Tree" parent="Level" instance=ExtResource("6_vbg8b")]
-position = Vector2(350, 150)
+position = Vector2(250, 350)
 
 [node name="Tree2" parent="Level" instance=ExtResource("6_vbg8b")]
 position = Vector2(150, 150)
-
-[node name="Tree5" parent="Level" instance=ExtResource("6_vbg8b")]
-position = Vector2(350, 250)
 
 [node name="Tree6" parent="Level" instance=ExtResource("6_vbg8b")]
 position = Vector2(150, 250)
 
 [node name="GrowthWall2" parent="Level" instance=ExtResource("7_2buv5")]
-position = Vector2(250, 350)
+position = Vector2(50, 350)
