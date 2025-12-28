@@ -2,6 +2,18 @@ extends Node
 
 @export var animator : AnimationPlayer
 @export var burn_sfx : AudioStreamPlayer
+@export var flame_material : ShaderMaterial
+
+var shader_time : float
+const SHADER_ROLLOVER : float = 3600;
+const TIME_PARAMETER : StringName = "time";
+
+# Because Web Exports are stupid
+func _process(delta: float) -> void:
+	shader_time += delta
+	if shader_time > SHADER_ROLLOVER:
+		shader_time -= SHADER_ROLLOVER
+	flame_material.set_shader_parameter(TIME_PARAMETER, shader_time)
 
 func on_area_entered(area: Area2D) -> void:
 	if !area.is_in_group("player"):

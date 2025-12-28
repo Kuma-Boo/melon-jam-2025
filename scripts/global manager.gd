@@ -31,6 +31,6 @@ func get_next_scene() -> String:
 
 func get_next_level() -> String:
 	current_level_index += 1
-	if current_level_index >= level_list.size() || !FileAccess.file_exists(level_list[current_level_index]):
+	if current_level_index >= level_list.size():
 		return "res://scene/end.tscn"
 	return level_list[current_level_index]

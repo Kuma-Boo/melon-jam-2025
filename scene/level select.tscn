@@ -237,11 +237,11 @@ theme_override_constants/separation = 0
 
 [node name="Return" parent="." instance=ExtResource("2_xf7na")]
 layout_mode = 0
-offset_left = 490.0
+offset_left = 500.0
 offset_top = 650.0
-offset_right = 910.0
+offset_right = 937.0
 offset_bottom = 750.0
-text = "Return to Title"
+text = "TITLE SCREEN"
 horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="."]
