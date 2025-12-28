@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://br2nrpq8yy03t"]
 
 [ext_resource type="Script" uid="uid://bkoi2j5gfikkm" path="res://scripts/end.gd" id="1_acqqh"]
-[ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://MochiyPopOne-Regular.ttf" id="2_u4okq"]
+[ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://font/MochiyPopOne-Regular.ttf" id="2_u4okq"]
 
 [sub_resource type="Animation" id="Animation_hr6ky"]
 length = 0.001

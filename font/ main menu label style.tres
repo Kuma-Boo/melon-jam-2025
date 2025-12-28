@@ -1,0 +1,13 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bnpmqef5fblac"]
+
+[ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://font/MochiyPopOne-Regular.ttf" id="1_y075k"]
+
+[resource]
+font = ExtResource("1_y075k")
+font_size = 48
+font_color = Color(0.97, 0.77309006, 0.1261, 1)
+stacked_outline_count = 2
+stacked_outline_0/size = 20
+stacked_outline_0/color = Color(0.2901961, 0.023529412, 0.03137255, 1)
+stacked_outline_1/size = 10
+stacked_outline_1/color = Color(1, 1, 1, 1)

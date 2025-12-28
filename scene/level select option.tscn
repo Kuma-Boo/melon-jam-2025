@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dtmb3lsippgwh"]
 
-[ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://MochiyPopOne-Regular.ttf" id="1_o7twa"]
+[ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://font/MochiyPopOne-Regular.ttf" id="1_o7twa"]
 
 [node name="Level1" type="Label"]
 custom_minimum_size = Vector2(400, 100)
