@@ -116,7 +116,7 @@ func kill_npcs() -> void:
 		is_mission_cleared = false
 	
 	if is_mission_cleared:
-		target_scene = GlobalManager.get_next_level()
+		target_scene = GlobalManager.get_next_scene()
 		animator.play("clear")
 	
 	emit_signal("killing_characters")

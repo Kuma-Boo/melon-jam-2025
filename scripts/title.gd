@@ -12,5 +12,6 @@ func _process(_delta: float) -> void:
 		animator.play("start-game")
 
 func start_new_game() -> void:
-	GlobalManager.current_level_index = 1
-	get_tree().change_scene_to_file("res://scene/levels/level1.tscn")
+	GlobalManager.is_level_select = false
+	GlobalManager.current_level_index = 0
+	get_tree().change_scene_to_file(GlobalManager.get_next_level())

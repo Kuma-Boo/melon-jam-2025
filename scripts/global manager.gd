@@ -19,9 +19,15 @@ var level_list : Array = [
 ]
 
 var current_level_index : int
+var is_level_select : bool
 
 func update_current_level_index() -> void:
 	current_level_index = level_list.find(get_tree().current_scene.get_scene_file_path())
+
+func get_next_scene() -> String:
+	if is_level_select:
+		return "res://scene/level select.tscn"
+	return get_next_level()
 
 func get_next_level() -> String:
 	current_level_index += 1

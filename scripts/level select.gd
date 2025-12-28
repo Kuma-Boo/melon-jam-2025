@@ -1,0 +1,75 @@
+extends Control
+
+@export var level_box_containers : Array[VBoxContainer]
+@export var level_option : PackedScene
+@export var cursor_position : Control
+@export var animator : AnimationPlayer
+
+var is_transition_active : bool
+
+var current_selection : Vector2
+var selection_timer : float
+const SELECTION_INTERVAL = 0.2
+const SELECTION_VERTICAL_SPACING = 100
+const SELECTION_HORIZONTAL_SPACING = 400
+
+func _ready() -> void:
+	for i in GlobalManager.level_list.size():
+		var level_option_instance : Label = level_option.instantiate()
+		level_option_instance.text = "Level " + str(i + 1)
+		var box_index : int = i % level_box_containers.size()
+		level_box_containers[box_index].add_child(level_option_instance)
+
+func _process(delta: float) -> void:
+	if is_transition_active:
+		return
+	
+	process_inputs()
+	process_selection(delta)
+	
+	if Input.is_action_just_pressed("ui_accept"):
+		animator.play("start_level")
+		is_transition_active = true
+	elif Input.is_action_just_pressed("ui_cancel"):
+		animator.play("return")
+		is_transition_active = true
+
+func process_selection(delta : float) -> void:
+	if last_input_direction.is_zero_approx():
+		selection_timer = 0
+		return
+	
+	if !is_zero_approx(selection_timer):
+		selection_timer = move_toward(selection_timer, 0, delta)
+		return
+	
+	current_selection += last_input_direction
+	current_selection.x = clamp(current_selection.x, 0, level_box_containers.size() - 1)
+	current_selection.y = clamp(current_selection.y, 0, level_box_containers[current_selection.x as int].get_child_count() - 1)
+	cursor_position.global_position = level_box_containers[0].global_position + current_selection * Vector2(SELECTION_HORIZONTAL_SPACING, SELECTION_VERTICAL_SPACING)
+	selection_timer = SELECTION_INTERVAL
+
+var prioritize_horizontal_inputs : bool
+var last_input_direction : Vector2
+func process_inputs() -> void:
+	if Input.is_action_just_pressed("move_left") || Input.is_action_just_pressed("move_right"):
+		prioritize_horizontal_inputs = true
+	elif Input.is_action_just_pressed("move_up") || Input.is_action_just_pressed("move_down"):
+		prioritize_horizontal_inputs = false
+	
+	var horizontal_input : int = sign(Input.get_axis("move_left", "move_right"));
+	var vertical_input : int = sign(Input.get_axis("move_up", "move_down"));
+	if abs(horizontal_input) > abs(vertical_input) || (horizontal_input != 0 && prioritize_horizontal_inputs):
+		last_input_direction = Vector2.RIGHT * horizontal_input
+	elif abs(horizontal_input) < abs(vertical_input) || (vertical_input != 0 && !prioritize_horizontal_inputs):
+		last_input_direction = Vector2.DOWN * vertical_input
+	else:
+		last_input_direction = Vector2.ZERO
+
+func load_level() -> void:
+	GlobalManager.is_level_select = true
+	GlobalManager.current_level_index = round(current_selection.y * level_box_containers.size() + current_selection.x) - 1
+	get_tree().change_scene_to_file(GlobalManager.get_next_level())
+
+func load_title() -> void:
+	get_tree().change_scene_to_file("res://scene/title.tscn")

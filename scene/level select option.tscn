@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtmb3lsippgwh"]
+
+[ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://MochiyPopOne-Regular.ttf" id="1_o7twa"]
+
+[node name="Level1" type="Label"]
+custom_minimum_size = Vector2(400, 100)
+theme_override_fonts/font = ExtResource("1_o7twa")
+theme_override_font_sizes/font_size = 48
+text = "Level 1"
+vertical_alignment = 1
