@@ -28,6 +28,11 @@ func _ready() -> void:
 		level_option_instance.text = "Level " + str(i + 1)
 		var box_index : int = i % level_box_containers.size()
 		level_box_containers[box_index].add_child(level_option_instance)
+	
+	if GlobalManager.current_level_index != -1:
+		current_selection.x = GlobalManager.current_level_index % level_box_containers.size()
+		current_selection.y = GlobalManager.current_level_index / level_box_containers.size()
+		update_cursor_position()
 
 func _process(delta: float) -> void:
 	if is_transition_active:
@@ -71,16 +76,18 @@ func process_selection(delta : float) -> void:
 	if current_selection.y >= level_box_containers[current_selection.x as int].get_child_count():
 		current_selection.x = 1
 	
+	if current_selection.is_equal_approx(previous_selection):
+		return
+	
+	update_cursor_position()
+	move_sfx.play()
+	selection_timer = SELECTION_INTERVAL
+
+func update_cursor_position() -> void:
 	if current_selection.y < level_box_containers[current_selection.x as int].get_child_count():
 		cursor_position.global_position = level_box_containers[0].global_position + current_selection * Vector2(SELECTION_HORIZONTAL_SPACING, SELECTION_VERTICAL_SPACING)
 	else:
 		cursor_position.global_position = return_to_title_option.global_position
-	
-	if current_selection.is_equal_approx(previous_selection):
-		return
-	
-	move_sfx.play()
-	selection_timer = SELECTION_INTERVAL
 
 var prioritize_horizontal_inputs : bool
 var last_input_direction : Vector2
