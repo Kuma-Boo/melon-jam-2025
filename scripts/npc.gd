@@ -55,7 +55,8 @@ func update_mask_bubble() -> void:
 	if desired_mask_resource == null:
 		return
 	
-	desired_mask.resource = satisfied_mask_resource if desired_mask.resource == desired_mask_resource else desired_mask_resource
+	var is_satisfied : bool = desired_mask.resource == desired_mask_resource && !Engine.is_editor_hint()
+	desired_mask.resource = satisfied_mask_resource if is_satisfied else desired_mask_resource
 	desired_mask.update_sprite()
 
 func update_direction() -> void:
