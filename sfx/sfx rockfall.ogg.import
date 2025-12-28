@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ds126ujf5264d"
+path="res://.godot/imported/sfx rockfall.ogg-587665cb5a391b29af79b474563ce6bf.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/sfx rockfall.ogg"
+dest_files=["res://.godot/imported/sfx rockfall.ogg-587665cb5a391b29af79b474563ce6bf.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

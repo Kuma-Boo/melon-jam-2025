@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://gd7n3fsc26yg" path="res://img/character/sprite_maiden.png" id="2_hjaqi"]
 [ext_resource type="Script" uid="uid://or682mv86ewx" path="res://scripts/mask.gd" id="3_ct4mp"]
 [ext_resource type="Texture2D" uid="uid://dw6odyil474ak" path="res://img/character/sprite_dead_1.png" id="4_ct4mp"]
-[ext_resource type="AudioStream" uid="uid://bbghvynk7owbb" path="res://sfx/sfx playermovement1.ogg" id="5_oh5ij"]
+[ext_resource type="AudioStream" uid="uid://dtuhcuyffpntb" path="res://sfx/sfc playermovement2.ogg" id="5_hp4bs"]
 [ext_resource type="AudioStream" uid="uid://d25fx084w7f64" path="res://sfx/sfx playerhitwall.ogg" id="6_hp4bs"]
 [ext_resource type="AudioStream" uid="uid://grfgpdxh1o0o" path="res://sfx/sfx playerpickupmask2.ogg" id="7_hp4bs"]
 
@@ -208,7 +208,7 @@ next/move = &"idle"
 blend_times = [&"idle", &"move", 0.1, &"move", &"idle", 0.1]
 
 [node name="Move" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_oh5ij")
+stream = ExtResource("5_hp4bs")
 bus = &"SFX"
 
 [node name="HitWall" type="AudioStreamPlayer" parent="."]

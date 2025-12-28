@@ -76,13 +76,13 @@ func process_space_sharing(delta : float) -> void:
 	visual_root.position = visual_root.position.move_toward(target_space_share_position,  SPACE_SHARE_SMOOTHING * delta)
 
 func kill_npc() -> bool:
-	if has_mask() && mask.resource.mask_type != MaskResource.MASK_TYPES.CURSED:
-		return false
+	if !has_mask() || mask.resource.mask_type == MaskResource.MASK_TYPES.CURSED || (desired_mask_resource != null && desired_mask_resource != mask.resource):
+		animator.play("dead")
+		animator.advance(0.0)
+		animator.play("idle")
+		return true
 	
-	animator.play("dead")
-	animator.advance(0.0)
-	animator.play("idle")
-	return true
+	return false
 
 func on_area_entered(area: Area2D) -> void:
 	if !area.is_in_group("player"):
@@ -90,9 +90,6 @@ func on_area_entered(area: Area2D) -> void:
 	
 	# Swap masks with the player
 	var new_mask : MaskResource = area.get_parent().get_held_mask()
-	
-	if desired_mask_resource != null && desired_mask_resource != new_mask: # NPC doesn't want this mask
-		return
 	
 	is_facing_right = !area.get_parent().is_facing_right
 	update_direction()
@@ -102,11 +99,12 @@ func on_area_entered(area: Area2D) -> void:
 	area.get_parent().set_held_mask(mask.resource)
 	mask.resource = new_mask
 	mask.update_sprite()
-	update_mask_bubble()
 	
 	if new_mask != null && new_mask.mask_type != MaskResource.MASK_TYPES.CURSED:
-		animator.play("happy")
 		pickup_sfx.play()
+		if desired_mask_resource == null || desired_mask_resource == mask.resource:
+			animator.play("happy")
+			update_mask_bubble()
 	else:
 		animator.play("idle")
 

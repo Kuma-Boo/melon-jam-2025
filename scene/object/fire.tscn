@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dm07c1v7dsib6"]
+[gd_scene load_steps=23 format=3 uid="uid://dm07c1v7dsib6"]
 
 [ext_resource type="Script" uid="uid://bbp0o4nc6gv6u" path="res://scripts/fire.gd" id="1_hv5h5"]
 [ext_resource type="Shader" uid="uid://ckb7643exfuv0" path="res://shader/fire.gdshader" id="2_4uq7g"]
@@ -6,12 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://dkigevg5mg2xc" path="res://img/object/displacement.png" id="4_uf5y2"]
 [ext_resource type="Texture2D" uid="uid://casfgaks4x3kq" path="res://img/object/fireplace.png" id="5_srsca"]
 [ext_resource type="Texture2D" uid="uid://h0kucjtpfhv8" path="res://img/object/ember.png" id="5_uf5y2"]
-[ext_resource type="PackedScene" uid="uid://c5h00b4yrhi2v" path="res://scene/object/object text.tscn" id="7_gisw8"]
+[ext_resource type="LabelSettings" uid="uid://drcd08ns84bx0" path="res://font/object label style.tres" id="7_gisw8"]
 [ext_resource type="AudioStream" uid="uid://0m4i6ropuxa6" path="res://sfx/sfx maskburn.ogg" id="7_rgjxt"]
+[ext_resource type="PackedScene" uid="uid://c5h00b4yrhi2v" path="res://scene/object/object text.tscn" id="8_uxfkn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fr6wy"]
 shader = ExtResource("2_4uq7g")
-shader_parameter/time = 0.0
+shader_parameter/time = 31.74072717171617
 shader_parameter/displacement = ExtResource("4_uf5y2")
 shader_parameter/base_flame = ExtResource("3_l7rlu")
 shader_parameter/displacement_scale = Vector2(0.2, 0.8)
@@ -205,16 +206,6 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 1), Vector2(2, 2)]
 }
-tracks/6/type = "animation"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("TextVisibility/Text/AnimationPlayer")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"clips": PackedStringArray("show"),
-"times": PackedFloat32Array(0)
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_srsca"]
 _data = {
@@ -222,11 +213,13 @@ _data = {
 &"defuse": SubResource("Animation_wsd46")
 }
 
-[node name="Fire" type="Node2D" node_paths=PackedStringArray("text_visibility", "animator", "burn_sfx")]
+[node name="Fire" type="Node2D" node_paths=PackedStringArray("text_visibility", "text_animator", "animator", "burn_sfx", "sacrifice_label")]
 script = ExtResource("1_hv5h5")
 text_visibility = NodePath("TextVisibility")
+text_animator = NodePath("TextVisibility/Text/AnimationPlayer")
 animator = NodePath("AnimationPlayer")
 burn_sfx = NodePath("Burn")
+sacrifice_label = NodePath("Number/Label")
 flame_material = SubResource("ShaderMaterial_fr6wy")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -282,13 +275,30 @@ scale_amount_max = 0.5
 color_ramp = SubResource("Gradient_rgjxt")
 color_initial_ramp = SubResource("Gradient_gisw8")
 
+[node name="Number" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -50.0
+offset_bottom = -50.0
+
+[node name="Label" type="Label" parent="Number"]
+layout_mode = 0
+offset_left = -40.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = -2.0
+text = "1"
+label_settings = ExtResource("7_gisw8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="TextVisibility" type="Node2D" parent="."]
 visible = false
 
-[node name="Text" parent="TextVisibility" instance=ExtResource("7_gisw8")]
+[node name="Text" parent="TextVisibility" instance=ExtResource("8_uxfkn")]
 visible = false
 modulate = Color(1, 1, 1, 1)
-text = "+4 MOVE"
+text = "+5 MOVE"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -300,3 +310,5 @@ stream = ExtResource("7_rgjxt")
 bus = &"SFX"
 
 [connection signal="area_entered" from="Area2D" to="." method="on_area_entered"]
+
+[editable path="TextVisibility/Text"]

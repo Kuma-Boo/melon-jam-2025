@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cccg8l316v7qh"
+path="res://.godot/imported/sfx walkthroughtree.ogg-71fa07af59a95875b167b29c856ca0fb.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/sfx walkthroughtree.ogg"
+dest_files=["res://.godot/imported/sfx walkthroughtree.ogg-71fa07af59a95875b167b29c856ca0fb.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

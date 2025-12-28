@@ -169,7 +169,7 @@ func force_timeout() -> void:
 	Player.instance.advance_time()
 
 func add_bonus_time() -> void:
-	bonus_time = 5
+	bonus_time = 6
 
 func update_time_left_interface() -> void:
 	var target_head_position = lerp(max_head_position, 0, time_left / (level_start_time as float));

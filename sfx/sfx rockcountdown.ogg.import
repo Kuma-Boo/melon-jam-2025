@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://0dnwrasasx5q"
+path="res://.godot/imported/sfx rockcountdown.ogg-9339a1bc54097ce09a56309892d25df2.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/sfx rockcountdown.ogg"
+dest_files=["res://.godot/imported/sfx rockcountdown.ogg-9339a1bc54097ce09a56309892d25df2.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
