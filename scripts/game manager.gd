@@ -63,24 +63,6 @@ func check_pause_menu() -> void:
 		animator.play("pause-show")
 
 func process_pause_menu(delta : float) -> void:
-	if !is_zero_approx(pause_selection_timer):
-		pause_selection_timer = move_toward(pause_selection_timer, 0, delta)
-		return
-	
-	var input : int = sign(Input.get_axis("move_left", "move_right"))
-	if input == 0:
-		pause_selection_timer = 0
-	else:
-		var previous_selection = pause_menu_selection
-		pause_menu_selection += input
-		pause_menu_selection = clamp(pause_menu_selection, 0, 2)
-		
-		if previous_selection != pause_menu_selection:
-			pause_selection_timer = SELECTION_INTERVAL
-			move_sfx.play()
-			animator.play("pause-" + str(pause_menu_selection))
-			animator.advance(0.0)
-	
 	if Input.is_action_just_pressed("space"):
 		is_pause_menu_active = false
 		get_tree().paused = false
@@ -91,6 +73,28 @@ func process_pause_menu(delta : float) -> void:
 			reload_transition()
 		elif pause_menu_selection == 2:
 			quit_transition()
+		return
+	
+	if !is_zero_approx(pause_selection_timer):
+		pause_selection_timer = move_toward(pause_selection_timer, 0, delta)
+		return
+	
+	var input : int = sign(Input.get_axis("move_left", "move_right"))
+	if input == 0:
+		pause_selection_timer = 0
+		return
+	
+	var previous_selection = pause_menu_selection
+	pause_menu_selection += input
+	pause_menu_selection = clamp(pause_menu_selection, 0, 2)
+	
+	if previous_selection == pause_menu_selection:
+		return
+	
+	pause_selection_timer = SELECTION_INTERVAL
+	move_sfx.play()
+	animator.play("pause-" + str(pause_menu_selection))
+	animator.advance(0.0)
 
 
 func update_level_text() -> void:
