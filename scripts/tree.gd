@@ -12,6 +12,9 @@ func on_area_entered(area: Area2D) -> void:
 	if !area.is_in_group("player"):
 		return
 	
+	if area.get_parent().state != Player.STATE.MOVING:
+		return
+	
 	if is_shattered:
 		return
 	

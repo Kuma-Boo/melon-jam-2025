@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://w42seg8xk8gp"]
+[gd_scene load_steps=9 format=3 uid="uid://w42seg8xk8gp"]
 
 [ext_resource type="PackedScene" uid="uid://bx400gh04q068" path="res://scene/game manager.tscn" id="1_uhynm"]
 [ext_resource type="PackedScene" uid="uid://dsfgv8eyv7r05" path="res://scene/player.tscn" id="2_hs8q1"]
@@ -6,13 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://eyoxqf1wjhdm" path="res://scene/npc.tscn" id="4_xkamj"]
 [ext_resource type="PackedScene" uid="uid://cggyenydyg3q1" path="res://scene/mask.tscn" id="6_5lvjh"]
 [ext_resource type="Resource" uid="uid://8jodir6k611e" path="res://resource/rabbit mask.tres" id="7_gn70y"]
+[ext_resource type="PackedScene" uid="uid://dm07c1v7dsib6" path="res://scene/object/fire.tscn" id="8_s6k6v"]
 [ext_resource type="PackedScene" uid="uid://cfo5fxt18ptxw" path="res://scene/object/wall.tscn" id="10_uub8f"]
 
 [node name="World" type="Node"]
 
 [node name="GameManager" parent="." instance=ExtResource("1_uhynm")]
 grid_size = Vector2i(5, 4)
-level_start_time = 5
+level_start_time = 6
 
 [node name="Level" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -42,3 +43,6 @@ position = Vector2(150, 150)
 
 [node name="Wall2" parent="Level" instance=ExtResource("10_uub8f")]
 position = Vector2(350, 150)
+
+[node name="Fire" parent="Level" instance=ExtResource("8_s6k6v")]
+position = Vector2(250, 150)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://h7po604lpid5"]
+[gd_scene load_steps=10 format=3 uid="uid://h7po604lpid5"]
 
 [ext_resource type="Script" uid="uid://so7l245iqq22" path="res://scripts/growth wall.gd" id="1_o81og"]
 [ext_resource type="Texture2D" uid="uid://q586bxt66pcg" path="res://img/object/boulder.png" id="2_esod3"]
+[ext_resource type="LabelSettings" uid="uid://drcd08ns84bx0" path="res://font/passthrough label style.tres" id="3_oqsfr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o81og"]
 radius = 30.0
@@ -44,6 +45,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Number:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_geeu7"]
 resource_name = "grow"
@@ -85,6 +98,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0, -200), Vector2(0, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Number:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_bj4jw"]
 resource_name = "init"
@@ -101,6 +126,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0.39215687), Color(1, 1, 1, 0.078431375), Color(1, 1, 1, 0.39215687)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Number:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_esod3"]
@@ -128,8 +165,10 @@ _data = {
 &"loop": SubResource("Animation_esod3")
 }
 
-[node name="GrowthWall" type="Node2D" node_paths=PackedStringArray("animator")]
+[node name="GrowthWall" type="Node2D" node_paths=PackedStringArray("pass_through_label", "animator")]
 script = ExtResource("1_o81og")
+number_of_passes = 1
+pass_through_label = NodePath("Number/Label")
 animator = NodePath("AnimationPlayer")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -148,6 +187,21 @@ position = Vector2(0, 30)
 position = Vector2(0, -37.5)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_esod3")
+
+[node name="Number" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Label" type="Label" parent="Number"]
+layout_mode = 0
+offset_left = -40.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = -2.0
+text = "1"
+label_settings = ExtResource("3_oqsfr")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

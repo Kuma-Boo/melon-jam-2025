@@ -5,19 +5,19 @@
 [ext_resource type="PackedScene" uid="uid://eyoxqf1wjhdm" path="res://scene/npc.tscn" id="4_xkamj"]
 [ext_resource type="PackedScene" uid="uid://cggyenydyg3q1" path="res://scene/mask.tscn" id="6_5lvjh"]
 [ext_resource type="PackedScene" uid="uid://dy02pqx084coo" path="res://scene/object/tree.tscn" id="6_vbg8b"]
-[ext_resource type="PackedScene" uid="uid://dm07c1v7dsib6" path="res://scene/object/fire.tscn" id="7_jr6jg"]
+[ext_resource type="PackedScene" uid="uid://h7po604lpid5" path="res://scene/object/growth wall.tscn" id="7_2buv5"]
 
 [node name="World" type="Node"]
 
 [node name="GameManager" parent="." instance=ExtResource("1_uhynm")]
 grid_size = Vector2i(5, 4)
-level_start_time = 5
+level_start_time = 8
 
 [node name="Level" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="Player" parent="Level" instance=ExtResource("2_hs8q1")]
-position = Vector2(250, 350)
+position = Vector2(250, 150)
 
 [node name="Camera" type="Camera2D" parent="Level"]
 position = Vector2(450, 200)
@@ -33,25 +33,16 @@ is_facing_right = true
 position = Vector2(350, 350)
 
 [node name="Tree" parent="Level" instance=ExtResource("6_vbg8b")]
-position = Vector2(350, 250)
+position = Vector2(350, 150)
 
 [node name="Tree2" parent="Level" instance=ExtResource("6_vbg8b")]
-position = Vector2(450, 250)
+position = Vector2(150, 150)
 
-[node name="Tree3" parent="Level" instance=ExtResource("6_vbg8b")]
-position = Vector2(50, 250)
+[node name="Tree5" parent="Level" instance=ExtResource("6_vbg8b")]
+position = Vector2(350, 250)
 
-[node name="Tree4" parent="Level" instance=ExtResource("6_vbg8b")]
+[node name="Tree6" parent="Level" instance=ExtResource("6_vbg8b")]
 position = Vector2(150, 250)
 
-[node name="Fire" parent="Level" instance=ExtResource("7_jr6jg")]
-position = Vector2(350, 50)
-
-[node name="Fire2" parent="Level" instance=ExtResource("7_jr6jg")]
-position = Vector2(450, 50)
-
-[node name="Fire3" parent="Level" instance=ExtResource("7_jr6jg")]
-position = Vector2(150, 50)
-
-[node name="Fire4" parent="Level" instance=ExtResource("7_jr6jg")]
-position = Vector2(50, 50)
+[node name="GrowthWall2" parent="Level" instance=ExtResource("7_2buv5")]
+position = Vector2(250, 350)
