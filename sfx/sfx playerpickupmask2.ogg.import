@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://grfgpdxh1o0o"
+path="res://.godot/imported/sfx playerpickupmask2.ogg-6e99f5d4e5cf99906dd4fdd3c29b846e.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/sfx playerpickupmask2.ogg"
+dest_files=["res://.godot/imported/sfx playerpickupmask2.ogg-6e99f5d4e5cf99906dd4fdd3c29b846e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://d25fx084w7f64"
+path="res://.godot/imported/sfx playerhitwall.ogg-2ffdbe2db412312b7d18384337e79dad.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/sfx playerhitwall.ogg"
+dest_files=["res://.godot/imported/sfx playerhitwall.ogg-2ffdbe2db412312b7d18384337e79dad.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

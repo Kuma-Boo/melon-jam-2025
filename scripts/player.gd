@@ -5,13 +5,18 @@ class_name Player
 static var instance : Player
 
 @export_tool_button("Editor Update") var editor_update = initialize
+@export var starting_mask : MaskResource
 
 @export_group("Components")
-@export var starting_mask : MaskResource
 @export var mask : Mask
 @export var movement_curve : Curve
 @export var visual_root : Node2D
 @export var animator : AnimationPlayer
+
+@export_group("Sound Effects")
+@export var move_sfx : AudioStreamPlayer
+@export var hit_wall_sfx : AudioStreamPlayer
+@export var pickup_mask_sfx : AudioStreamPlayer
 
 var current_position : Vector2
 var target_position : Vector2
@@ -45,7 +50,7 @@ func _ready():
 	get_parent().call_deferred("move_child", self, get_parent().get_child_count() - 1) # Fix z-indexing
 
 func initialize() -> void:
-	set_held_mask(starting_mask)
+	set_held_mask(starting_mask, false)
 
 func get_starting_position() -> Vector2:
 	var pos : Vector2 = (position - GameManager.TILE_OFFSET)
@@ -119,6 +124,7 @@ func move() -> void:
 	movement_direction = 1
 	state = STATE.MOVING
 	start_movement_animation(sign(last_movement_direction.x))
+	move_sfx.play()
 
 func start_movement_animation(input_direction : int):
 	if !is_zero_approx(input_direction):
@@ -176,14 +182,19 @@ func start_idle():
 
 func cancel_movement() -> void:
 	movement_direction = -1
+	hit_wall_sfx.play()
 
 var is_mask_just_picked_up : bool
 func get_held_mask() -> MaskResource:
 	return mask.resource
 
-func set_held_mask(new_mask : MaskResource) -> void:
+func set_held_mask(new_mask : MaskResource, play_sfx : bool = true) -> void:
 	if !Engine.is_editor_hint():
 		is_mask_just_picked_up = true
+	
+	if play_sfx && new_mask != null:
+		pickup_mask_sfx.play()
+	
 	mask.resource = new_mask
 	mask.update_sprite()
 

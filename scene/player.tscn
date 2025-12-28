@@ -1,9 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://dsfgv8eyv7r05"]
+[gd_scene load_steps=15 format=3 uid="uid://dsfgv8eyv7r05"]
 
 [ext_resource type="Script" uid="uid://jw56ownw0k8p" path="res://scripts/player.gd" id="1_hjaqi"]
 [ext_resource type="Texture2D" uid="uid://gd7n3fsc26yg" path="res://img/character/sprite_maiden.png" id="2_hjaqi"]
 [ext_resource type="Script" uid="uid://or682mv86ewx" path="res://scripts/mask.gd" id="3_ct4mp"]
 [ext_resource type="Texture2D" uid="uid://dw6odyil474ak" path="res://img/character/sprite_dead_1.png" id="4_ct4mp"]
+[ext_resource type="AudioStream" uid="uid://bbghvynk7owbb" path="res://sfx/sfx playermovement1.ogg" id="5_oh5ij"]
+[ext_resource type="AudioStream" uid="uid://d25fx084w7f64" path="res://sfx/sfx playerhitwall.ogg" id="6_hp4bs"]
+[ext_resource type="AudioStream" uid="uid://grfgpdxh1o0o" path="res://sfx/sfx playerpickupmask2.ogg" id="7_hp4bs"]
 
 [sub_resource type="Curve" id="Curve_fwul8"]
 _limits = [0.0, 1.0, 0.0, 0.4]
@@ -158,12 +161,15 @@ _data = {
 &"move": SubResource("Animation_hjaqi")
 }
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("mask", "visual_root", "animator")]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("mask", "visual_root", "animator", "move_sfx", "hit_wall_sfx", "pickup_mask_sfx")]
 script = ExtResource("1_hjaqi")
 mask = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Mask")
 movement_curve = SubResource("Curve_fwul8")
 visual_root = NodePath("Root")
 animator = NodePath("AnimationPlayer")
+move_sfx = NodePath("Move")
+hit_wall_sfx = NodePath("HitWall")
+pickup_mask_sfx = NodePath("PickupMask")
 
 [node name="Area2D" type="Area2D" parent="." groups=["player"]]
 collision_mask = 0
@@ -200,3 +206,17 @@ libraries = {
 autoplay = "idle"
 next/move = &"idle"
 blend_times = [&"idle", &"move", 0.1, &"move", &"idle", 0.1]
+
+[node name="Move" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_oh5ij")
+bus = &"SFX"
+
+[node name="HitWall" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_hp4bs")
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="PickupMask" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_hp4bs")
+max_polyphony = 4
+bus = &"SFX"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dm07c1v7dsib6"]
+[gd_scene load_steps=22 format=3 uid="uid://dm07c1v7dsib6"]
 
 [ext_resource type="Script" uid="uid://bbp0o4nc6gv6u" path="res://scripts/fire.gd" id="1_hv5h5"]
 [ext_resource type="Shader" uid="uid://ckb7643exfuv0" path="res://shader/fire.gdshader" id="2_4uq7g"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dkigevg5mg2xc" path="res://img/object/displacement.png" id="4_uf5y2"]
 [ext_resource type="Texture2D" uid="uid://casfgaks4x3kq" path="res://img/object/fireplace.png" id="5_srsca"]
 [ext_resource type="Texture2D" uid="uid://h0kucjtpfhv8" path="res://img/object/ember.png" id="5_uf5y2"]
+[ext_resource type="AudioStream" uid="uid://0m4i6ropuxa6" path="res://sfx/sfx maskburn.ogg" id="7_rgjxt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hv5h5"]
 radius = 30.0
@@ -222,9 +223,10 @@ _data = {
 &"defuse": SubResource("Animation_wsd46")
 }
 
-[node name="Fire" type="Node2D" node_paths=PackedStringArray("animator")]
+[node name="Fire" type="Node2D" node_paths=PackedStringArray("animator", "burn_sfx")]
 script = ExtResource("1_hv5h5")
 animator = NodePath("AnimationPlayer")
+burn_sfx = NodePath("AudioStreamPlayer")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -277,9 +279,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_srsca")
 }
 
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_srsca")
-}
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_rgjxt")
+bus = &"SFX"
 
 [connection signal="area_entered" from="Area2D" to="." method="on_area_entered"]

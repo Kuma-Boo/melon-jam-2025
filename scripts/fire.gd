@@ -1,12 +1,14 @@
 extends Node
 
 @export var animator : AnimationPlayer
+@export var burn_sfx : AudioStreamPlayer
 
 func on_area_entered(area: Area2D) -> void:
 	if !area.is_in_group("player"):
 		return
 	
 	animator.play("defuse")
+	burn_sfx.play()
 	
 	var current_mask : MaskResource = area.get_parent().get_held_mask()
 	if current_mask == null:

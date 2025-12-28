@@ -17,6 +17,10 @@ class_name NPC
 @export var satisfied_mask_resource : MaskResource
 @export var animator : AnimationPlayer
 
+@export_group("Sound Effects")
+@export var pickup_sfx : AudioStreamPlayer
+
+
 func _enter_tree() -> void:
 	update_npc()
 
@@ -102,6 +106,7 @@ func on_area_entered(area: Area2D) -> void:
 	
 	if new_mask != null && new_mask.mask_type != MaskResource.MASK_TYPES.CURSED:
 		animator.play("happy")
+		pickup_sfx.play()
 	else:
 		animator.play("idle")
 

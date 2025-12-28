@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://eyoxqf1wjhdm"]
+[gd_scene load_steps=16 format=3 uid="uid://eyoxqf1wjhdm"]
 
 [ext_resource type="Script" uid="uid://r0auaahxf8bo" path="res://scripts/npc.gd" id="1_54ctn"]
 [ext_resource type="Resource" uid="uid://chgjifa0lwmee" path="res://resource/satisfied mask.tres" id="2_06vv4"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dw6odyil474ak" path="res://img/character/sprite_dead_1.png" id="3_8oust"]
 [ext_resource type="Script" uid="uid://or682mv86ewx" path="res://scripts/mask.gd" id="3_pesj1"]
 [ext_resource type="Texture2D" uid="uid://diqs6833q8nn5" path="res://img/character/sprite_girl_1.png" id="4_pesj1"]
+[ext_resource type="AudioStream" uid="uid://btmg2qtfnqpwt" path="res://sfx/sfx playerpickupmask1.ogg" id="7_fb5s2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hjaqi"]
 radius = 30.0
@@ -165,7 +166,7 @@ _data = {
 &"idle": SubResource("Animation_pesj1")
 }
 
-[node name="NPC" type="Node2D" node_paths=PackedStringArray("visual_root", "sprite", "mask", "desired_mask", "animator")]
+[node name="NPC" type="Node2D" node_paths=PackedStringArray("visual_root", "sprite", "mask", "desired_mask", "animator", "pickup_sfx")]
 script = ExtResource("1_54ctn")
 visual_root = NodePath("Root")
 sprite = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Icon")
@@ -173,6 +174,7 @@ mask = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Mask")
 desired_mask = NodePath("Root/AnimatedRoot/Feet/LocalPosition/DesireMask")
 satisfied_mask_resource = ExtResource("2_06vv4")
 animator = NodePath("AnimationPlayer")
+pickup_sfx = NodePath("PickupMask")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -216,6 +218,9 @@ libraries = {
 }
 autoplay = "idle"
 blend_times = [&"happy", &"idle", 0.1, &"idle", &"happy", 0.1]
+
+[node name="PickupMask" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_fb5s2")
 
 [connection signal="area_entered" from="Area2D" to="." method="on_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="on_area_exited"]

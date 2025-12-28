@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://0m4i6ropuxa6"
+path="res://.godot/imported/sfx maskburn.ogg-2d6dfd59bd6a2a9edb09c8780d30247d.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/sfx maskburn.ogg"
+dest_files=["res://.godot/imported/sfx maskburn.ogg-2d6dfd59bd6a2a9edb09c8780d30247d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

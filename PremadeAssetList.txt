@@ -1,5 +1,2 @@
 Clip Studio Paint - Confusion Image Material
-MochiyPopOne Font - 
-
-
-
+MochiyPopOne Font - https://github.com/fontdasu/Mochiypop
