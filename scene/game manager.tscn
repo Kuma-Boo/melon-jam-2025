@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bx400gh04q068"]
+[gd_scene load_steps=32 format=3 uid="uid://bx400gh04q068"]
 
 [ext_resource type="Script" uid="uid://bbnj6lv7iyi4x" path="res://scripts/game manager.gd" id="1_886ea"]
 [ext_resource type="Texture2D" uid="uid://brfh4mlovxyf6" path="res://img/background.png" id="2_1ttmm"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://bh5bw7lr8xugj" path="res://img/mask/mask_fox.png" id="12_wbkj1"]
 [ext_resource type="AudioStream" uid="uid://d25fx084w7f64" path="res://sfx/sfx playerhitwall.ogg" id="13_pth30"]
 [ext_resource type="AudioStream" uid="uid://btmg2qtfnqpwt" path="res://sfx/sfx playerpickupmask1.ogg" id="14_3rcwh"]
+[ext_resource type="AudioStream" uid="uid://ck3kmvf87p6cx" path="res://sfx/sfx completionjingle.ogg" id="15_68tvy"]
+[ext_resource type="AudioStream" uid="uid://cgj6rrhtjfvn" path="res://sfx/sfx wind.ogg" id="16_kyqqd"]
 
 [sub_resource type="Gradient" id="Gradient_pth30"]
 offsets = PackedFloat32Array(0, 0.30473372, 0.79585797, 1)
@@ -637,7 +639,7 @@ _data = {
 &"spirit": SubResource("Animation_myrvm")
 }
 
-[node name="GameManager" type="Control" node_paths=PackedStringArray("move_sfx", "select_sfx", "grid_rect", "animator", "time_interface_head", "remaining_moves_label", "bonus_moves_label", "level_label")]
+[node name="GameManager" type="Control" node_paths=PackedStringArray("move_sfx", "select_sfx", "clear_sfx", "wind_sfx", "grid_rect", "animator", "time_interface_head", "remaining_moves_label", "bonus_moves_label", "level_label")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -650,6 +652,8 @@ grid_size = Vector2i(8, 8)
 level_start_time = 10
 move_sfx = NodePath("MoveSfx")
 select_sfx = NodePath("SelectSfx")
+clear_sfx = NodePath("ClearSfx")
+wind_sfx = NodePath("WindSfx")
 grid_rect = NodePath("Grid")
 animator = NodePath("AnimationPlayer")
 time_interface_head = NodePath("HUD/HUD/Time/Time/HeadPosition/Head")
@@ -883,7 +887,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = 0.0032958984
+offset_bottom = 0.0030517578
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_kxidk")
@@ -1203,3 +1207,11 @@ stream = ExtResource("13_pth30")
 
 [node name="SelectSfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_3rcwh")
+
+[node name="ClearSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_68tvy")
+volume_db = 9.0
+
+[node name="WindSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_kyqqd")
+volume_db = -12.0

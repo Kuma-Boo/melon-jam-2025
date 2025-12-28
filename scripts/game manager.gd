@@ -13,6 +13,12 @@ const SPACE_SHARE_AMOUNT = TILE_SIZE * 0.3
 @export var grid_size : Vector2i
 @export var level_start_time : int
 
+@export_group("Sound Effects")
+@export var move_sfx : AudioStreamPlayer
+@export var select_sfx : AudioStreamPlayer
+@export var clear_sfx : AudioStreamPlayer
+@export var wind_sfx : AudioStreamPlayer
+
 func _enter_tree() -> void:
 	setup_grid()
 	
@@ -45,9 +51,6 @@ func _process(delta: float) -> void:
 	else:
 		check_pause_menu()
 
-@export_group("Sound Effects")
-@export var move_sfx : AudioStreamPlayer
-@export var select_sfx : AudioStreamPlayer
 var is_pause_menu_active : bool
 var pause_menu_selection : int
 var pause_selection_timer : float
@@ -144,6 +147,7 @@ func load_scene() -> void:
 func spirit_transition() -> void:
 	is_transition_active = true
 	animator.play("spirit");
+	wind_sfx.play()
 
 @export var time_interface_head : Sprite2D
 @export var remaining_moves_label : Label
@@ -194,5 +198,6 @@ func kill_npcs() -> void:
 	if is_mission_cleared:
 		target_scene = GlobalManager.get_next_scene()
 		animator.play("clear")
+		clear_sfx.play()
 	
 	emit_signal("killing_characters")

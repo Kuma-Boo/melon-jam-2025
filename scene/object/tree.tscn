@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dy02pqx084coo"]
+[gd_scene load_steps=13 format=3 uid="uid://dy02pqx084coo"]
 
 [ext_resource type="Script" uid="uid://blojghfoexndp" path="res://scripts/tree.gd" id="1_ig6cm"]
 [ext_resource type="Texture2D" uid="uid://dl1d3oe3wvcd5" path="res://img/object/tree.png" id="2_ig6cm"]
 [ext_resource type="Texture2D" uid="uid://7uitxux7tf75" path="res://img/object/stump.png" id="3_s8eqp"]
 [ext_resource type="PackedScene" uid="uid://c5h00b4yrhi2v" path="res://scene/object/object text.tscn" id="4_a1rck"]
-[ext_resource type="AudioStream" uid="uid://0m4i6ropuxa6" path="res://sfx/sfx maskburn.ogg" id="5_a1rck"]
+[ext_resource type="AudioStream" uid="uid://cccg8l316v7qh" path="res://sfx/sfx walkthroughtree.ogg" id="5_638qt"]
+[ext_resource type="AudioStream" uid="uid://byhji3fye5ib3" path="res://sfx/sfx treefalling.ogg" id="6_638qt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o81og"]
 radius = 30.0
@@ -212,10 +213,11 @@ _data = {
 &"shattered": SubResource("Animation_ig6cm")
 }
 
-[node name="Tree" type="Node2D" node_paths=PackedStringArray("animator", "pass_sfx")]
+[node name="Tree" type="Node2D" node_paths=PackedStringArray("animator", "pass_sfx", "fall_sfx")]
 script = ExtResource("1_ig6cm")
 animator = NodePath("AnimationPlayer")
 pass_sfx = NodePath("Pass")
+fall_sfx = NodePath("Fall")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -244,6 +246,11 @@ visible = false
 modulate = Color(1, 1, 1, 1)
 
 [node name="Pass" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_a1rck")
+stream = ExtResource("5_638qt")
+
+[node name="Fall" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_638qt")
+volume_db = -12.0
+bus = &"SFX"
 
 [connection signal="area_entered" from="Area2D" to="." method="on_area_entered"]

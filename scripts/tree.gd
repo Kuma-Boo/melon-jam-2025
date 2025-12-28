@@ -5,6 +5,7 @@ extends Node
 @export var is_shattered : bool
 @export var animator : AnimationPlayer
 @export var pass_sfx : AudioStreamPlayer
+@export var fall_sfx : AudioStreamPlayer
 
 func _enter_tree() -> void:
 	update_visuals()
@@ -21,7 +22,9 @@ func on_area_entered(area: Area2D) -> void:
 	
 	var current_mask : MaskResource = area.get_parent().get_held_mask()
 	if current_mask != null && current_mask.mask_type == MaskResource.MASK_TYPES.BEAR:
-		animator.play("shattered")
+		is_shattered = true
+		animator.play("shatter")
+		fall_sfx.play()
 		return
 	
 	pass_sfx.play()
@@ -31,8 +34,4 @@ func on_area_entered(area: Area2D) -> void:
 func update_visuals() -> void:
 	if animator == null:
 		return
-	
-	if !is_shattered:
-		animator.play("RESET")
-	else:
-		animator.play("shatter")
+	animator.play("shattered" if is_shattered else "RESET")

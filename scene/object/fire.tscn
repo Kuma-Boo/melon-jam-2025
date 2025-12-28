@@ -7,12 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://casfgaks4x3kq" path="res://img/object/fireplace.png" id="5_srsca"]
 [ext_resource type="Texture2D" uid="uid://h0kucjtpfhv8" path="res://img/object/ember.png" id="5_uf5y2"]
 [ext_resource type="LabelSettings" uid="uid://drcd08ns84bx0" path="res://font/object label style.tres" id="7_gisw8"]
-[ext_resource type="AudioStream" uid="uid://0m4i6ropuxa6" path="res://sfx/sfx maskburn.ogg" id="7_rgjxt"]
 [ext_resource type="PackedScene" uid="uid://c5h00b4yrhi2v" path="res://scene/object/object text.tscn" id="8_uxfkn"]
+[ext_resource type="AudioStream" uid="uid://secdi4muid0n" path="res://sfx/sfx fire.ogg" id="9_uxfkn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fr6wy"]
 shader = ExtResource("2_4uq7g")
-shader_parameter/time = 31.74072717171617
+shader_parameter/time = 19.505112111110694
 shader_parameter/displacement = ExtResource("4_uf5y2")
 shader_parameter/base_flame = ExtResource("3_l7rlu")
 shader_parameter/displacement_scale = Vector2(0.2, 0.8)
@@ -306,7 +306,7 @@ libraries = {
 }
 
 [node name="Burn" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_rgjxt")
+stream = ExtResource("9_uxfkn")
 bus = &"SFX"
 
 [connection signal="area_entered" from="Area2D" to="." method="on_area_entered"]

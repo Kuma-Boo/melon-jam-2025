@@ -37,6 +37,7 @@ func on_area_entered(area: Area2D) -> void:
 	
 	var current_mask : MaskResource = area.get_parent().get_held_mask()
 	if current_mask == null:
+		animator.play("defuse")
 		GameManager.instance.force_timeout()
 		GameManager.instance.connect("killing_characters", Callable(area.get_parent(), "force_kill_player"))
 		return

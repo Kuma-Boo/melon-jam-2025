@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://h7po604lpid5"]
+[gd_scene load_steps=12 format=3 uid="uid://h7po604lpid5"]
 
 [ext_resource type="Script" uid="uid://so7l245iqq22" path="res://scripts/growth wall.gd" id="1_o81og"]
 [ext_resource type="Texture2D" uid="uid://q586bxt66pcg" path="res://img/object/boulder.png" id="2_esod3"]
 [ext_resource type="LabelSettings" uid="uid://drcd08ns84bx0" path="res://font/object label style.tres" id="3_oqsfr"]
+[ext_resource type="AudioStream" uid="uid://ds126ujf5264d" path="res://sfx/sfx rockfall.ogg" id="4_g5xq8"]
+[ext_resource type="AudioStream" uid="uid://0dnwrasasx5q" path="res://sfx/sfx rockcountdown.ogg" id="5_6n83h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o81og"]
 radius = 30.0
@@ -165,11 +167,13 @@ _data = {
 &"loop": SubResource("Animation_esod3")
 }
 
-[node name="GrowthWall" type="Node2D" node_paths=PackedStringArray("pass_through_label", "animator")]
+[node name="GrowthWall" type="Node2D" node_paths=PackedStringArray("pass_through_label", "animator", "fall_sfx", "tick_sfx")]
 script = ExtResource("1_o81og")
 number_of_passes = 1
 pass_through_label = NodePath("Number/Label")
 animator = NodePath("AnimationPlayer")
+fall_sfx = NodePath("FallSfx")
+tick_sfx = NodePath("TickSfx")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -208,6 +212,14 @@ libraries = {
 &"": SubResource("AnimationLibrary_qxttj")
 }
 next/grow = &"loop"
+
+[node name="FallSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_g5xq8")
+bus = &"SFX"
+
+[node name="TickSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_6n83h")
+bus = &"SFX"
 
 [connection signal="area_entered" from="Area2D" to="." method="on_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="on_area_exited"]
