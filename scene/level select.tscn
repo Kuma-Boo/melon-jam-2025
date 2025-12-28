@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://y1ibf8ll02wf"]
+[gd_scene load_steps=17 format=3 uid="uid://y1ibf8ll02wf"]
 
 [ext_resource type="Script" uid="uid://kthf0at2keou" path="res://scripts/level select.gd" id="1_hyp37"]
 [ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://font/MochiyPopOne-Regular.ttf" id="1_t5trm"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://bcsv7qdcl8x6r" path="res://img/title/title_masks.png" id="5_438f0"]
 [ext_resource type="Texture2D" uid="uid://dvbsdicla4sn4" path="res://img/title/title_shaman.png" id="6_u8m2w"]
 [ext_resource type="LabelSettings" uid="uid://dfjsad66q5mmb" path="res://font/level select label style.tres" id="9_1x5tu"]
+[ext_resource type="AudioStream" uid="uid://d25fx084w7f64" path="res://sfx/sfx playerhitwall.ogg" id="10_u8m2w"]
+[ext_resource type="AudioStream" uid="uid://btmg2qtfnqpwt" path="res://sfx/sfx playerpickupmask1.ogg" id="11_0yaui"]
 
 [sub_resource type="Animation" id="Animation_yudmx"]
 length = 0.001
@@ -112,7 +114,7 @@ _data = {
 &"start_level": SubResource("Animation_b61gj")
 }
 
-[node name="LevelSelect" type="Control" node_paths=PackedStringArray("level_box_containers", "cursor_position", "animator")]
+[node name="LevelSelect" type="Control" node_paths=PackedStringArray("level_box_containers", "cursor_position", "animator", "move_sfx", "select_sfx")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -124,6 +126,8 @@ level_box_containers = [NodePath("LevelList/Column1"), NodePath("LevelList/Colum
 level_option = ExtResource("2_xf7na")
 cursor_position = NodePath("CursorRoot")
 animator = NodePath("AnimationPlayer")
+move_sfx = NodePath("MoveSfx")
+select_sfx = NodePath("SelectSfx")
 
 [node name="TitleBackgrounds" type="TextureRect" parent="."]
 z_index = -1
@@ -250,3 +254,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_xf7na")
 }
 autoplay = "init"
+
+[node name="MoveSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_u8m2w")
+
+[node name="SelectSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_0yaui")

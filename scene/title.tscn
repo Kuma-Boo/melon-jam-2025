@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cev6eorcoq280"]
+[gd_scene load_steps=19 format=3 uid="uid://cev6eorcoq280"]
 
 [ext_resource type="Script" uid="uid://cmauuskqywss0" path="res://scripts/title.gd" id="1_hr6ky"]
 [ext_resource type="Texture2D" uid="uid://dtvq7d403orlg" path="res://img/title/title_backgrounds.png" id="2_5xh2k"]
@@ -7,6 +7,8 @@
 [ext_resource type="LabelSettings" uid="uid://bnpmqef5fblac" path="res://font/ main menu label style.tres" id="3_qaeh8"]
 [ext_resource type="Texture2D" uid="uid://bcsv7qdcl8x6r" path="res://img/title/title_masks.png" id="4_6627o"]
 [ext_resource type="Texture2D" uid="uid://dvbsdicla4sn4" path="res://img/title/title_shaman.png" id="5_5tkpx"]
+[ext_resource type="AudioStream" uid="uid://d25fx084w7f64" path="res://sfx/sfx playerhitwall.ogg" id="8_6627o"]
+[ext_resource type="AudioStream" uid="uid://btmg2qtfnqpwt" path="res://sfx/sfx playerpickupmask1.ogg" id="9_5tkpx"]
 
 [sub_resource type="Animation" id="Animation_hr6ky"]
 length = 0.001
@@ -400,7 +402,7 @@ _data = {
 &"show-options": SubResource("Animation_0npwg")
 }
 
-[node name="Title" type="Control" node_paths=PackedStringArray("animator")]
+[node name="Title" type="Control" node_paths=PackedStringArray("animator", "move_sfx", "select_sfx")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -409,6 +411,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hr6ky")
 animator = NodePath("AnimationPlayer")
+move_sfx = NodePath("MoveSfx")
+select_sfx = NodePath("SelectSfx")
 
 [node name="TitleBackgrounds" type="TextureRect" parent="."]
 z_index = -1
@@ -609,3 +613,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_qaeh8")
 }
 next/init = &"loop"
+
+[node name="MoveSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_6627o")
+
+[node name="SelectSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_5tkpx")

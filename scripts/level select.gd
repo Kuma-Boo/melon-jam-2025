@@ -5,6 +5,10 @@ extends Control
 @export var cursor_position : Control
 @export var animator : AnimationPlayer
 
+@export_group("Sound Effects")
+@export var move_sfx : AudioStreamPlayer
+@export var select_sfx : AudioStreamPlayer
+
 var is_transition_active : bool
 
 var current_selection : Vector2
@@ -30,6 +34,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		animator.play("start_level")
 		is_transition_active = true
+		select_sfx.play()
 	elif Input.is_action_just_pressed("ui_cancel"):
 		animator.play("return")
 		is_transition_active = true
@@ -43,10 +48,16 @@ func process_selection(delta : float) -> void:
 		selection_timer = move_toward(selection_timer, 0, delta)
 		return
 	
+	var previous_selection : Vector2 = current_selection
 	current_selection += last_input_direction
 	current_selection.x = clamp(current_selection.x, 0, level_box_containers.size() - 1)
 	current_selection.y = clamp(current_selection.y, 0, level_box_containers[current_selection.x as int].get_child_count() - 1)
 	cursor_position.global_position = level_box_containers[0].global_position + current_selection * Vector2(SELECTION_HORIZONTAL_SPACING, SELECTION_VERTICAL_SPACING)
+	
+	if current_selection.is_equal_approx(previous_selection):
+		return
+	
+	move_sfx.play()
 	selection_timer = SELECTION_INTERVAL
 
 var prioritize_horizontal_inputs : bool

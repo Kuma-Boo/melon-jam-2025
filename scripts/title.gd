@@ -1,6 +1,11 @@
 extends Node
 
 @export var animator : AnimationPlayer
+
+@export_group("Sound Effects")
+@export var move_sfx : AudioStreamPlayer
+@export var select_sfx : AudioStreamPlayer
+
 var is_transition_active : bool = true
 var is_options_visible : bool
 var is_selecting_level_select : bool
@@ -23,6 +28,7 @@ func _process(_delta: float) -> void:
 		
 		is_options_visible = true
 		is_transition_active = true
+		select_sfx.play()
 		return
 	
 	if !is_options_visible:
@@ -30,6 +36,7 @@ func _process(_delta: float) -> void:
 	
 	if (Input.is_action_just_pressed("move_up") && is_selecting_level_select) || (Input.is_action_just_pressed("move_down") && !is_selecting_level_select):
 		is_selecting_level_select = !is_selecting_level_select
+		move_sfx.play()
 		animator.play("select-level" if is_selecting_level_select else "select-new")
 
 func finish_transition() -> void:
