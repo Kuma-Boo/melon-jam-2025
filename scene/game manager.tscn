@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bx400gh04q068"]
+[gd_scene load_steps=21 format=3 uid="uid://bx400gh04q068"]
 
 [ext_resource type="Script" uid="uid://bbnj6lv7iyi4x" path="res://scripts/game manager.gd" id="1_886ea"]
 [ext_resource type="Texture2D" uid="uid://brfh4mlovxyf6" path="res://img/background.png" id="2_1ttmm"]
@@ -7,7 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://blj4xa86m6quy" path="res://img/interface/current time.png" id="4_myrvm"]
 [ext_resource type="Texture2D" uid="uid://cehyfoms86bda" path="res://img/mask/mask_cursed.png" id="6_1ttmm"]
 [ext_resource type="Texture2D" uid="uid://xamhk1bxaena" path="res://img/confusion_clip.jpg" id="6_myrvm"]
+[ext_resource type="Texture2D" uid="uid://bq5286npupbjo" path="res://img/interface/stage_clear_bg.png" id="8_eco6l"]
 [ext_resource type="Texture2D" uid="uid://3muctngp4n6m" path="res://img/background bad.png" id="8_y14uc"]
+[ext_resource type="Texture2D" uid="uid://b161ds3260ura" path="res://img/interface/stage_clear_char.png" id="9_kxidk"]
 
 [sub_resource type="Curve" id="Curve_myrvm"]
 _data = [Vector2(0, 0), 0.0, 16.674156, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -30,6 +32,16 @@ initial_velocity_max = 1200.0
 gravity = Vector3(0, 0, 0)
 scale_min = 0.5
 alpha_curve = SubResource("CurveTexture_y14uc")
+
+[sub_resource type="LabelSettings" id="LabelSettings_y14uc"]
+font = ExtResource("3_1ttmm")
+font_size = 100
+font_color = Color(0.97, 0.77309006, 0.1261, 1)
+outline_size = 12
+outline_color = Color(0.97, 0.77309006, 0.1261, 1)
+stacked_outline_count = 1
+stacked_outline_0/size = 30
+stacked_outline_0/color = Color(0.2901961, 0.023529412, 0.03137255, 1)
 
 [sub_resource type="Animation" id="Animation_l2vnv"]
 length = 0.001
@@ -60,7 +72,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Transitions/Clear/TimeLabel:scale")
+tracks/2/path = NodePath("Transitions/Clear/ClearLabel:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -161,7 +173,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Transitions/Clear/TimeLabel:scale")
+tracks/1/path = NodePath("Transitions/Clear/ClearLabel:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -186,13 +198,13 @@ tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/path = NodePath("Transitions/Clear/Layer2:position")
-tracks/3/interp = 1
+tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(0.5, 2, 0.5, 1),
+"transitions": PackedFloat32Array(0.5, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 900), Vector2(0, 0), Vector2(0, 80), Vector2(0, 50)]
+"values": [Vector2(0, 900), Vector2(0, -20), Vector2(0, 20), Vector2(0, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -545,15 +557,6 @@ vertical_alignment = 1
 
 [node name="Transitions" type="CanvasLayer" parent="."]
 
-[node name="FadeTransition" type="ColorRect" parent="Transitions"]
-z_as_relative = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0)
-
 [node name="SpiritTransition" type="ColorRect" parent="Transitions"]
 modulate = Color(1, 1, 1, 0)
 z_as_relative = false
@@ -601,43 +604,53 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Layer1" type="ColorRect" parent="Transitions/Clear"]
+[node name="Layer1" type="TextureRect" parent="Transitions/Clear"]
 z_as_relative = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = 0.0044555664
+offset_bottom = 0.001159668
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.08, 0.08, 0.2, 1)
+texture = ExtResource("8_eco6l")
+expand_mode = 5
 
-[node name="Layer2" type="ColorRect" parent="Transitions/Clear"]
+[node name="Layer2" type="TextureRect" parent="Transitions/Clear"]
 z_as_relative = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -99.999756
+offset_bottom = 0.0032958984
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.3, 0.3, 0.6, 1)
+texture = ExtResource("9_kxidk")
+expand_mode = 5
 
-[node name="TimeLabel" type="Label" parent="Transitions/Clear"]
+[node name="ClearLabel" type="Label" parent="Transitions/Clear"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 250.0
-offset_bottom = -250.0
+offset_top = 10.0
+offset_bottom = -490.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(700, 150)
-theme_override_fonts/font = ExtResource("3_1ttmm")
-theme_override_font_sizes/font_size = 72
 text = "STAGE CLEAR!"
+label_settings = SubResource("LabelSettings_y14uc")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="FadeTransition" type="ColorRect" parent="Transitions"]
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
