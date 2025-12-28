@@ -31,6 +31,6 @@ func get_next_scene() -> String:
 
 func get_next_level() -> String:
 	current_level_index += 1
-	if current_level_index >= level_list.size():
+	if current_level_index >= level_list.size() || !ResourceLoader.exists(level_list[current_level_index]):
 		return "res://scene/end.tscn"
 	return level_list[current_level_index]

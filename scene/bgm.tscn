@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bsxderc4ua2br"]
 
-[ext_resource type="AudioStream" uid="uid://djgmbtoisc8kr" path="res://bgm.mp3" id="1_4c0cy"]
+[ext_resource type="AudioStream" uid="uid://bjqw4kuw2f8jr" path="res://bgm.ogg" id="1_4c0cy"]
 
 [node name="BGM" type="AudioStreamPlayer"]
 process_mode = 3
