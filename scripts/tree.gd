@@ -29,4 +29,4 @@ func update_visuals() -> void:
 	if !is_shattered:
 		animator.play("RESET")
 	else:
-		animator.play("shattered")
+		animator.play("shatter")
