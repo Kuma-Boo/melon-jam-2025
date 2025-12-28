@@ -4,7 +4,7 @@
 
 [resource]
 font = ExtResource("1_ewphm")
-font_size = 72
+font_size = 56
 font_color = Color(0.97, 0.77309006, 0.1261, 1)
 stacked_outline_count = 2
 stacked_outline_0/size = 20

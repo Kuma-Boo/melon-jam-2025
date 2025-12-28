@@ -3,6 +3,7 @@ extends Control
 @export var level_box_containers : Array[VBoxContainer]
 @export var level_option : PackedScene
 @export var cursor_position : Control
+@export var return_to_title_option : Control
 @export var animator : AnimationPlayer
 
 @export_group("Sound Effects")
@@ -16,6 +17,10 @@ var selection_timer : float
 const SELECTION_INTERVAL = 0.2
 const SELECTION_VERTICAL_SPACING = 100
 const SELECTION_HORIZONTAL_SPACING = 400
+
+func _enter_tree() -> void:
+	animator.play("init")
+	animator.advance(0.0)
 
 func _ready() -> void:
 	for i in GlobalManager.level_list.size():
@@ -32,12 +37,22 @@ func _process(delta: float) -> void:
 	process_selection(delta)
 	
 	if Input.is_action_just_pressed("ui_accept"):
-		animator.play("start_level")
-		is_transition_active = true
-		select_sfx.play()
+		if current_selection.y < level_box_containers[current_selection.x as int].get_child_count():
+			start_level()
+		else:
+			return_to_title()
 	elif Input.is_action_just_pressed("ui_cancel"):
-		animator.play("return")
-		is_transition_active = true
+		return_to_title()
+
+func start_level() -> void:
+	animator.play("start_level")
+	is_transition_active = true
+	select_sfx.play()
+
+func return_to_title() -> void:
+	animator.play("return")
+	is_transition_active = true
+	select_sfx.play()
 
 func process_selection(delta : float) -> void:
 	if last_input_direction.is_zero_approx():
@@ -51,8 +66,15 @@ func process_selection(delta : float) -> void:
 	var previous_selection : Vector2 = current_selection
 	current_selection += last_input_direction
 	current_selection.x = clamp(current_selection.x, 0, level_box_containers.size() - 1)
-	current_selection.y = clamp(current_selection.y, 0, level_box_containers[current_selection.x as int].get_child_count() - 1)
-	cursor_position.global_position = level_box_containers[0].global_position + current_selection * Vector2(SELECTION_HORIZONTAL_SPACING, SELECTION_VERTICAL_SPACING)
+	current_selection.y = clamp(current_selection.y, 0, level_box_containers[current_selection.x as int].get_child_count())
+	
+	if current_selection.y >= level_box_containers[current_selection.x as int].get_child_count():
+		current_selection.x = 1
+	
+	if current_selection.y < level_box_containers[current_selection.x as int].get_child_count():
+		cursor_position.global_position = level_box_containers[0].global_position + current_selection * Vector2(SELECTION_HORIZONTAL_SPACING, SELECTION_VERTICAL_SPACING)
+	else:
+		cursor_position.global_position = return_to_title_option.global_position
 	
 	if current_selection.is_equal_approx(previous_selection):
 		return
