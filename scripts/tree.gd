@@ -4,6 +4,7 @@ extends Node
 @export_tool_button("Update") var update = update_visuals
 @export var is_shattered : bool
 @export var animator : AnimationPlayer
+@export var pass_sfx : AudioStreamPlayer
 
 func _enter_tree() -> void:
 	update_visuals()
@@ -23,6 +24,8 @@ func on_area_entered(area: Area2D) -> void:
 		animator.play("shattered")
 		return
 	
+	pass_sfx.play()
+	animator.play("pass")
 	area.get_parent().advance_time()
 
 func update_visuals() -> void:
