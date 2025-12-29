@@ -12,6 +12,7 @@ static var instance : Player
 @export var movement_curve : Curve
 @export var visual_root : Node2D
 @export var animator : AnimationPlayer
+@export var auto_leap_animator : AnimationPlayer
 
 @export_group("Sound Effects")
 @export var move_sfx : AudioStreamPlayer
@@ -169,6 +170,8 @@ func process_movement(delta : float) -> void:
 			if consecutive_movement_amount < 2 && !is_mask_just_picked_up:
 				state = STATE.IDLE
 				move()
+				auto_leap_animator.seek(0.0)
+				auto_leap_animator.play("show")
 				return
 		
 		finish_movement()

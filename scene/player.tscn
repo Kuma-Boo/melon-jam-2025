@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dsfgv8eyv7r05"]
+[gd_scene load_steps=16 format=3 uid="uid://dsfgv8eyv7r05"]
 
 [ext_resource type="Script" uid="uid://jw56ownw0k8p" path="res://scripts/player.gd" id="1_hjaqi"]
 [ext_resource type="Texture2D" uid="uid://gd7n3fsc26yg" path="res://img/character/sprite_maiden.png" id="2_hjaqi"]
 [ext_resource type="Script" uid="uid://or682mv86ewx" path="res://scripts/mask.gd" id="3_ct4mp"]
 [ext_resource type="Texture2D" uid="uid://dw6odyil474ak" path="res://img/character/sprite_dead_1.png" id="4_ct4mp"]
+[ext_resource type="PackedScene" uid="uid://c5h00b4yrhi2v" path="res://scene/object/object text.tscn" id="4_g2vtq"]
 [ext_resource type="AudioStream" uid="uid://dtuhcuyffpntb" path="res://sfx/sfc playermovement2.ogg" id="5_hp4bs"]
 [ext_resource type="AudioStream" uid="uid://d25fx084w7f64" path="res://sfx/sfx playerhitwall.ogg" id="6_hp4bs"]
 [ext_resource type="AudioStream" uid="uid://grfgpdxh1o0o" path="res://sfx/sfx playerpickupmask2.ogg" id="7_hp4bs"]
@@ -161,12 +162,13 @@ _data = {
 &"move": SubResource("Animation_hjaqi")
 }
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("mask", "visual_root", "animator", "move_sfx", "hit_wall_sfx", "pickup_mask_sfx")]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("mask", "visual_root", "animator", "auto_leap_animator", "move_sfx", "hit_wall_sfx", "pickup_mask_sfx")]
 script = ExtResource("1_hjaqi")
 mask = NodePath("Root/AnimatedRoot/Feet/LocalPosition/Mask")
 movement_curve = SubResource("Curve_fwul8")
 visual_root = NodePath("Root")
 animator = NodePath("AnimationPlayer")
+auto_leap_animator = NodePath("Text/AnimationPlayer")
 move_sfx = NodePath("Move")
 hit_wall_sfx = NodePath("HitWall")
 pickup_mask_sfx = NodePath("PickupMask")
@@ -177,6 +179,13 @@ monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_hjaqi")
+
+[node name="Text" parent="." instance=ExtResource("4_g2vtq")]
+visible = false
+modulate = Color(1, 1, 1, 1)
+offset_top = 0.0
+offset_bottom = 36.0
+text = "Auto-Leap"
 
 [node name="Root" type="Node2D" parent="."]
 
@@ -221,3 +230,5 @@ bus = &"SFX"
 stream = ExtResource("7_hp4bs")
 max_polyphony = 4
 bus = &"SFX"
+
+[editable path="Text"]
