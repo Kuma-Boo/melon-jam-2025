@@ -209,6 +209,7 @@ blend_times = [&"idle", &"move", 0.1, &"move", &"idle", 0.1]
 
 [node name="Move" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_hp4bs")
+volume_db = -6.0
 bus = &"SFX"
 
 [node name="HitWall" type="AudioStreamPlayer" parent="."]
