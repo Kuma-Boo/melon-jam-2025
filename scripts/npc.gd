@@ -57,6 +57,8 @@ func update_npc() -> void:
 
 func update_mask_bubble() -> void:
 	if desired_mask_resource == null:
+		desired_mask.resource = null
+		desired_mask.update_sprite()
 		return
 	
 	var is_satisfied : bool = desired_mask_resource != null && mask.resource == desired_mask_resource && !Engine.is_editor_hint()

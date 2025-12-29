@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bbmcm120mri60"]
+[gd_scene load_steps=7 format=3 uid="uid://bbmcm120mri60"]
 
 [ext_resource type="PackedScene" uid="uid://bx400gh04q068" path="res://scene/game manager.tscn" id="1_ockup"]
 [ext_resource type="PackedScene" uid="uid://dsfgv8eyv7r05" path="res://scene/player.tscn" id="2_tlvdd"]
@@ -6,53 +6,33 @@
 [ext_resource type="PackedScene" uid="uid://cggyenydyg3q1" path="res://scene/mask.tscn" id="4_igm8f"]
 [ext_resource type="Resource" uid="uid://c77ig52detl52" path="res://resource/bear mask.tres" id="4_jpt1r"]
 [ext_resource type="PackedScene" uid="uid://dy02pqx084coo" path="res://scene/object/tree.tscn" id="5_ockup"]
-[ext_resource type="Resource" uid="uid://bs1j4hsffgwxf" path="res://resource/fox mask.tres" id="7_ockup"]
-[ext_resource type="PackedScene" uid="uid://dm07c1v7dsib6" path="res://scene/object/fire.tscn" id="8_tlvdd"]
 
 [node name="World" type="Node"]
 
 [node name="GameManager" parent="." instance=ExtResource("1_ockup")]
-grid_size = Vector2i(5, 5)
+grid_size = Vector2i(5, 3)
 level_start_time = 6
 
 [node name="Level" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="Player" parent="Level" instance=ExtResource("2_tlvdd")]
-position = Vector2(250, 450)
+position = Vector2(50, 150)
 
 [node name="Camera" type="Camera2D" parent="Level"]
-position = Vector2(600, 250)
+position = Vector2(600, 150)
 limit_enabled = false
 
 [node name="Mask3" parent="Level" instance=ExtResource("4_igm8f")]
-position = Vector2(350, 350)
+position = Vector2(250, 150)
 resource = ExtResource("4_jpt1r")
 
-[node name="Mask4" parent="Level" instance=ExtResource("4_igm8f")]
-position = Vector2(150, 350)
-
-[node name="Tree3" parent="Level" instance=ExtResource("5_ockup")]
-position = Vector2(250, 250)
-
 [node name="Tree11" parent="Level" instance=ExtResource("5_ockup")]
-position = Vector2(350, 250)
+position = Vector2(350, 150)
 
 [node name="Tree6" parent="Level" instance=ExtResource("5_ockup")]
-position = Vector2(150, 250)
-
-[node name="Tree9" parent="Level" instance=ExtResource("5_ockup")]
-position = Vector2(50, 250)
-
-[node name="Tree7" parent="Level" instance=ExtResource("5_ockup")]
-position = Vector2(450, 260)
-
-[node name="NPC" parent="Level" instance=ExtResource("3_75urx")]
-position = Vector2(250, 50)
-desired_mask_resource = ExtResource("7_ockup")
-
-[node name="Fire" parent="Level" instance=ExtResource("8_tlvdd")]
 position = Vector2(150, 150)
 
-[node name="Fire2" parent="Level" instance=ExtResource("8_tlvdd")]
-position = Vector2(350, 150)
+[node name="NPC" parent="Level" instance=ExtResource("3_75urx")]
+position = Vector2(450, 150)
+npc_type = 1

@@ -1,11 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cadsqggys0k71"]
+[gd_scene load_steps=10 format=3 uid="uid://cadsqggys0k71"]
 
 [ext_resource type="PackedScene" uid="uid://bx400gh04q068" path="res://scene/game manager.tscn" id="1_3y363"]
 [ext_resource type="PackedScene" uid="uid://dsfgv8eyv7r05" path="res://scene/player.tscn" id="2_i4lfk"]
 [ext_resource type="PackedScene" uid="uid://eyoxqf1wjhdm" path="res://scene/npc.tscn" id="3_77enf"]
 [ext_resource type="Resource" uid="uid://c3lthb3kw0ex7" path="res://resource/cursed mask.tres" id="4_prpny"]
-[ext_resource type="Resource" uid="uid://bs1j4hsffgwxf" path="res://resource/fox mask.tres" id="5_wtlcn"]
-[ext_resource type="Resource" uid="uid://c77ig52detl52" path="res://resource/bear mask.tres" id="6_nrnlw"]
 [ext_resource type="PackedScene" uid="uid://cggyenydyg3q1" path="res://scene/mask.tscn" id="7_27oiu"]
 [ext_resource type="Resource" uid="uid://8jodir6k611e" path="res://resource/rabbit mask.tres" id="8_53xx2"]
 [ext_resource type="PackedScene" uid="uid://dm07c1v7dsib6" path="res://scene/object/fire.tscn" id="9_ta6ue"]
@@ -31,13 +29,11 @@ limit_enabled = false
 [node name="NPC1" parent="Level" instance=ExtResource("3_77enf")]
 position = Vector2(750, 150)
 initial_mask_resource = ExtResource("4_prpny")
-desired_mask_resource = ExtResource("5_wtlcn")
 
 [node name="NPC2" parent="Level" instance=ExtResource("3_77enf")]
 position = Vector2(50, 350)
 npc_type = 1
 is_facing_right = true
-desired_mask_resource = ExtResource("6_nrnlw")
 
 [node name="Mask1" parent="Level" instance=ExtResource("7_27oiu")]
 position = Vector2(350, 350)
@@ -48,7 +44,6 @@ position = Vector2(650, 150)
 
 [node name="Mask3" parent="Level" instance=ExtResource("7_27oiu")]
 position = Vector2(50, 150)
-resource = ExtResource("6_nrnlw")
 
 [node name="Fire" parent="Level" instance=ExtResource("9_ta6ue")]
 position = Vector2(750, 50)
@@ -75,7 +70,7 @@ position = Vector2(450, 150)
 position = Vector2(250, 150)
 
 [node name="GrowthWall4" parent="Level" instance=ExtResource("11_8clin")]
-position = Vector2(150, 460)
+position = Vector2(150, 450)
 
 [node name="Wall5" parent="Level" instance=ExtResource("10_tgail")]
 position = Vector2(250, 250)
