@@ -1,10 +1,10 @@
-[gd_scene load_steps=34 format=3 uid="uid://bx400gh04q068"]
+[gd_scene load_steps=37 format=3 uid="uid://bx400gh04q068"]
 
 [ext_resource type="Script" uid="uid://bbnj6lv7iyi4x" path="res://scripts/game manager.gd" id="1_886ea"]
 [ext_resource type="Texture2D" uid="uid://brfh4mlovxyf6" path="res://img/background.png" id="2_1ttmm"]
 [ext_resource type="Texture2D" uid="uid://dbinu25iwao84" path="res://img/interface/grid.png" id="2_l2vnv"]
 [ext_resource type="FontFile" uid="uid://dryre1ic4larg" path="res://font/MochiyPopOne-Regular.ttf" id="3_1ttmm"]
-[ext_resource type="Texture2D" uid="uid://blj4xa86m6quy" path="res://img/interface/current time.png" id="4_myrvm"]
+[ext_resource type="Texture2D" uid="uid://cp5b35xktqakg" path="res://img/interface/sidebar.png" id="4_68tvy"]
 [ext_resource type="Texture2D" uid="uid://cehyfoms86bda" path="res://img/mask/mask_cursed.png" id="6_1ttmm"]
 [ext_resource type="Texture2D" uid="uid://xamhk1bxaena" path="res://img/confusion_clip.jpg" id="6_myrvm"]
 [ext_resource type="Texture2D" uid="uid://bq5286npupbjo" path="res://img/interface/stage_clear_bg.png" id="8_eco6l"]
@@ -16,6 +16,38 @@
 [ext_resource type="AudioStream" uid="uid://btmg2qtfnqpwt" path="res://sfx/sfx playerpickupmask1.ogg" id="14_3rcwh"]
 [ext_resource type="AudioStream" uid="uid://ck3kmvf87p6cx" path="res://sfx/sfx completionjingle.ogg" id="15_68tvy"]
 [ext_resource type="AudioStream" uid="uid://cgj6rrhtjfvn" path="res://sfx/sfx wind.ogg" id="16_kyqqd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5xtl2"]
+font = ExtResource("3_1ttmm")
+font_size = 48
+font_color = Color(0.97, 0.77309006, 0.1261, 1)
+stacked_outline_count = 2
+stacked_outline_0/size = 20
+stacked_outline_0/color = Color(0.2901961, 0.023529412, 0.03137255, 1)
+stacked_outline_1/size = 10
+stacked_outline_1/color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_68tvy"]
+font = ExtResource("3_1ttmm")
+font_size = 24
+font_color = Color(0.97, 0.77309006, 0.1261, 1)
+stacked_outline_count = 2
+stacked_outline_0/size = 20
+stacked_outline_0/color = Color(0.2901961, 0.023529412, 0.03137255, 1)
+stacked_outline_1/size = 10
+stacked_outline_1/color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kyqqd"]
+font = ExtResource("3_1ttmm")
+font_size = 72
+font_color = Color(0.97, 0.77309006, 0.1261, 1)
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+stacked_outline_count = 2
+stacked_outline_0/size = 20
+stacked_outline_0/color = Color(0.2901961, 0.023529412, 0.03137255, 1)
+stacked_outline_1/size = 10
+stacked_outline_1/color = Color(1, 1, 1, 1)
 
 [sub_resource type="Gradient" id="Gradient_pth30"]
 offsets = PackedFloat32Array(0, 0.30473372, 0.79585797, 1)
@@ -650,7 +682,7 @@ _data = {
 &"pause-show": SubResource("Animation_kxidk")
 }
 
-[node name="GameManager" type="Control" node_paths=PackedStringArray("move_sfx", "select_sfx", "clear_sfx", "wind_sfx", "pause_animator", "grid_rect", "animator", "time_interface_head", "remaining_moves_label", "bonus_moves_label", "level_label")]
+[node name="GameManager" type="Control" node_paths=PackedStringArray("move_sfx", "select_sfx", "clear_sfx", "wind_sfx", "pause_animator", "grid_rect", "animator", "remaining_moves_label", "level_label")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -668,9 +700,7 @@ wind_sfx = NodePath("WindSfx")
 pause_animator = NodePath("PauseAnimationPlayer")
 grid_rect = NodePath("Grid")
 animator = NodePath("AnimationPlayer")
-time_interface_head = NodePath("HUD/HUD/Time/Time/HeadPosition/Head")
-remaining_moves_label = NodePath("HUD/HUD/Time/TimeLabel/MoveLabel")
-bonus_moves_label = NodePath("HUD/HUD/Time/TimeLabel/BonusLabel")
+remaining_moves_label = NodePath("HUD/HUD/Time/MoveLabel")
 level_label = NodePath("HUD/HUD/Level/LevelLabel")
 
 [node name="Background" type="TextureRect" parent="."]
@@ -692,7 +722,7 @@ stretch_mode = 1
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="HUD" type="ColorRect" parent="HUD"]
+[node name="HUD" type="TextureRect" parent="HUD"]
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
@@ -700,128 +730,64 @@ anchor_bottom = 1.0
 offset_left = -440.0
 grow_horizontal = 0
 grow_vertical = 2
-color = Color(0.24705882, 0.28627452, 0.5529412, 1)
+texture = ExtResource("4_68tvy")
+
+[node name="Level" type="Control" parent="HUD/HUD"]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 240.0
+offset_right = 450.0
+offset_bottom = 300.0
+
+[node name="LevelLabel" type="Label" parent="HUD/HUD/Level"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_1ttmm")
+theme_override_font_sizes/font_size = 32
+text = "Level 1"
+label_settings = SubResource("LabelSettings_5xtl2")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Time" type="Control" parent="HUD/HUD"]
 anchors_preset = 0
-offset_top = 100.0
-offset_right = 440.0
-offset_bottom = 230.0
+offset_left = 40.0
+offset_top = 360.0
+offset_right = 450.0
+offset_bottom = 540.0
 
 [node name="TimeLabel" type="Label" parent="HUD/HUD/Time"]
-layout_mode = 0
-offset_left = 40.0
-offset_right = 320.0
-offset_bottom = 60.0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 35.0
+grow_horizontal = 2
 theme_override_fonts/font = ExtResource("3_1ttmm")
 theme_override_font_sizes/font_size = 32
 text = "MOVES LEFT :"
-horizontal_alignment = 2
+label_settings = SubResource("LabelSettings_68tvy")
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MoveLabel" type="Label" parent="HUD/HUD/Time/TimeLabel"]
+[node name="MoveLabel" type="Label" parent="HUD/HUD/Time"]
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
+anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 10.0
-offset_top = -30.0
-offset_right = 160.0
-offset_bottom = 30.0
-grow_horizontal = 0
+offset_top = -52.5
+offset_bottom = 52.5
+grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_1ttmm")
 theme_override_font_sizes/font_size = 32
 text = "x10"
-vertical_alignment = 1
-
-[node name="BonusLabel" type="Label" parent="HUD/HUD/Time/TimeLabel"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = 10.0
-offset_top = -70.0
-offset_right = 160.0
-offset_bottom = -10.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("3_1ttmm")
-theme_override_font_sizes/font_size = 32
-text = "+1"
-vertical_alignment = 1
-
-[node name="8AM" type="Label" parent="HUD/HUD/Time"]
-layout_mode = 0
-offset_top = 100.0
-offset_right = 48.0
-offset_bottom = 124.0
-theme_override_fonts/font = ExtResource("3_1ttmm")
-theme_override_font_sizes/font_size = 16
-text = "8AM"
+label_settings = SubResource("LabelSettings_kyqqd")
 horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="6PM" type="Label" parent="HUD/HUD/Time"]
-layout_mode = 0
-offset_left = 392.0
-offset_top = 100.0
-offset_right = 440.0
-offset_bottom = 124.0
-theme_override_fonts/font = ExtResource("3_1ttmm")
-theme_override_font_sizes/font_size = 16
-text = "6PM"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="12PM" type="Label" parent="HUD/HUD/Time"]
-layout_mode = 0
-offset_left = 192.0
-offset_top = 100.0
-offset_right = 256.0
-offset_bottom = 124.0
-theme_override_fonts/font = ExtResource("3_1ttmm")
-theme_override_font_sizes/font_size = 16
-text = "12PM"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Time" type="ColorRect" parent="HUD/HUD/Time"]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 80.0
-offset_right = 410.0
-offset_bottom = 90.0
-color = Color(0, 0, 0, 1)
-
-[node name="HeadPosition" type="Control" parent="HUD/HUD/Time/Time"]
-anchors_preset = 0
-offset_right = 380.0
-offset_bottom = 10.0
-
-[node name="Head" type="Sprite2D" parent="HUD/HUD/Time/Time/HeadPosition"]
-position = Vector2(0, -2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_myrvm")
-
-[node name="Level" type="Control" parent="HUD/HUD"]
-anchors_preset = 0
-offset_top = 20.0
-offset_right = 440.0
-offset_bottom = 80.0
-
-[node name="LevelLabel" type="Label" parent="HUD/HUD/Level"]
-layout_mode = 0
-offset_left = 40.0
-offset_right = 320.0
-offset_bottom = 60.0
-theme_override_fonts/font = ExtResource("3_1ttmm")
-theme_override_font_sizes/font_size = 32
-text = "Level 1"
 vertical_alignment = 1
 
 [node name="Transitions" type="CanvasLayer" parent="."]

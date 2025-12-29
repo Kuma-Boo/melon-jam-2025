@@ -156,9 +156,7 @@ func spirit_transition() -> void:
 	animator.play("spirit");
 	wind_sfx.play()
 
-@export var time_interface_head : Sprite2D
 @export var remaining_moves_label : Label
-@export var bonus_moves_label : Label
 @export var level_label : Label
 var time_left : int
 var bonus_time : int
@@ -183,11 +181,7 @@ func add_bonus_time() -> void:
 	bonus_time = 6
 
 func update_time_left_interface() -> void:
-	var target_head_position = lerp(max_head_position, 0, time_left / (level_start_time as float));
-	time_interface_head.position = Vector2(target_head_position, time_interface_head.position.y)
-	remaining_moves_label.text = "x" + ("%0*d" % [2, time_left])
-	bonus_moves_label.text = "+" + str(bonus_time)
-	bonus_moves_label.visible = bonus_time > 0
+	remaining_moves_label.text = "x" + ("%0*d" % [2, time_left + bonus_time])
 
 var npcs : Array[NPC]
 func register_npc(npc : NPC) -> void:
