@@ -56,6 +56,8 @@ func on_area_entered(area: Area2D) -> void:
 	if number_of_sacrifices <= 0:
 		animator.play("defuse")
 		sacrifice_label.visible = false
+	else:
+		animator.play("burn")
 	
 	if current_mask.mask_type != MaskResource.MASK_TYPES.CURSED:
 		GameManager.instance.add_bonus_time()

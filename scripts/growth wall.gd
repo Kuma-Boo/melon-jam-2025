@@ -47,6 +47,9 @@ func on_area_exited(area: Area2D) -> void:
 		tick_sfx.play()
 		return
 	
+	if !is_inside_tree():
+		return
+	
 	is_active = true
 	animator.play("grow")
 	fall_sfx.play()

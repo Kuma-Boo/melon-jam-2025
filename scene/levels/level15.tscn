@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cm02ukmv3md7"]
+[gd_scene load_steps=13 format=3 uid="uid://cm02ukmv3md7"]
 
 [ext_resource type="PackedScene" uid="uid://bx400gh04q068" path="res://scene/game manager.tscn" id="1_7e4jo"]
 [ext_resource type="PackedScene" uid="uid://dsfgv8eyv7r05" path="res://scene/player.tscn" id="2_bvkod"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dy02pqx084coo" path="res://scene/object/tree.tscn" id="9_7e4jo"]
 [ext_resource type="PackedScene" uid="uid://dm07c1v7dsib6" path="res://scene/object/fire.tscn" id="10_bvkod"]
 [ext_resource type="PackedScene" uid="uid://cfo5fxt18ptxw" path="res://scene/object/wall.tscn" id="12_bvkod"]
+[ext_resource type="PackedScene" uid="uid://h7po604lpid5" path="res://scene/object/growth wall.tscn" id="12_fcgf3"]
 
 [node name="World" type="Node"]
 
@@ -63,3 +64,9 @@ position = Vector2(550, 250)
 
 [node name="Wall3" parent="Level" instance=ExtResource("12_bvkod")]
 position = Vector2(150, 250)
+
+[node name="GrowthWall" parent="Level" instance=ExtResource("12_fcgf3")]
+position = Vector2(250, 50)
+
+[node name="GrowthWall2" parent="Level" instance=ExtResource("12_fcgf3")]
+position = Vector2(450, 50)

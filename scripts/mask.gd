@@ -9,8 +9,6 @@ class_name Mask
 
 func _enter_tree() -> void:
 	update_sprite()
-	if resource != null && get_parent().name == "Level":
-		push_warning("Mask Changed to " + str(resource.mask_type))
 
 func update_sprite() -> void:
 	if resource == null:

@@ -31,6 +31,7 @@ func _ready() -> void:
 	
 	if GlobalManager.current_level_index != -1:
 		current_selection.x = GlobalManager.current_level_index % level_box_containers.size()
+		@warning_ignore("integer_division")
 		current_selection.y = GlobalManager.current_level_index / level_box_containers.size()
 		update_cursor_position()
 
