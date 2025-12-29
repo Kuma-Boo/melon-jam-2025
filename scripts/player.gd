@@ -123,6 +123,10 @@ func move() -> void:
 	state = STATE.MOVING
 	start_movement_animation(sign(last_movement_direction.x))
 	move_sfx.play()
+	
+	if consecutive_movement_amount != 0:
+		auto_leap_animator.seek(0.0)
+		auto_leap_animator.play("show")
 
 func start_movement_animation(input_direction : int):
 	if !is_zero_approx(input_direction):
@@ -170,8 +174,6 @@ func process_movement(delta : float) -> void:
 			if consecutive_movement_amount < 2 && !is_mask_just_picked_up:
 				state = STATE.IDLE
 				move()
-				auto_leap_animator.seek(0.0)
-				auto_leap_animator.play("show")
 				return
 		
 		finish_movement()
