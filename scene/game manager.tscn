@@ -19,7 +19,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_5xtl2"]
 font = ExtResource("3_1ttmm")
-font_size = 48
+font_size = 42
 font_color = Color(0.97, 0.77309006, 0.1261, 1)
 stacked_outline_count = 2
 stacked_outline_0/size = 20
@@ -748,7 +748,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_1ttmm")
 theme_override_font_sizes/font_size = 32
-text = "Level 1"
+text = "LEVEL 1"
 label_settings = SubResource("LabelSettings_5xtl2")
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -104,6 +104,8 @@ func process_pause_menu(delta : float) -> void:
 
 func update_level_text() -> void:
 	var level_text : String = "LEVEL " + str(GlobalManager.current_level_index + 1)
+	if !GlobalManager.is_level_select:
+		level_text += "/" + str(GlobalManager.level_list.size())
 	level_label.text = level_text
 
 @export var grid_rect : TextureRect
