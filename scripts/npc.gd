@@ -84,6 +84,11 @@ func kill_npc() -> bool:
 		animator.play("idle")
 		return true
 	
+	var current_anim : StringName = animator.current_animation
+	animator.play("survive")
+	animator.advance(0.0)
+	animator.play(current_anim)
+	
 	return false
 
 func on_area_entered(area: Area2D) -> void:

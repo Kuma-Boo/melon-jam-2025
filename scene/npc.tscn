@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://eyoxqf1wjhdm"]
+[gd_scene load_steps=18 format=3 uid="uid://eyoxqf1wjhdm"]
 
 [ext_resource type="Script" uid="uid://r0auaahxf8bo" path="res://scripts/npc.gd" id="1_54ctn"]
 [ext_resource type="Resource" uid="uid://chgjifa0lwmee" path="res://resource/satisfied mask.tres" id="2_06vv4"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dw6odyil474ak" path="res://img/character/sprite_dead_1.png" id="3_8oust"]
 [ext_resource type="Script" uid="uid://or682mv86ewx" path="res://scripts/mask.gd" id="3_pesj1"]
 [ext_resource type="Texture2D" uid="uid://diqs6833q8nn5" path="res://img/character/sprite_girl_1.png" id="4_pesj1"]
+[ext_resource type="Texture2D" uid="uid://dmgq53rjg8xqr" path="res://img/character/grass_safe.png" id="5_04kj1"]
 [ext_resource type="AudioStream" uid="uid://btmg2qtfnqpwt" path="res://sfx/sfx playerpickupmask1.ogg" id="7_fb5s2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hjaqi"]
@@ -48,6 +49,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Root/Ground:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_06vv4"]
@@ -180,6 +193,22 @@ tracks/2/keys = {
 "values": [Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_04kj1"]
+resource_name = "survive"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Root/Ground:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ct4mp"]
 _data = {
 &"RESET": SubResource("Animation_fvtld"),
@@ -187,7 +216,8 @@ _data = {
 &"dead": SubResource("Animation_ab2no"),
 &"girl": SubResource("Animation_fb5s2"),
 &"happy": SubResource("Animation_hjaqi"),
-&"idle": SubResource("Animation_pesj1")
+&"idle": SubResource("Animation_pesj1"),
+&"survive": SubResource("Animation_04kj1")
 }
 
 [node name="NPC" type="Node2D" node_paths=PackedStringArray("visual_root", "sprite", "mask", "desired_mask", "animator", "pickup_sfx")]
@@ -208,6 +238,7 @@ monitorable = false
 shape = SubResource("CircleShape2D_hjaqi")
 
 [node name="Root" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="AnimatedRoot" type="Node2D" parent="Root"]
 
@@ -234,6 +265,12 @@ scale = Vector2(0.6000001, 0.6000001)
 script = ExtResource("3_pesj1")
 sprite = NodePath(".")
 use_desire_sprite = true
+
+[node name="Ground" type="Sprite2D" parent="Root"]
+visible = false
+position = Vector2(0, -10)
+texture = ExtResource("5_04kj1")
+offset = Vector2(0, -45)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -204,6 +204,11 @@ func kill_player() -> bool:
 	if mask.resource != null && mask.resource.mask_type == MaskResource.MASK_TYPES.CURSED:
 		force_kill_player()
 		return true
+	
+	var current_anim : StringName = animator.current_animation
+	animator.play("survive")
+	animator.advance(0.0)
+	animator.play(current_anim)
 	return false
 
 func force_kill_player() -> void:

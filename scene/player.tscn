@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://dsfgv8eyv7r05"]
+[gd_scene load_steps=18 format=3 uid="uid://dsfgv8eyv7r05"]
 
 [ext_resource type="Script" uid="uid://jw56ownw0k8p" path="res://scripts/player.gd" id="1_hjaqi"]
 [ext_resource type="Texture2D" uid="uid://gd7n3fsc26yg" path="res://img/character/sprite_maiden.png" id="2_hjaqi"]
 [ext_resource type="Script" uid="uid://or682mv86ewx" path="res://scripts/mask.gd" id="3_ct4mp"]
 [ext_resource type="Texture2D" uid="uid://dw6odyil474ak" path="res://img/character/sprite_dead_1.png" id="4_ct4mp"]
 [ext_resource type="PackedScene" uid="uid://c5h00b4yrhi2v" path="res://scene/object/object text.tscn" id="4_g2vtq"]
+[ext_resource type="Texture2D" uid="uid://dmgq53rjg8xqr" path="res://img/character/grass_safe.png" id="5_2fvbb"]
 [ext_resource type="AudioStream" uid="uid://dtuhcuyffpntb" path="res://sfx/sfc playermovement2.ogg" id="5_hp4bs"]
 [ext_resource type="AudioStream" uid="uid://d25fx084w7f64" path="res://sfx/sfx playerhitwall.ogg" id="6_hp4bs"]
 [ext_resource type="AudioStream" uid="uid://grfgpdxh1o0o" path="res://sfx/sfx playerpickupmask2.ogg" id="7_hp4bs"]
@@ -79,6 +80,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(0, -40)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Root/Ground:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_ct4mp"]
 resource_name = "dead"
@@ -106,6 +119,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Root/Ground:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_s4jxa"]
@@ -154,12 +179,29 @@ tracks/1/keys = {
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -24), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_ml7e8"]
+resource_name = "survive"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Root/Ground:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ct4mp"]
 _data = {
 &"RESET": SubResource("Animation_fvtld"),
 &"dead": SubResource("Animation_ct4mp"),
 &"idle": SubResource("Animation_s4jxa"),
-&"move": SubResource("Animation_hjaqi")
+&"move": SubResource("Animation_hjaqi"),
+&"survive": SubResource("Animation_ml7e8")
 }
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("mask", "visual_root", "animator", "auto_leap_animator", "move_sfx", "hit_wall_sfx", "pickup_mask_sfx")]
@@ -188,6 +230,7 @@ offset_bottom = 36.0
 text = "Auto-Leap"
 
 [node name="Root" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="AnimatedRoot" type="Node2D" parent="Root"]
 
@@ -207,6 +250,12 @@ position = Vector2(10, 0)
 scale = Vector2(0.3, 0.3)
 script = ExtResource("3_ct4mp")
 sprite = NodePath(".")
+
+[node name="Ground" type="Sprite2D" parent="Root"]
+visible = false
+position = Vector2(0, -10)
+texture = ExtResource("5_2fvbb")
+offset = Vector2(0, -45)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
