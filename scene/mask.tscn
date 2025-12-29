@@ -23,6 +23,4 @@ shape = SubResource("CircleShape2D_1h5ay")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_xikr7")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
 [connection signal="area_entered" from="Area2D" to="." method="on_area_entered"]

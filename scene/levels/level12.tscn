@@ -11,7 +11,7 @@
 
 [node name="GameManager" parent="." instance=ExtResource("1_ockup")]
 grid_size = Vector2i(5, 3)
-level_start_time = 6
+level_start_time = 5
 
 [node name="Level" type="Node2D" parent="."]
 y_sort_enabled = true

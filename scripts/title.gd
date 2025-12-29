@@ -20,15 +20,14 @@ func _process(_delta: float) -> void:
 	if is_transition_active:
 		return
 	
-	if Input.is_key_pressed(KEY_SPACE) || Input.is_action_just_pressed("ui_accept"):
-		if !is_options_visible:
-			animator.play("show-options")
-		else:
-			animator.play("level-select" if is_selecting_level_select else "new-game")
-		
-		is_options_visible = true
-		is_transition_active = true
-		select_sfx.play()
+	if !is_options_visible && Input.is_anything_pressed():
+		animator.play("show-options")
+		start_transition()
+		return
+	
+	if Input.is_action_just_pressed("space") || Input.is_action_just_pressed("ui_accept"):
+		animator.play("level-select" if is_selecting_level_select else "new-game")
+		start_transition()
 		return
 	
 	if !is_options_visible:
@@ -38,6 +37,11 @@ func _process(_delta: float) -> void:
 		is_selecting_level_select = !is_selecting_level_select
 		move_sfx.play()
 		animator.play("select-level" if is_selecting_level_select else "select-new")
+
+func start_transition() -> void:
+	is_options_visible = true
+	is_transition_active = true
+	select_sfx.play()
 
 func finish_transition() -> void:
 	is_transition_active = false

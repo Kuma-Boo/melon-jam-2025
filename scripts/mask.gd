@@ -9,6 +9,8 @@ class_name Mask
 
 func _enter_tree() -> void:
 	update_sprite()
+	if resource != null && get_parent().name == "Level":
+		push_warning("Mask Changed to " + str(resource.mask_type))
 
 func update_sprite() -> void:
 	if resource == null:
@@ -22,6 +24,9 @@ func update_sprite() -> void:
 
 # Pick-up logic
 func on_area_entered(area: Area2D) -> void:
+	if use_desire_sprite:
+		return
+	
 	if !area.is_in_group("player"):
 		return
 	
@@ -31,6 +36,7 @@ func on_area_entered(area: Area2D) -> void:
 	
 	area.get_parent().set_held_mask(resource)
 	resource = new_mask
+	
 	update_sprite()
 	
 	if new_mask != null:

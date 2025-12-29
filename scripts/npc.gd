@@ -20,7 +20,6 @@ class_name NPC
 @export_group("Sound Effects")
 @export var pickup_sfx : AudioStreamPlayer
 
-
 func _enter_tree() -> void:
 	update_npc()
 

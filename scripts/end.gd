@@ -8,7 +8,7 @@ func _process(_delta: float) -> void:
 	if is_transition_active:
 		return
 	
-	if Input.is_key_pressed(KEY_SPACE):
+	if Input.is_anything_pressed():
 		is_transition_active = true
 		select_sfx.play()
 		animator.play("finish")
