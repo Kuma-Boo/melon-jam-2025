@@ -10,6 +10,7 @@ extends Node
 @export var burn_sfx : AudioStreamPlayer
 @export var sacrifice_label : Label
 @export var flame_material : ShaderMaterial
+@export var mask_bubble : Mask
 
 var shader_time : float
 const SHADER_ROLLOVER : float = 3600;
@@ -38,12 +39,15 @@ func on_area_entered(area: Area2D) -> void:
 	var current_mask : MaskResource = area.get_parent().get_held_mask()
 	if current_mask == null:
 		animator.play("defuse")
+		mask_bubble.visible = false
 		GameManager.instance.force_timeout()
 		GameManager.instance.connect("killing_characters", Callable(area.get_parent(), "force_kill_player"))
 		return
 	
 	# Burn the player's held mask
 	area.get_parent().set_held_mask(null)
+	mask_bubble.resource = current_mask
+	mask_bubble.update_sprite()
 	
 	number_of_sacrifices -= 1
 	update_editor()

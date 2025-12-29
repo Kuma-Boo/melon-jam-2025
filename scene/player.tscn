@@ -253,9 +253,8 @@ sprite = NodePath(".")
 
 [node name="Ground" type="Sprite2D" parent="Root"]
 visible = false
-position = Vector2(0, -10)
+position = Vector2(0, -60)
 texture = ExtResource("5_2fvbb")
-offset = Vector2(0, -45)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
