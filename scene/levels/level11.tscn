@@ -12,7 +12,7 @@
 
 [node name="GameManager" parent="." instance=ExtResource("1_uhynm")]
 grid_size = Vector2i(3, 4)
-level_start_time = 7
+level_start_time = 8
 
 [node name="Level" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -38,6 +38,9 @@ position = Vector2(150, 350)
 
 [node name="Tree2" parent="Level" instance=ExtResource("6_vbg8b")]
 position = Vector2(150, 150)
+
+[node name="Tree3" parent="Level" instance=ExtResource("6_vbg8b")]
+position = Vector2(150, 50)
 
 [node name="Tree6" parent="Level" instance=ExtResource("6_vbg8b")]
 position = Vector2(150, 250)
