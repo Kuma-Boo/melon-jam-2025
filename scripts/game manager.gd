@@ -40,6 +40,10 @@ func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
+	if animator.is_playing() && animator.current_animation == "spirit":
+		animator.speed_scale = 2.0 if Input.is_action_pressed("space") else 1.0
+		spirit_particles.speed_scale = animator.speed_scale
+	
 	if is_transition_active:
 		return
 	
@@ -101,7 +105,6 @@ func process_pause_menu(delta : float) -> void:
 	pause_animator.play("pause-" + str(pause_menu_selection))
 	pause_animator.advance(0.0)
 
-
 func update_level_text() -> void:
 	var level_text : String = "LEVEL " + str(GlobalManager.current_level_index + 1)
 	if !GlobalManager.is_level_select:
@@ -120,6 +123,7 @@ func clamp_position(pos : Vector2) -> Vector2:
 	return pos
 
 @export var animator : AnimationPlayer
+@export var spirit_particles : CPUParticles2D
 static var is_transition_active : bool
 func reload_transition() -> void:
 	target_scene = ""
@@ -127,6 +131,8 @@ func reload_transition() -> void:
 	animator.play("fade-out")
 
 func finish_spirit() -> void:
+	animator.speed_scale = 1.0
+	spirit_particles.speed_scale = 1.0
 	if is_mission_cleared:
 		target_scene = GlobalManager.get_next_scene()
 		animator.play("clear")
