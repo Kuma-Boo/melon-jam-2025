@@ -124,6 +124,14 @@ func reload_transition() -> void:
 	is_transition_active = true
 	animator.play("fade-out")
 
+func finish_spirit() -> void:
+	if is_mission_cleared:
+		target_scene = GlobalManager.get_next_scene()
+		animator.play("clear")
+		clear_sfx.play()
+	else:
+		reload_transition()
+
 func quit_transition() -> void:
 	if GlobalManager.is_level_select:
 		target_scene = "res://scene/level select.tscn"
@@ -185,18 +193,14 @@ var npcs : Array[NPC]
 func register_npc(npc : NPC) -> void:
 	npcs.append(npc)
 
+var is_mission_cleared : bool
 func kill_npcs() -> void:
-	var is_mission_cleared : bool = true
+	is_mission_cleared = true
 	for npc in npcs:
 		if npc.kill_npc():
 			is_mission_cleared = false
 	
 	if Player.instance.kill_player():
 		is_mission_cleared = false
-	
-	if is_mission_cleared:
-		target_scene = GlobalManager.get_next_scene()
-		animator.play("clear")
-		clear_sfx.play()
 	
 	emit_signal("killing_characters")
