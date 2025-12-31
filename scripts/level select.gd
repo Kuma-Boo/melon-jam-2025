@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 	process_inputs()
 	process_selection(delta)
 	
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("space") || Input.is_action_just_pressed("ui_accept"):
 		if current_selection.y < level_box_containers[current_selection.x as int].get_child_count():
 			start_level()
 		else:
